@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export default function DankeSeite() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 py-12 text-center">
@@ -16,7 +15,7 @@ export default function DankeSeite() {
         </p>
         <p className="text-sm text-gray-500 mb-6">
           Bei Fragen stehen wir Ihnen jederzeit zur Verfügung:{" "}
-          <a href="mailto:kontakt@ki-partner.de" className="underline text-blue-900">
+          <a href="mailto:kontakt@ki-partner24.de" className="underline text-blue-900">
             kontakt@ki-partner.de
           </a>
         </p>
