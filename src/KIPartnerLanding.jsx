@@ -5,6 +5,7 @@ import Warum from "./components/Warum";
 import Testimonials from "./components/Testimonials";
 import ContactSection from "./components/ContactSection";
 import { services } from "./data/services"; // ganz oben ergänzen
+import Footer from "./components/footer";
 
 
 export default function KIPartnerLanding() {
@@ -29,7 +30,8 @@ const scrollToSection = (id) => {
       <Warum />
       <Testimonials />
       <ContactSection />
-     
+      <Footer />
+      
     </div>
   );
 }
