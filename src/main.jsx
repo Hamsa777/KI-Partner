@@ -6,6 +6,8 @@ import DankeSeite from "./pages/danke.jsx"; // deine Danke-Seite
 import "./index.css";
 import DemoDanke from './pages/demodanke';
 
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -16,4 +18,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
+
 );
