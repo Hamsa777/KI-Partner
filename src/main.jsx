@@ -7,7 +7,6 @@ import DemoDanke from "./pages/demodanke.jsx";
 import FeedbackPage from "./pages/FeedbackPage.jsx"; 
 import WidgetBot from "./components/WidgetBot.jsx";
 
-
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
