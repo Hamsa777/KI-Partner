@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Star } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function FeedbackWidget({ firmaId }) {
   const [bewertungen, setBewertungen] = useState([]);
@@ -49,28 +50,36 @@ export default function FeedbackWidget({ firmaId }) {
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
 
   return (
-    <div className="max-w-md mx-auto space-y-4 p-4 bg-white rounded-2xl shadow-xl">
-      <h2 className="text-xl font-bold text-center">Kundenbewertungen</h2>
-      {bewertungen.map((review, i) => (
-        <Card key={i}>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-1">
-              <p className="font-semibold">{review.name}</p>
-              <div className="flex items-center">
-                {Array.from({ length: 5 }, (_, index) => (
-                  <Star
-                    key={index}
-                    className={`h-4 w-4 ${index < review.rating ? "text-yellow-500" : "text-gray-300"}`}
-                    fill={index < review.rating ? "currentColor" : "none"}
-                  />
-                ))}
-              </div>
-            </div>
-            <p className="text-sm text-gray-800 italic">"{review.comment}"</p>
-            <p className="text-xs text-right text-gray-400 mt-2">{review.date}</p>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="max-w-full overflow-x-auto whitespace-nowrap p-4 bg-white rounded-2xl shadow-xl">
+      <h2 className="text-xl font-bold text-center mb-4">Kundenbewertungen</h2>
+      <div className="flex space-x-4">
+        {bewertungen.map((review, i) => (
+          <motion.div
+            key={i}
+            className="min-w-[300px] max-w-[300px] bg-white rounded-xl shadow-md border border-gray-200"
+            whileHover={{ scale: 1.03 }}
+          >
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="font-semibold">{review.name}</p>
+                  <div className="flex items-center">
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <Star
+                        key={index}
+                        className={`h-4 w-4 ${index < review.rating ? "text-yellow-500" : "text-gray-300"}`}
+                        fill={index < review.rating ? "currentColor" : "none"}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm text-gray-800 italic">"{review.comment}"</p>
+                <p className="text-xs text-right text-gray-400 mt-2">{review.date}</p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }
