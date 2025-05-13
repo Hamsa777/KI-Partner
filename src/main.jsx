@@ -10,6 +10,7 @@ import DemoDanke from "./pages/demodanke.jsx";
 import FeedbackPage from "./pages/FeedbackPage.jsx";
 import UeberUns from "./pages/UeberUns.jsx";
 import DokumentenAutomatisierung from "./pages/DokumentenAutomatisierung.jsx";
+import Embed from "./pages/Embed.jsx";
 
 import "./index.css";
 
@@ -29,7 +30,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/danke" element={<DankeSeite />} />
         <Route path="/demo-danke" element={<DemoDanke />} />
         <Route path="/feedback/:firmaId" element={<FeedbackPage />} />
-        
+        <Route path="/embed/:firmaId" element={<Embed />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
