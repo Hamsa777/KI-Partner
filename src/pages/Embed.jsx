@@ -12,22 +12,27 @@ export default function Embed() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Vorschau Ihres Feedback-Widgets</h1>
-      <div className="mb-8 w-full max-w-5xl">
+      <h1 className="text-2xl font-bold mb-4 text-center">Vorschau Ihres Feedback-Widgets</h1>
+
+      <div className="mb-2 w-full max-w-5xl">
         <FeedbackWidget firmaId={firmaId} />
       </div>
 
-      <div className="w-full max-w-2xl bg-white p-4 rounded-xl shadow-md">
-        <h2 className="text-lg font-semibold mb-2">📥 Embed-Code für Ihre Website</h2>
-        <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">{iframeCode}</pre>
+      <p className="text-sm text-gray-500 text-center mb-8 max-w-md">
+        Neue Bewertungen, die über Ihr Formular eingehen, werden automatisch hier im Widget angezeigt – ganz ohne manuelle Pflege.
+      </p>
+
+      <div className="w-full max-w-2xl bg-white p-6 rounded-xl shadow-md text-center">
+        <h2 className="text-lg font-semibold mb-4 text-center">Embed-Code für Ihre Website</h2>
+        <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto text-left">{iframeCode}</pre>
         <button
-          className="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+          className="mt-4 px-6 py-2 bg-[#6366F1] text-white font-semibold rounded-lg hover:bg-[#4F46E5] transition"
           onClick={() => {
             navigator.clipboard.writeText(iframeCode);
-            alert("Embed-Code kopiert!");
+            alert("✅ Embed-Code wurde kopiert!");
           }}
         >
-          Code kopieren
+          Embed-Code kopieren
         </button>
       </div>
     </div>
