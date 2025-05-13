@@ -4,7 +4,7 @@ import ServiceCards from "./components/ServiceCards";
 import Warum from "./components/Warum";
 import Testimonials from "./components/Testimonials";
 import ContactSection from "./components/ContactSection";
-import Footer from "./components/Footer";
+import Footer from "./components/footer";
 import WidgetBot from "./components/WidgetBot";
 
 export default function KIPartnerLanding() {
