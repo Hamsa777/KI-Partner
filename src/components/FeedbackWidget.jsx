@@ -9,35 +9,40 @@ export default function FeedbackWidget({ firmaId }) {
 
   useEffect(() => {
     if (!firmaId) {
-      console.warn("Kein firmaId übergeben");
+      console.warn("⚠️ Kein firmaId übergeben");
       return;
     }
 
     const url = `https://hook.eu2.make.com/kk1i3cui6xj9082lkk0wcpvdb9kgthxs?firmaId=${firmaId}`;
 
     fetch(url)
-    .then(async (res) => {
-      const text = await res.text();
-      try {
-        const data = JSON.parse(text);
-    
-        // optionaler Check: Muss ein Array sein
-        if (!Array.isArray(data)) throw new Error("Keine Bewertungsdaten gefunden");
-    
-        setBewertungen(
-          data.map((entry) => ({
-            name: entry[1],
-            rating: parseInt(entry[2]),
-            comment: entry[3],
-            date: new Date(entry[0]).toLocaleDateString("de-DE"),
-          }))
-        );
-      } catch (err) {
-        console.error("JSON Parse Error oder ungültige Struktur:", err, text);
-        setError("❌ Keine gültigen Feedback-Daten erhalten.");
-      }
-    })
-    
+      .then(async (res) => {
+        const text = await res.text();
+        try {
+          const data = JSON.parse(text);
+
+          if (!Array.isArray(data)) throw new Error("Keine Bewertungsdaten gefunden");
+
+          setBewertungen(
+            data.map((entry) => ({
+              date: new Date(entry[0]).toLocaleDateString("de-DE"),
+              name: entry[1],
+              rating: parseInt(entry[2]),
+              comment: entry[3],
+            }))
+          );
+        } catch (err) {
+          console.error("❌ JSON Parse Error oder ungültige Struktur:", err, text);
+          setError("❌ Keine gültigen Feedback-Daten erhalten.");
+        } finally {
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error("❌ Fetch-Fehler:", err);
+        setError("❌ Fehler beim Abrufen der Bewertungen.");
+        setLoading(false);
+      });
   }, [firmaId]);
 
   if (error) return <p className="text-red-500">{error}</p>;
