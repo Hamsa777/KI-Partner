@@ -25,13 +25,16 @@ export default function FeedbackWidget({ firmaId }) {
           if (!Array.isArray(data)) throw new Error("Keine Bewertungsdaten gefunden");
 
           setBewertungen(
-            data.map((entry) => ({
-              date: new Date(entry[0]).toLocaleDateString("de-DE"),
-              name: entry[1],
-              rating: parseInt(entry[2]),
-              comment: entry[3],
-            }))
+            data
+              .filter(entry => entry[0] && entry[1] && entry[2]) // <- nur Einträge mit Datum, Name & Bewertung
+              .map((entry) => ({
+                date: new Date(entry[0]).toLocaleDateString("de-DE"),
+                name: entry[1],
+                rating: parseInt(entry[2]),
+                comment: entry[3],
+              }))
           );
+          
         } catch (err) {
           console.error("❌ JSON Parse Error oder ungültige Struktur:", err, text);
           setError("❌ Keine gültigen Feedback-Daten erhalten.");
