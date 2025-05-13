@@ -13,7 +13,7 @@ export default function FeedbackWidget({ firmaId }) {
       return;
     }
 
-    const url = `https://hook.eu2.make.com/jazvxwif1xrij86b9hk28o3jltnr8vv2?firmaId=${firmaId}`;
+    const url = `https://hook.eu2.make.com/kk1i3cui6xj9082lkk0wcpvdb9kgthxs?firmaId=${firmaId}`;
 
     fetch(url)
     .then(async (res) => {
