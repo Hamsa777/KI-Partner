@@ -16,28 +16,28 @@ export default function FeedbackWidget({ firmaId }) {
     const url = `https://hook.eu2.make.com/jazvxwif1xrij86b9hk28o3jltnr8vv2?firmaId=${firmaId}`;
 
     fetch(url)
-      .then((res) => res.text())
-      .then((text) => {
-        try {
-          const data = JSON.parse(text);
-          setBewertungen(
-            data.map((entry) => ({
-              name: entry[1],
-              rating: parseInt(entry[2]),
-              comment: entry[3],
-              date: new Date(entry[0]).toLocaleDateString("de-DE"),
-            }))
-          );
-        } catch (err) {
-          console.error("JSON Parse Error:", err);
-          setError("Ungültiges Datenformat vom Server.");
-        }
-      })
-      .catch((err) => {
-        console.error("Fetch Error:", err);
-        setError("Fehler beim Laden der Bewertungen.");
-      })
-      .finally(() => setLoading(false));
+    .then(async (res) => {
+      const text = await res.text();
+      try {
+        const data = JSON.parse(text);
+    
+        // optionaler Check: Muss ein Array sein
+        if (!Array.isArray(data)) throw new Error("Keine Bewertungsdaten gefunden");
+    
+        setBewertungen(
+          data.map((entry) => ({
+            name: entry[1],
+            rating: parseInt(entry[2]),
+            comment: entry[3],
+            date: new Date(entry[0]).toLocaleDateString("de-DE"),
+          }))
+        );
+      } catch (err) {
+        console.error("JSON Parse Error oder ungültige Struktur:", err, text);
+        setError("❌ Keine gültigen Feedback-Daten erhalten.");
+      }
+    })
+    
   }, [firmaId]);
 
   if (error) return <p className="text-red-500">{error}</p>;
