@@ -11,10 +11,10 @@ export default function Embed() {
   loading="lazy"></iframe>`;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4 text-center">Vorschau Ihres Feedback-Widgets</h1>
+    <div className="min-h-screen bg-gray-50 p-10 flex flex-col items-center">
+      <h1 className="text-2xl font-bold mb-10 text-center">Vorschau Ihres Feedback-Widgets</h1>
 
-      <div className="mb-2 w-full max-w-5xl">
+      <div className="mb-7 w-full max-w-5xl">
         <FeedbackWidget firmaId={firmaId} />
       </div>
 
@@ -26,10 +26,10 @@ export default function Embed() {
         <h2 className="text-lg font-semibold mb-4 text-center">Embed-Code für Ihre Website</h2>
         <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto text-left">{iframeCode}</pre>
         <button
-          className="mt-4 px-6 py-2 bg-[#6366F1] text-white font-semibold rounded-lg hover:bg-[#4F46E5] transition"
+          className="mt-4 px-6 py-2 bg-[#000000] text-white font-semibold rounded-lg hover:bg-[#4F46E5] transition"
           onClick={() => {
             navigator.clipboard.writeText(iframeCode);
-            alert("✅ Embed-Code wurde kopiert!");
+            alert("Embed-Code wurde kopiert!");
           }}
         >
           Embed-Code kopieren

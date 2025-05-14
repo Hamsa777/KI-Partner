@@ -5,8 +5,8 @@ export const services = [
     description: "Automatisieren Sie häufige Fragen und entlasten Sie Ihr Team – 24/7 erreichbar.",
     id: "chatbots",
     icon: "FaRobot",
-    url: "https://www.chatbase.co/chatbot-iframe/eWwON5k4T8DWHObS7YvG4",
-    isExternal: true
+    url: "/chatbots",
+    isExternal: false
   },
   {
     title: "E-Mail-Automation",
@@ -33,12 +33,12 @@ export const services = [
     isExternal: true
   },
   {
-    title: "Kundenfeedback-Bots",
+    title: "Kundenfeedback-System",
     description: "Feedback sammeln ohne Aufwand – direkt nach dem Kauf oder Kontakt.",
     id: "feedback",
     icon: "FaComments",
-    url: "https://tally.so/r/nrqqNL",
-    isExternal: true
+    url: "/Kundenfeedback",
+    isExternal: false
   },
   {
     title: "Angebotsautomatisierung",

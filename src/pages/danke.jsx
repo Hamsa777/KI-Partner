@@ -20,7 +20,7 @@ export default function DankeSeite() {
           </a>
         </p>
         <a
-          href="https://ki-partner24.de"
+          href="https://www.ki-partner24.de"
           className="bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-blue-950 transition"
         >
           Zurück zur Startseite
