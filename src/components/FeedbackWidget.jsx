@@ -80,7 +80,7 @@ export default function FeedbackWidget({ firmaId }) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-4 p-4 bg-white rounded-2xl shadow-xl overflow-hidden">
-      <h2 className="text-xl font-bold text-center">Unsere Kundenbewertungen</h2>
+      <h2 className="text-3xl font-bold text-center">Unsere Kundenbewertungen</h2>
       <div
         ref={containerRef}
         className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide"

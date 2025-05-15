@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import React from "react";
 
 export default function DemoDanke() {
@@ -9,7 +9,7 @@ export default function DemoDanke() {
     dokumente: {
       title: "Danke für Ihren Test der Dokumenten-Automatisierung!",
       description: "Starten Sie jetzt die vollautomatische Erstellung Ihrer Verträge, Rechnungen und Angebote.",
-      stripeUrl: "",
+      stripeUrl: "https://buy.stripe.com/28o9Brdbo48HdfGcMQ",
     },
     email: {
       title: "Danke für Ihr Test der E-Mail-Automatisierung!",
@@ -22,20 +22,20 @@ export default function DemoDanke() {
       stripeUrl: "",
     },
     angebot: {
-        title: "Danke für Ihren Test der Angebots-Automatisierung!",
-        description: "Starten Sie jetzt die vollautomatische Erstellung Ihrer Angebote.",
-        stripeUrl: "",
-      },
-      chatbot: {
-        title: "Danke für Ihren Test des Kundenservice Chatbots!",
-        description: "Starten Sie jetzt Ihren individuellen Chatbot auf Ihrer Webseite einzupflegen.",
-        stripeUrl: "",
-      },
-      feedback: {
-        title: "Vielen Dank für das Testen unseres Feedbacksystems!",
-        description: "Pflegen Sie jetzt Ihr eigenes Feedbacksystem für beliebige Geschäftsprozesse ein.",
-        stripeUrl: "",
-      },
+      title: "Danke für Ihren Test der Angebots-Automatisierung!",
+      description: "Starten Sie jetzt die vollautomatische Erstellung Ihrer Angebote.",
+      stripeUrl: "",
+    },
+    chatbot: {
+      title: "Danke für Ihren Test des Kundenservice Chatbots!",
+      description: "Starten Sie jetzt Ihren individuellen Chatbot auf Ihrer Webseite einzupflegen.",
+      stripeUrl: "",
+    },
+    feedback: {
+      title: "Vielen Dank für das Testen unseres Feedbacksystems!",
+      description: "Pflegen Sie jetzt Ihr eigenes Feedbacksystem für beliebige Geschäftsprozesse ein.",
+      stripeUrl: "https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv",
+    },
   };
 
   const selectedService = services[service];
@@ -45,6 +45,12 @@ export default function DemoDanke() {
       <div className="min-h-screen flex flex-col justify-center items-center text-center p-8">
         <h1 className="text-2xl font-bold">Service nicht gefunden</h1>
         <p className="mt-4">Bitte starte deinen Test über unsere Website neu.</p>
+        <Link
+          to="/"
+          className="mt-6 text-sm text-gray-600 underline hover:text-gray-900 transition"
+        >
+          Zurück zur Startseite
+        </Link>
       </div>
     );
   }
@@ -59,6 +65,12 @@ export default function DemoDanke() {
       >
         🔓 Jetzt Service aktivieren
       </button>
+      <Link
+        to="/"
+        className="mt-6 text-sm text-gray-600 underline hover:text-gray-900 transition"
+      >
+        Zurück zur Startseite
+      </Link>
     </div>
   );
 }
