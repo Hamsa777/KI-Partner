@@ -13,9 +13,9 @@ export default function ServiceCards() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="text-3xl sm:text-4xl font-bold text-gray-800 my-12 text-center tracking-tight"
+        className="text-3xl sm:text-5xl font-bold text-black my-12 text-center tracking-tight"
       >
-        Unsere KI-Lösungen
+        Unsere KI-Systeme
       </motion.h2>
 
       {/* Grid */}
@@ -24,7 +24,7 @@ export default function ServiceCards() {
           const IconComponent = Icons[icon];
 
           const Card = (
-            <div className="rounded-2xl border border-black bg-white p-6 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out text-center flex flex-col items-center justify-center h-full">
+            <div className="rounded-2xl border border-black bg-white p-6 shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out text-center flex flex-col items-center justify-center h-full">
               {IconComponent && (
                 <IconComponent className="w-8 h-8 text-black mb-3 mx-auto" />
               )}
@@ -32,6 +32,7 @@ export default function ServiceCards() {
               <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
             </div>
           );
+          
 
           return isExternal ? (
             <a

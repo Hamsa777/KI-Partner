@@ -89,38 +89,42 @@ export default function Kundenfeedback() {
           </div>
         </motion.div>
 
-        <section className="mt-20">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="text-2xl sm:text-3xl font-bold text-gray-800 mb-10 text-center"
-          >
-            So funktioniert’s
-          </motion.h2>
+       {/* Timeline */}
+<section className="mt-20 px-4">
+  <motion.h2
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.6, delay: 1.1 }}
+    className="text-2xl sm:text-3xl font-bold text-gray-800 mb-14 text-center"
+  >
+    So funktioniert’s
+  </motion.h2>
 
-          <div className="relative border-l-2 border-gray-300 pl-6 space-y-10 max-w-xl mx-auto">
-            {[
-              "Link zum Feedback-Formular teilen (z. B. per E-Mail oder Website)",
-              "Kunden hinterlassen Bewertungen über ein individuelles Formular",
-              "Bewertungen werden automatisch verarbeitet und gespeichert",
-              "Einbettbarer Feedback-Widget zeigt Bewertungen live an",
-              "Optional: Automatische Dankesnachricht an Kunden",
-            ].map((text, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="w-4 h-4 bg-black rounded-full absolute -left-2.5 top-1.5" />
-                <p className="text-gray-700 text-base sm:text-lg">{text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+  <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
+    {[
+      "Link zum Feedback-Formular teilen (z. B. per E-Mail oder Website)",
+      "Kunden hinterlassen Bewertungen über ein individuelles Formular",
+      "Bewertungen werden automatisch verarbeitet und gespeichert",
+      "Einbettbarer Feedback-Widget zeigt Bewertungen live an",
+      "Optional: Automatische Dankesnachricht an Kunden",
+    ].map((text, i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center"
+      >
+        <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm mb-4">
+          {i + 1}
+        </div>
+        <p className="text-gray-700 text-base sm:text-lg">{text}</p>
+      </motion.div>
+    ))}
+  </div>
+</section>
+
 
         <motion.div
           initial={{ opacity: 0 }}

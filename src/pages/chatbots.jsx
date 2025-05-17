@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { FaRobot, FaShoppingCart } from "react-icons/fa";
 import { HiMiniChatBubbleLeftRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default function ChatbotService() {
   return (
@@ -67,13 +72,14 @@ export default function ChatbotService() {
 
           {/* Hover Overlay */}
           <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex">
-            <Link
-              to="/chatbot-test"
-              className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-l-2xl"
-            >
-              <HiMiniChatBubbleLeftRight className="text-4xl text-black mb-3" />
-              <span className="text-sm font-normal text-black">Jetzt testen</span>
-            </Link>
+          <button
+  onClick={() => window.dispatchEvent(new Event("open-chatbot"))}
+  className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-l-2xl"
+>
+  <HiMiniChatBubbleLeftRight className="text-4xl text-black mb-3" />
+  <span className="text-sm font-normal text-black">Jetzt testen</span>
+</button>
+
             <div className="w-px bg-gray-300 my-6"></div>
             <a
               href="https://www.digistore24.com/product-link"
@@ -87,39 +93,58 @@ export default function ChatbotService() {
           </div>
         </motion.div>
 
-        {/* Timeline */}
-        <section className="mt-20">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="text-2xl sm:text-3xl font-bold text-gray-800 mb-10 text-center"
-          >
-            So funktioniert’s
-          </motion.h2>
+       {/* Timeline */}
+<section className="mt-20 px-4">
+  <motion.h2
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 1.1 }}
+      className="text-2xl sm:text-3xl font-bold text-gray-800 mb-14 text-center"
+    >
+      So funktioniert’s
+    </motion.h2>
 
-          <div className="relative border-l-2 border-gray-300 pl-6 space-y-10 max-w-xl mx-auto">
-            {[
-              "Klicken Sie auf 'Jetzt testen' und probieren Sie den Bot live aus",
-              "Kaufen Sie den Zugang und füllen Sie das Onboarding-Formular aus",
-              "Wir erstellen Ihren individuellen Chatbot mit Ihren Daten",
-              "Sie erhalten Ihren Embed-Link zur Einbindung auf Ihrer Website",
-              "Support & Anpassungen jederzeit über unser Team"
-            ].map((text, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="w-4 h-4 bg-black rounded-full absolute -left-2.5 top-1.5" />
-                <p className="text-gray-700 text-base sm:text-lg">{text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+  <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
+    {[
+      "Klicken Sie auf „Jetzt testen“ und erleben Sie unseren KI-Chatbot in Aktion, direkt auf Ihrer Website oder Testumgebung. So sehen Sie sofort, wie intelligente Antworten, Produktberatung oder Terminvergabe funktionieren.",
+      "Wenn Ihnen der Bot gefällt, können Sie direkt den Zugang kaufen. Danach füllen Sie unser kurzes Onboarding-Formular aus – mit Infos zu Ihrem Unternehmen, Ihrer Website und Ihren Wunschfunktionen.",
+      "Unser System erstellt automatisch einen Chatbot, der auf Ihre Inhalte, Dienstleistungen und häufig gestellten Fragen zugeschnitten ist – ganz ohne manuellen Aufwand. Ihr Bot lernt direkt aus den von Ihnen angegebenen Informationen.",
+      "Sie erhalten einen einzigartigen Embed-Link, den Sie ganz einfach per Copy-Paste in Ihre Website einfügen können – egal ob WordPress, Wix, Webflow oder HTML. Ihr Bot ist sofort einsatzbereit.",
+      "Unser Team steht Ihnen jederzeit zur Seite – ob Sie den Bot erweitern, umformulieren oder für neue Inhalte optimieren möchten. Updates, Tests und Verbesserungen sind jederzeit möglich."
+    ].map((text, i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center"
+      >
+        <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm mb-4">
+          {i + 1}
+        </div>
+        <p className="text-gray-700 text-base sm:text-lg">{text}</p>
+      </motion.div>
+    ))}
+  </div>
+</section>
+
+<div className="mt-12 text-center">
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.1 }}
+    viewport={{ once: true }}
+  >
+    <button
+      onClick={() => window.dispatchEvent(new Event("open-chatbot"))}
+      className="inline-block bg-black text-white px-6 py-3 rounded-full font-medium text-sm sm:text-base shadow hover:bg-gray-800 transition"
+    >
+      Jetzt testen
+    </button>
+  </motion.div>
+</div>
+
 
         <motion.div
           initial={{ opacity: 0 }}

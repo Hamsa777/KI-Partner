@@ -1,5 +1,6 @@
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import ChatbotWidget from "./WidgetBot"; // <-- import hinzufügen
 
 export default function Layout() {
   return (
@@ -8,6 +9,9 @@ export default function Layout() {
       <main className="pt-[0px] sm:pt-[0px]">
         <Outlet />
       </main>
+
+      {/* Chatbot unten rechts */}
+      <ChatbotWidget />
     </>
   );
 }

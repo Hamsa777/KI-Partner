@@ -11,7 +11,8 @@ export default function ContactSection() {
         whileHover={{ scale: 1.05, backgroundColor: "#1a1a1a" }}
         transition={{ type: "spring", stiffness: 300 }}
         href="mailto:kontakt@ki-partner.de"
-        className="inline-block px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-800"
+        className="inline-block px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800"
+
       >
         Jetzt Kontakt aufnehmen
       </motion.a>

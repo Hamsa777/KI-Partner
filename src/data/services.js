@@ -8,14 +8,14 @@ export const services = [
     url: "/chatbots",
     isExternal: false
   },
-  {
-    title: "E-Mail-Automation",
-    description: "Lassen Sie KI Ihre E-Mails beantworten anhand Ihrer Datenbanken.",
-    id: "emails",
-    icon: "FaEnvelope",
-    url: "https://tally.so/r/31BgW4",
-    isExternal: true
-  },
+  // {
+  //   title: "E-Mail-Automation",
+  //   description: "Lassen Sie KI Ihre E-Mails beantworten anhand Ihrer Datenbanken.",
+  //   id: "emails",
+  //   icon: "FaEnvelope",
+  //   url: "https://tally.so/r/31BgW4",
+  //   isExternal: true
+  // },
   {
     title: "Dokumenten Automatisierung",
     description: "Rechnungen und Verträge von der KI schreiben lassen.",
@@ -23,15 +23,16 @@ export const services = [
     icon: "FaFileAlt",
     url: "/dokumenten-automatisierung",
     isExternal: false
+    
   },
-  {
-    title: "Automatisierte Terminvereinbarung",
-    description: "Selbstständige Terminkoordination durch unternehmensinternen Termin-Bot.",
-    id: "termin",
-    icon: "FaCalendarCheck",
-    url: "https://cal.com/ki-partner/30min",
-    isExternal: true
-  },
+  // {
+  //   title: "Automatisierte Terminvereinbarung",
+  //   description: "Selbstständige Terminkoordination durch unternehmensinternen Termin-Bot.",
+  //   id: "termin",
+  //   icon: "FaCalendarCheck",
+  //   url: "https://cal.com/ki-partner/30min",
+  //   isExternal: true
+  // },
   {
     title: "Kundenfeedback-System",
     description: "Feedback sammeln ohne Aufwand – direkt nach dem Kauf oder Kontakt.",
@@ -40,12 +41,12 @@ export const services = [
     url: "/Kundenfeedback",
     isExternal: false
   },
-  {
-    title: "Angebotsautomatisierung",
-    description: "Bereitstellung eines auf den Kunden angepassten Angebots via PDF.",
-    id: "prozesse",
-    icon: "FaFileSignature",
-    url: "https://tally.so/r/mOZqLm",
-    isExternal: true
-  }
+  // {
+  //   title: "Angebotsautomatisierung",
+  //   description: "Bereitstellung eines auf den Kunden angepassten Angebots via PDF.",
+  //   id: "prozesse",
+  //   icon: "FaFileSignature",
+  //   url: "https://tally.so/r/mOZqLm",
+  //   isExternal: true
+  // }
 ];

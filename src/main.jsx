@@ -13,14 +13,14 @@ import DokumentenAutomatisierung from "./pages/DokumentenAutomatisierung.jsx";
 import Embed from "./pages/Embed.jsx";
 import EmbedDemo from "./pages/EmbedDemo";
 import Chatbots from "./pages/chatbots";
-
-
+import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
 import Kundenfeedback from "./pages/Kundenfeedback.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
 
         {/* Seiten mit globalem Layout (Header) */}
