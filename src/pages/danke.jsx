@@ -28,7 +28,12 @@ export default function DankeSeite() {
       >
         Zurück zur Startseite
       </Link>
-    
+      <iframe 
+  src="https://www.ki-partner24.de/widgetbot/934e663b" 
+  style="width:100%; max-width:700px; height:600px; border:none; overflow:hidden;" 
+  loading="lazy">
+</iframe>
+
     </div>
     
   );
