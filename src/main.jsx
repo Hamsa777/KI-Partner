@@ -38,7 +38,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/feedback/:firmaId" element={<FeedbackPage />} />
         <Route path="/embed/:firmaId" element={<Embed />} />
         <Route path="/embed/demo" element={<EmbedDemo />} />
-        <Route path="/widgetbot/:firmaId" element={<WidgetBotCode />} />
+        <Route path="/widgetbotcode/:firmaId" element={<WidgetBotCode />} />
+      
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
