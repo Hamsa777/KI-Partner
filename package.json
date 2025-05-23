@@ -10,6 +10,7 @@
   "dependencies": {
     "framer-motion": "^12.7.3",
     "lucide-react": "^0.507.0",
+    "puppeteer": "^24.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0",
@@ -24,5 +25,18 @@
     "postcss": "^8.4.0",
     "tailwindcss": "^3.3.0",
     "vite": "^4.0.0"
-  }
+  },
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hamsa777/ki-partner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hamsa777/ki-partner/issues"
+  },
+  "homepage": "https://github.com/Hamsa777/ki-partner#readme",
+  "description": ""
 }

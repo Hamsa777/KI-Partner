@@ -5,10 +5,10 @@ import Logo from "../assets/KI-Partner Vektorlogo.png";
 export default function DankeSeite() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-10 px-6 text-center">
-      {/* Logo oben */}
+      {/* Logo */}
       <img src={Logo} alt="KI-Partner Logo" className="w-56 h-auto mb-6" />
 
-      {/* Text direkt danach – NICHT zentriert */}
+      {/* Text */}
       <h1 className="text-3xl font-bold mb-4 text-black">
         Vielen Dank für Ihren Kauf bei KI-Partner!
       </h1>
@@ -28,13 +28,22 @@ export default function DankeSeite() {
       >
         Zurück zur Startseite
       </Link>
-      <iframe 
-  src="https://www.ki-partner24.de/widgetbot/934e663b" 
-  style="width:100%; max-width:700px; height:600px; border:none; overflow:hidden;" 
-  loading="lazy">
-</iframe>
 
+      {/* Fixer Chatbot */}
+      <div className="w-full max-w-[700px] mt-10">
+        <iframe
+          src="https://www.ki-partner24.de/widgetbot/f809a6e1"
+          style={{
+            width: "100%",
+            maxWidth: "700px",
+            height: "600px",
+            border: "none",
+            overflow: "hidden"
+          }}
+          loading="lazy"
+          title="KI-Partner Chatbot"
+        />
+      </div>
     </div>
-    
   );
 }

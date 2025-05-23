@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import logo from "../assets/KI-Partner Vektorlogo.png"; // dein Logo
-import pb from "../assets/KI Vektorlogo.png";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
 

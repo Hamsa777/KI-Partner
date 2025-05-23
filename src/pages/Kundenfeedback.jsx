@@ -78,7 +78,7 @@ export default function Kundenfeedback() {
             </a>
             <div className="w-px bg-gray-300 my-6"></div>
             <a
-              href="https://www.digistore24.com/product-link"
+              href="https://buy.stripe.com/test_bIY7tu01x4ys3Uk9AC"
               target="_blank"
               rel="noopener noreferrer"
               className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-r-2xl"

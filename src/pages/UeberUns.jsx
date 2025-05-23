@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function UeberUns() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://www.ki-partner24.de/feedback.js";
+    script.defer = true;
+
+    // Konfiguration
+    script.setAttribute("data-firmaid", "c9f21e5d");
+    script.setAttribute("data-color", "#b51a00");
+    script.setAttribute("data-accent-color", "#ff8647");
+    script.setAttribute("data-font", "Poppins, sans-serif");
+    script.setAttribute("data-text-color", "#ffffff");
+    script.setAttribute("data-heading-color", "#ffffff");
+    script.setAttribute("data-radius", "60px");
+    script.setAttribute("data-box-radius", "20px");
+    script.setAttribute("data-logo-url", "");
+
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <section className="bg-white min-h-screen px-6 py-16">
       <div className="max-w-3xl mx-auto">

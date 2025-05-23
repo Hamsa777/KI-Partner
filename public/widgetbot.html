@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KI-Partner Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: #fff;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      iframe {
+        border: none;
+        width: 100%;
+        max-width: 700px;
+        height: 600px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const firmaId = params.get("firmaId") || "demo";
+
+      // ✅ ECHTE, ERREICHBARE URL HIER EINTRAGEN
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.ki-partner24.de/danke?{{firmaId}}`;
+      iframe.loading = "lazy";
+      iframe.title = "KI-Partner Chatbot";
+
+      document.body.appendChild(iframe);
+    </script>
+  </body>
+</html>
