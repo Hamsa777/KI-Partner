@@ -1,20 +1,22 @@
-// vite.widget.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'public',
+    emptyOutDir: false, // damit andere public-Dateien wie index.html nicht gelöscht werden
     lib: {
-      entry: 'feedback.js',
+      entry: path.resolve(__dirname, 'feedback.js'),
       name: 'FeedbackWidget',
-      fileName: 'feedback',
-      formats: ['iife'], // nur eine globale Datei für <script src="">
+      fileName: () => 'feedback.iife.js',
+      formats: ['iife']
     },
-    outDir: 'dist',
-    emptyOutDir: true,
-  },
-  define: {
-    'process.env.NODE_ENV': JSON.stringify('production'),
-  },
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true
+      }
+    }
+  }
 });
