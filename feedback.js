@@ -18,12 +18,13 @@ import FeedbackWidget from "./src/components/FeedbackWidget"; // ggf. Pfad anpas
   fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName}&display=swap`;
   document.head.appendChild(fontLink);
 
-  // Widget einbetten
-  const script = document.currentScript;
-  const container = document.getElementById("widget-root") || document.createElement("div");
-if (!container.id) {
+  const container =
+  document.querySelector("#widget-root") || document.createElement("div");
+
+if (!document.querySelector("#widget-root")) {
   script.parentNode.insertBefore(container, script.nextSibling);
 }
+
 
 
   const firmaId = script.dataset.firmaid;
