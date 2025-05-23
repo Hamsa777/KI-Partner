@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>Widget Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Body-Styles nur fürs Testlayout -->
     <style>
       body {
         font-family: sans-serif;
@@ -10,32 +13,38 @@
         background: #f5f5f5;
       }
     </style>
+
+    <!-- Feedback Stylesheet -->
     <link rel="stylesheet" href="https://www.ki-partner24.de/feedback.css" />
   </head>
   <body>
     <h1>Feedback Widget Test</h1>
 
-    <script 
-  src="https://www.ki-partner24.de/feedback.js"
-  data-firmaid="c9f21e5d"
-  data-color="#000000"
-  data-accent-color="#187b16"
-  data-font="system-ui, sans-serif"
-  data-text-color="#ffffff"
-  data-heading-color="#ffffff"
-  data-heading-bold="true"
-  data-heading-italic="false"
-  data-heading-underline="false"
-  data-heading-font-size="27px"
-  data-custom-title="Morocco testimonals"
-  data-radius="25px"
-  data-box-radius="40px"
-  data-arrow-color="#4f7a28"
-  data-arrow-bg-color="#e32400"
-  data-widget-style-preset="classic"
-  data-style-preset="flat"
-  data-logo-url="https://upload.wikimedia.org/wikipedia/commons/b/bd/Morocco_FRMF.png"
-  defer
-></script>
+    <!-- Container für das Widget -->
+    <div id="widget-root"></div>
+
+    <!-- Widget Script -->
+    <script
+      src="https://www.ki-partner24.de/feedback.js"
+      data-firmaid="c9f21e5d"
+      data-color="#000000"
+      data-accent-color="#187b16"
+      data-font="system-ui, sans-serif"
+      data-text-color="#ffffff"
+      data-heading-color="#ffffff"
+      data-heading-bold="true"
+      data-heading-italic="false"
+      data-heading-underline="false"
+      data-heading-font-size="27px"
+      data-custom-title="Morocco testimonals"
+      data-radius="25px"
+      data-box-radius="40px"
+      data-arrow-color="#4f7a28"
+      data-arrow-bg-color="#e32400"
+      data-widget-style-preset="classic"
+      data-style-preset="flat"
+      data-logo-url="https://upload.wikimedia.org/wikipedia/commons/b/bd/Morocco_FRMF.png"
+      defer
+    ></script>
   </body>
 </html>

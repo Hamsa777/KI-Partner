@@ -20,8 +20,11 @@ import FeedbackWidget from "./src/components/FeedbackWidget"; // ggf. Pfad anpas
 
   // Widget einbetten
   const script = document.currentScript;
-  const container = document.createElement("div");
+  const container = document.getElementById("widget-root") || document.createElement("div");
+if (!container.id) {
   script.parentNode.insertBefore(container, script.nextSibling);
+}
+
 
   const firmaId = script.dataset.firmaid;
   const config = {
