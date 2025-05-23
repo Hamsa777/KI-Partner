@@ -1,7 +1,8 @@
 // feedback.js
 import React from "react";
 import { createRoot } from "react-dom/client";
-import FeedbackWidget from "./FeedbackWidget";
+import FeedbackWidget from './src/components/FeedbackWidget.jsx';
+
 
 (function () {
   const script = document.currentScript;
@@ -34,5 +35,6 @@ import FeedbackWidget from "./FeedbackWidget";
   
 
   const root = createRoot(container);
-  root.render(<FeedbackWidget firmaId={firmaId} config={config} />);
+  root.render(React.createElement(FeedbackWidget, { firmaId, config }));
+
 })();
