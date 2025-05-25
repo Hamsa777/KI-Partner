@@ -1,33 +1,35 @@
-// 📁 feedback.js
-import React from "react";
-import { createRoot } from "react-dom/client";
-import FeedbackWidget from "./src/components/FeedbackWidget"; // ggf. Pfad anpassen
+console.log("📦 feedback.js geladen");
 
 (function () {
-  // CSS laden (z. B. Tailwind-Build)
+  console.log("✅ Feedback-Widget initialisiert");
+
+  const script = document.querySelector('script[data-firmaid]');
+  if (!script) {
+    console.error("❌ Kein <script> mit data-firmaid gefunden!");
+    return;
+  }
+
+  // ✅ CSS laden (lokal oder extern)
   const style = document.createElement("link");
   style.rel = "stylesheet";
-  style.href = "https://www.ki-partner24.de/feedback.css";
+  style.href = "./feedback.css"; // lokal im public-Ordner
   document.head.appendChild(style);
 
-  // Font dynamisch laden
-  const font = document.currentScript.dataset.font || "Inter";
-  const fontName = font.split(",")[0].replace(/['"]/g, "").replace(/ /g, "+");
+  // ✅ Google Font laden
+  const font = script.dataset.font || "Inter";
   const fontLink = document.createElement("link");
   fontLink.rel = "stylesheet";
-  fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName}&display=swap`;
+  fontLink.href = `https://fonts.googleapis.com/css2?family=${font.replace(/ /g, "+")}&display=swap`;
   document.head.appendChild(fontLink);
 
-  const container =
-  document.querySelector("#widget-root") || document.createElement("div");
+  // ✅ Widget-Container erzeugen (falls nicht vorhanden)
+  const container = document.querySelector("#widget-root") || document.createElement("div");
+  if (!document.querySelector("#widget-root")) {
+    container.id = "widget-root";
+    script.parentNode.insertBefore(container, script.nextSibling);
+  }
 
-if (!document.querySelector("#widget-root")) {
-  script.parentNode.insertBefore(container, script.nextSibling);
-}
-
-
-
-  const firmaId = script.dataset.firmaid;
+  // ✅ Konfig auslesen
   const config = {
     color: script.dataset.color,
     accentColor: script.dataset.accentColor,
@@ -46,9 +48,13 @@ if (!document.querySelector("#widget-root")) {
     footerBgColor: script.dataset.footerBgColor,
     widgetStylePreset: script.dataset.widgetStylePreset,
     stylePreset: script.dataset.stylePreset,
-    logoUrl: script.dataset.logoUrl
+    logoUrl: script.dataset.logoUrl,
+    theme: script.dataset.theme
   };
 
-  const root = createRoot(container);
-  root.render(<FeedbackWidget firmaId={firmaId} config={config} />);
+  const firmaId = script.dataset.firmaid;
+
+  // ✅ React root mounten (CDN-Variante)
+  const root = ReactDOM.createRoot(container);
+  root.render(React.createElement(FeedbackWidget, { firmaId, config }));
 })();

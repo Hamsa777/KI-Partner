@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Test iFrame</h1>
-    <iframe
-      src="/widgetbot.html?firmaId=934e663b"
-      style="width:100%;max-width:700px;height:600px;border:none;overflow:hidden"
-      loading="lazy"
-    ></iframe>
-  </body>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Widget Test</title>
+
+  <!-- React & ReactDOM via CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Dein Widget -->
+  <script
+    src="./feedback.iife.js"
+    data-firmaid="demo123"
+    data-color="#ffffff"
+    data-accent-color="#000000"
+    data-text-color="#111111"
+    data-font="Inter"
+    data-heading-font-size="24px"
+    data-custom-title="Live Test"
+    defer
+  ></script>
+</head>
+<body>
+  <h1>Live Widget Test</h1>
+</body>
 </html>

@@ -1,4 +1,3 @@
-// vite.widget.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -6,13 +5,13 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'widget-dist', // nicht public → sicherer, sauberer
-    emptyOutDir: true,     // dist-Ordner bei jedem Build leeren
+    outDir: 'widget-dist',            // ⬅︎ Output-Folder (nicht public!)
+    emptyOutDir: true,
     lib: {
-      entry: path.resolve(__dirname, 'feedback.js'), // Einstiegspunkt
-      name: 'FeedbackWidget',
+      entry: path.resolve(__dirname, 'feedback.js'), // ⬅︎ dein Einstiegspunkt
+      name: 'FeedbackWidget',                        // ⬅︎ globaler Name (optional)
       fileName: () => 'feedback.iife.js',
-      formats: ['iife']
+      formats: ['iife'],                             // ⬅︎ IIFE für <script>-Einbindung
     },
     rollupOptions: {
       output: {
