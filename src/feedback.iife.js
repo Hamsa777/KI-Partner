@@ -1,3 +1,5 @@
+console.log("🟢 RICHTIGE VERSION GELADEN – Build von 22:52");
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import FeedbackWidget from "./components/FeedbackWidget";
