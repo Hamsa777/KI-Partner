@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function FeedbackWidget({ firmaId, config = {} }) {
+export default function FeedbackWidget({ firmaId }) {
+  const [config, setConfig] = useState({});
   const [bewertungen, setBewertungen] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,14 @@ export default function FeedbackWidget({ firmaId, config = {} }) {
       ? "bg-transparent border border-gray-200 shadow-none"
       : "bg-white shadow-xl"
   ].join(" ");
+useEffect(() => {
+  if (!firmaId) return;
+
+  fetch(`https://feedback.ki-partner24.de/api/config/${firmaId}`)
+    .then((res) => res.json())
+    .then((data) => setConfig(data))
+    .catch((err) => console.error("❌ Fehler beim Laden der Config:", err));
+}, [firmaId]);
 
   useEffect(() => {
     if (!firmaId) {
@@ -42,35 +51,45 @@ export default function FeedbackWidget({ firmaId, config = {} }) {
       return;
     }
 
-    const url = `https://hook.eu2.make.com/kk1i3cui6xj9082lkk0wcpvdb9kgthxs?firmaId=${firmaId}`;
+    const url = `https://feedback.ki-partner24.de/api/feedback/${firmaId}`;
+
+
 
     fetch(url)
       .then(async (res) => {
         const text = await res.text();
         try {
-          const data = JSON.parse(text);
-          if (!Array.isArray(data)) throw new Error("Keine Bewertungsdaten gefunden");
+          const json = JSON.parse(text);
 
-          const parsed = data
-            .filter((entry) => entry[0] && entry[1] && entry[2])
-            .map((entry) => ({
-              date: new Date(entry[0]).toLocaleDateString("de-DE"),
-              name: entry[1],
-              rating: parseInt(entry[2]),
-              comment: entry[3]
-            }));
+          if (!Array.isArray(json)) {
+            throw new Error("Antwort ist kein Array");
+          }
+
+          if (json.length === 0) {
+            setBewertungen([]);
+            setLoading(false);
+            return;
+          }
+
+          const parsed = json.map((entry) => ({
+  date: new Date(entry.date).toLocaleDateString("de-DE"),
+  name: entry.name,
+  rating: parseInt(entry.rating),
+  comment: entry.comment
+}));
+
 
           setBewertungen(parsed);
+          setLoading(false);
         } catch (err) {
-          console.error("❌ JSON Parse Error:", err, text);
-          setError("❌ Fehler beim Lesen der Feedback-Daten.");
-        } finally {
+          console.error("❌ Ungültiges JSON:", err.message, text);
+          setError("Fehler beim Lesen der Feedback-Daten.");
           setLoading(false);
         }
       })
       .catch((err) => {
         console.error("❌ Fetch-Fehler:", err);
-        setError("❌ Fehler beim Abrufen.");
+        setError("Fehler beim Abrufen der Feedback-Daten.");
         setLoading(false);
       });
   }, [firmaId]);
@@ -86,6 +105,7 @@ export default function FeedbackWidget({ firmaId, config = {} }) {
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
+  if (bewertungen.length === 0) return <p className="text-gray-500 text-sm">Noch keine Bewertungen vorhanden.</p>;
 
   const headingStyle = {
     fontSize: headingFontSize,

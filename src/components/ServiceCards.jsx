@@ -6,33 +6,30 @@ import { motion } from "framer-motion";
 
 export default function ServiceCards() {
   return (
-    <section className="pt-0 px-2 max-w-7xl mx-auto">
-      {/* Überschrift mit Fade-Down */}
-      <motion.h2
-        initial={{ opacity: 0, y: 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        className="text-3xl sm:text-5xl font-bold text-black my-12 text-center tracking-tight"
-      >
+    <motion.section
+      className="pt-0 px-4 max-w-7xl mx-auto"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.6 }}
+    >
+      <h2 className="text-4xl sm:text-5xl font-bold text-black my-8 text-center tracking-tight">
         Unsere KI-Systeme
-      </motion.h2>
+      </h2>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {services.map(({ id, title, description, icon, url, isExternal }) => {
           const IconComponent = Icons[icon];
 
           const Card = (
-            <div className="rounded-2xl border border-black bg-white p-6 shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out text-center flex flex-col items-center justify-center h-full">
+            <div className="bg-white/10 backdrop-blur-md border border-gray-200/40 rounded-3xl p-6 sm:p-8 transition-all duration-300 shadow-md hover:shadow-xl hover:scale-[1.03] hover:border-indigo-500/50 cursor-pointer text-center flex flex-col items-center justify-center h-full">
               {IconComponent && (
-                <IconComponent className="w-8 h-8 text-black mb-3 mx-auto" />
+                <IconComponent className="w-10 h-10 mb-4" style={{ color: "#283593" }} />
               )}
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">{description}</p>
             </div>
           );
-          
 
           return isExternal ? (
             <a
@@ -40,17 +37,17 @@ export default function ServiceCards() {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="cursor-pointer h-full"
+              className="h-full"
             >
               {Card}
             </a>
           ) : (
-            <Link key={id} to={url} className="cursor-pointer h-full">
+            <Link key={id} to={url} className="h-full">
               {Card}
             </Link>
           );
         })}
       </div>
-    </section>
+    </motion.section>
   );
 }

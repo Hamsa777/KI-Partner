@@ -30,27 +30,8 @@ console.log("📦 feedback.js geladen");
   }
 
   // ✅ Konfig auslesen
-  const config = {
-    color: script.dataset.color,
-    accentColor: script.dataset.accentColor,
-    textColor: script.dataset.textColor,
-    font: script.dataset.font,
-    headingColor: script.dataset.headingColor,
-    headingBold: script.dataset.headingBold === "true",
-    headingItalic: script.dataset.headingItalic === "true",
-    headingUnderline: script.dataset.headingUnderline === "true",
-    headingFontSize: script.dataset.headingFontSize,
-    customTitle: script.dataset.customTitle,
-    radius: script.dataset.radius,
-    boxRadius: script.dataset.boxRadius,
-    arrowColor: script.dataset.arrowColor,
-    arrowBgColor: script.dataset.arrowBgColor,
-    footerBgColor: script.dataset.footerBgColor,
-    widgetStylePreset: script.dataset.widgetStylePreset,
-    stylePreset: script.dataset.stylePreset,
-    logoUrl: script.dataset.logoUrl,
-    theme: script.dataset.theme
-  };
+  
+  
 
   const firmaId = script.dataset.firmaid;
 

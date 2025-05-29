@@ -16,7 +16,7 @@ export default function KIPartnerLanding() {
       <EmbedWidget />
       <ContactSection />
       <Footer />
-      <WidgetBot /> {/* Nur hier sichtbar */}
+      <WidgetBot /> 
     </div>
   );
 }

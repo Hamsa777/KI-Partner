@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+const MotionLink = motion(Link);
+
 export default function HeroSection() {
   return (
     <section className="bg-white pt-24 pb-10 text-center px-6 sm:px-8">
@@ -30,18 +32,17 @@ export default function HeroSection() {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="mt-8 flex justify-center gap-4"
       >
-        <Link
+        <MotionLink
           to="/kontakt"
-          className="bg-black text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium hover:bg-gray-900 transition"
+          whileHover={{
+            scale: 1.02,
+            backgroundColor: "#1a237e",
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium"
         >
           Kostenlose Beratung
-        </Link>
-        <Link
-          to="/dokumenten-automatisierung"
-          className="border border-black text-black px-6 py-3 rounded-full text-sm sm:text-base font-medium hover:bg-gray-100 transition"
-        >
-          Demo testen
-        </Link>
+        </MotionLink>
       </motion.div>
     </section>
   );

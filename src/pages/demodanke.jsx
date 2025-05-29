@@ -36,6 +36,7 @@ export default function DemoDanke() {
       description: "Pflegen Sie jetzt Ihr eigenes Feedbacksystem für beliebige Geschäftsprozesse ein.",
       stripeUrl: "https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv",
     },
+    
   };
 
   const selectedService = services[service];

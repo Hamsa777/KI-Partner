@@ -14,7 +14,7 @@ export default function EmbedWidget() {
       <div className="flex justify-center">
         <div className="w-full max-w-[900px]">
           <iframe
-            src="https://www.ki-partner24.de/feedback/ffc5042a"
+            src="https://www.ki-partner24.de/feedback/c9f21e5d"
             width="100%"
             height="320"
             style={{ border: "none", display: "block" }}
