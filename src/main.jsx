@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
-import EmbedWidget1 from "./components/EmbedWidget1";
+
 // Seiten mit Layout
 import Home from "./App.jsx";
 import UeberUns from "./pages/UeberUns.jsx";
@@ -20,6 +20,7 @@ import EmbedDemo from "./pages/EmbedDemo.jsx";
 import EmbedPage from "./pages/EmbedPage.jsx";
 import WidgetEditor from "./pages/WidgetEditor.jsx";
 import WidgetBotCode from "./pages/WidgetBotCode.jsx";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -39,10 +40,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/danke" element={<DankeSeite />} />
         <Route path="/demo-danke" element={<DemoDanke />} />
         <Route path="/feedback/:firmaId" element={<FeedbackPage />} />
-        <Route path="/embed/:firmaId" element={<EmbedWidget1 />} />
+       
+        <Route path="/embed/:firmaId" element={<EmbedPage />} /> {/* ✅ wichtig */}
         <Route path="/editor/:firmaId" element={<WidgetEditor />} />
         <Route path="/embed/demo" element={<EmbedDemo />} />
         <Route path="/widgetbotcode/:firmaId" element={<WidgetBotCode />} />
+       
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

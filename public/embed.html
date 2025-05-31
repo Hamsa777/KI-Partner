@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Feedback Widget</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="widget-root"></div>
+
+    <script>
+      console.log("✅ FeedbackWidget direkt geladen");
+
+      (function () {
+        const { useState, useEffect, useRef } = React;
+
+        function FeedbackWidget({ firmaId }) {
+          const [bewertungen, setBewertungen] = useState([]);
+          const [loading, setLoading] = useState(true);
+          const ref = useRef(null);
+
+          useEffect(() => {
+            fetch(`https://feedback.ki-partner24.de/api/feedback/${firmaId}`)
+              .then((res) => res.json())
+              .then((data) => {
+                setBewertungen(data);
+                setLoading(false);
+              });
+          }, [firmaId]);
+
+          return React.createElement(
+            "div",
+            {
+              style: {
+                padding: "10px",
+                background: "#fff",
+                borderRadius: "8px",
+                maxWidth: "600px",
+                margin: "0 auto",
+              },
+            },
+            loading
+              ? "Lade Feedback..."
+              : bewertungen.map((b, i) =>
+                  React.createElement(
+                    "div",
+                    {
+                      key: i,
+                      style: {
+                        marginBottom: "12px",
+                        borderBottom: "1px solid #eee",
+                        paddingBottom: "8px",
+                      },
+                    },
+                    React.createElement("strong", null, b.name + ": "),
+                    React.createElement("span", null, b.comment)
+                  )
+                )
+          );
+        }
+
+        // 👇 Firma-ID aus der URL lesen
+        const urlParams = new URLSearchParams(window.location.search);
+        const firmaId = urlParams.get("firmaId") || "demo123"; // fallback für Tests
+
+        const root = document.getElementById("widget-root");
+        ReactDOM.createRoot(root).render(
+          React.createElement(FeedbackWidget, { firmaId })
+        );
+      })();
+    </script>
+  </body>
+</html>

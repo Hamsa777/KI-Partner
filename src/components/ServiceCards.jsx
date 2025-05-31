@@ -22,7 +22,18 @@ export default function ServiceCards() {
           const IconComponent = Icons[icon];
 
           const Card = (
-            <div className="bg-white/10 backdrop-blur-md border border-gray-200/40 rounded-3xl p-6 sm:p-8 transition-all duration-300 shadow-md hover:shadow-xl hover:scale-[1.03] hover:border-indigo-500/50 cursor-pointer text-center flex flex-col items-center justify-center h-full">
+            <div
+              className="bg-white/10 backdrop-blur-md border rounded-3xl p-6 sm:p-8 transition-all duration-300 shadow-md hover:shadow-xl hover:scale-[1.03] cursor-pointer text-center flex flex-col items-center justify-center h-full"
+              style={{
+                borderColor: "rgba(229, 231, 235, 0.4)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#283593";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(229, 231, 235, 0.4)";
+              }}
+            >
               {IconComponent && (
                 <IconComponent className="w-10 h-10 mb-4" style={{ color: "#283593" }} />
               )}
@@ -51,3 +62,4 @@ export default function ServiceCards() {
     </motion.section>
   );
 }
+
