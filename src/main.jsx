@@ -40,7 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/danke" element={<DankeSeite />} />
         <Route path="/demo-danke" element={<DemoDanke />} />
         <Route path="/feedback/:firmaId" element={<FeedbackPage />} />
-       
         <Route path="/embed/:firmaId" element={<EmbedPage />} /> {/* ✅ wichtig */}
         <Route path="/editor/:firmaId" element={<WidgetEditor />} />
         <Route path="/embed/demo" element={<EmbedDemo />} />

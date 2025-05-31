@@ -2,7 +2,6 @@ import React from "react";
 import HeroSection from "./components/HeroSection";
 import ServiceCards from "./components/ServiceCards";
 import Warum from "./components/Warum";
-import EmbedWidget from "./components/EmbedWidget";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/footer";
 import WidgetBot from "./components/WidgetBot";
@@ -13,7 +12,7 @@ export default function KIPartnerLanding() {
       <HeroSection />
       <ServiceCards />
       <Warum />
-      <EmbedWidget />
+     
       <ContactSection />
       <Footer />
       <WidgetBot /> 
