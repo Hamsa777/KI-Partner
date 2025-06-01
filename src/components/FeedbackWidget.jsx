@@ -9,14 +9,17 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
   const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
 
-  // 👉 Config aus Props übernehmen (Editor)
+  const cardWidth = 260;
+  const gap = 16;
+  const visible = Math.min(config.visibleCards || 3, 4);
+  const containerWidth = visible * cardWidth + (visible - 1) * gap;
+
   useEffect(() => {
     if (configFromProps) {
       setConfig(configFromProps);
     }
   }, [configFromProps]);
 
-  // 👉 Config vom Server laden (nur wenn keine Props übergeben)
   useEffect(() => {
     if (configFromProps || !firmaId) return;
 
@@ -26,7 +29,6 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
       .catch((err) => console.error("❌ Fehler beim Laden der Config:", err));
   }, [firmaId, configFromProps]);
 
-  // 👉 Bewertungen laden
   useEffect(() => {
     if (!firmaId) return;
 
@@ -37,14 +39,7 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
         const text = await res.text();
         try {
           const json = JSON.parse(text);
-
           if (!Array.isArray(json)) throw new Error("Antwort ist kein Array");
-
-          if (json.length === 0) {
-            setBewertungen([]);
-            setLoading(false);
-            return;
-          }
 
           const parsed = json.map((entry) => ({
             date: new Date(entry.date).toLocaleDateString("de-DE"),
@@ -68,7 +63,6 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
       });
   }, [firmaId]);
 
-  // 👉 Design-Konfiguration entpacken
   const {
     color = "#ffffff",
     accentColor = "#f8f8f8",
@@ -86,10 +80,11 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
     arrowBgColor = "#fff",
     widgetStylePreset = "classic",
     stylePreset = "classic",
+    backgroundImageUrl = "",
   } = config;
 
   const widgetClasses = [
-    "mx-auto space-y-4 p-4 relative transition-all",
+    "space-y-4 p-4 relative transition-all mx-auto",
     widgetStylePreset === "glass"
       ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
       : widgetStylePreset === "flat"
@@ -108,13 +103,10 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
   const scrollByCard = (direction = "right") => {
     const container = containerRef.current;
     if (!container) return;
-    const cardWidth = 260;
-    const gap = 16;
     const scrollAmount = direction === "right" ? cardWidth + gap : -(cardWidth + gap);
     container.scrollBy({ left: scrollAmount, behavior: "smooth" });
   };
 
-  // 👉 Zustände anzeigen
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
   if (bewertungen.length === 0) return <p className="text-gray-500 text-sm">Noch keine Bewertungen vorhanden.</p>;
@@ -122,7 +114,16 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
   return (
     <div
       className={widgetClasses}
-      style={{ backgroundColor: color, fontFamily: font, borderRadius: radius, maxWidth: "900px" }}
+      style={{
+        backgroundColor: backgroundImageUrl ? undefined : color,
+        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        fontFamily: font,
+        borderRadius: radius,
+        maxWidth: `${containerWidth + 80}px`, // genug Platz für Pfeile außen
+      }}
     >
       <div className="relative flex justify-center items-center">
         <h2 className="text-3xl text-center" style={headingStyle}>
@@ -131,22 +132,36 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
         {logoUrl && <img src={logoUrl} alt="Logo" className="absolute right-0 h-10" />}
       </div>
 
-      <div className="relative w-[812px] mx-auto flex items-center">
+      <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
+        {/* Pfeil links */}
         <button
           onClick={() => scrollByCard("left")}
-          className="absolute left-[-32px] z-10 p-2 rounded-full shadow hover:scale-110 transition"
-          style={{ backgroundColor: arrowBgColor }}
+          className="absolute z-10 p-2 rounded-full shadow hover:scale-110 transition"
+          style={{
+            backgroundColor: arrowBgColor,
+            top: "50%",
+            left: "-30px",
+            transform: "translateY(-50%)",
+          }}
         >
           <ChevronLeft color={arrowColor} />
         </button>
 
+        {/* Bewertungen */}
         <div
           ref={containerRef}
           className="flex gap-4 overflow-hidden snap-x snap-mandatory"
-          style={{ scrollBehavior: "smooth", width: "812px" }}
+          style={{
+            scrollBehavior: "smooth",
+            width: `${containerWidth}px`,
+          }}
         >
           {bewertungen.map((review, i) => (
-            <div key={i} className="min-w-[260px] max-w-[260px] flex-shrink-0 snap-start">
+            <div
+              key={i}
+              className="flex-shrink-0 snap-start"
+              style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
+            >
               <FeedbackCard
                 review={review}
                 accentColor={accentColor}
@@ -160,10 +175,16 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
           ))}
         </div>
 
+        {/* Pfeil rechts */}
         <button
           onClick={() => scrollByCard("right")}
-          className="absolute right-[-32px] z-10 p-2 rounded-full shadow hover:scale-110 transition"
-          style={{ backgroundColor: arrowBgColor }}
+          className="absolute z-10 p-2 rounded-full shadow hover:scale-110 transition"
+          style={{
+            backgroundColor: arrowBgColor,
+            top: "50%",
+            right: "-30px",
+            transform: "translateY(-50%)",
+          }}
         >
           <ChevronRight color={arrowColor} />
         </button>

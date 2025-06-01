@@ -5,26 +5,30 @@ import FeedbackWidget from "../components/FeedbackWidget";
 export default function WidgetEditor() {
   const { firmaId } = useParams();
 
-  const [color, setColor] = useState("#f8f8f8");
-  const [accentColor, setAccentColor] = useState("#000000");
-  const [textColor, setTextColor] = useState("#ffffff");
-  const [font, setFont] = useState("Inter, sans-serif");
-  const [radius, setRadius] = useState("30px");
-  const [boxRadius, setBoxRadius] = useState("30px");
-  const [customTitle, setCustomTitle] = useState("Unsere Kundenbewertungen");
-  const [logoUrl, setLogoUrl] = useState("");
-  const [headingFontSize, setHeadingFontSize] = useState("28px");
-  const [arrowColor, setArrowColor] = useState("#000000");
-  const [arrowBgColor, setArrowBgColor] = useState("#ffffff");
-  const [widgetStylePreset, setWidgetStylePreset] = useState("classic");
-  const [stylePreset, setStylePreset] = useState("classic");
+const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
+const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
+const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
+const [font, setFont] = useState("system-ui, sans-serif");
+const [radius, setRadius] = useState("35px");
+const [boxRadius, setBoxRadius] = useState("35px");
+const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
+const [logoUrl, setLogoUrl] = useState(""); // Option offen lassen
+const [headingFontSize, setHeadingFontSize] = useState("29px");
+const [arrowColor, setArrowColor] = useState("#ffffff");
+const [arrowBgColor, setArrowBgColor] = useState("#111827"); // Dunkle Pfeile
+const [widgetStylePreset, setWidgetStylePreset] = useState("glass");
+const [stylePreset, setStylePreset] = useState("flat");
+const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
+const [visibleCards, setVisibleCards] = useState(3); // Standard z. B. 3
 
-  const [headingStyles, setHeadingStyles] = useState({
-    bold: true,
-    italic: false,
-    underline: false,
-    color: "#000000",
-  });
+
+const [headingStyles, setHeadingStyles] = useState({
+  bold: true,
+  italic: false,
+  underline: false,
+  color: "#111827",
+});
+
 
   const [activeTab, setActiveTab] = useState("colors");
 
@@ -56,6 +60,9 @@ export default function WidgetEditor() {
     arrowBgColor,
     widgetStylePreset,
     stylePreset,
+    backgroundImageUrl,
+    visibleCards,
+
   };
 
   const iframeCode = `<iframe 
@@ -92,6 +99,16 @@ export default function WidgetEditor() {
             <label>Schriftfarbe:<input type="color" className="w-full p-2 border" value={textColor} onChange={(e) => setTextColor(e.target.value)} /></label>
             <label>Pfeilfarbe:<input type="color" className="w-full p-2 border" value={arrowColor} onChange={(e) => setArrowColor(e.target.value)} /></label>
             <label>Pfeil-Hintergrundfarbe:<input type="color" className="w-full p-2 border" value={arrowBgColor} onChange={(e) => setArrowBgColor(e.target.value)} /></label>
+            <label>Hintergrundbild-URL (optional):
+  <input
+    type="text"
+    className="w-full p-2 border"
+    placeholder="https://example.com/bg.jpg"
+    value={backgroundImageUrl}
+    onChange={(e) => setBackgroundImageUrl(e.target.value)}
+  />
+</label>
+
           </div>
         )}
 
@@ -119,8 +136,8 @@ export default function WidgetEditor() {
           <div className="grid gap-4">
             <label>Widget-Stil:
               <select className="w-full p-2 border" value={widgetStylePreset} onChange={(e) => setWidgetStylePreset(e.target.value)}>
-                <option value="classic">Classic</option>
-                <option value="glass">Glass</option>
+                <option value="classic">Classic Shadow</option>
+                <option value="glass">Glass Look</option>
                 <option value="flat">Minimal Flat</option>
               </select>
             </label>
@@ -137,6 +154,18 @@ export default function WidgetEditor() {
             <label>Box-Abrundung:
               <input type="number" min="0" max="60" className="w-full p-2 border" value={parseInt(boxRadius)} onChange={(e) => setBoxRadius(`${e.target.value}px`)} />
             </label>
+            <label>Anzahl sichtbarer Bewertungen:
+  <select
+    className="w-full p-2 border"
+    value={visibleCards}
+    onChange={(e) => setVisibleCards(Number(e.target.value))}
+  >
+    {[1, 2, 3, 4].map((num) => (
+      <option key={num} value={num}>{num}</option>
+    ))}
+  </select>
+</label>
+
           </div>
         )}
 
@@ -152,25 +181,40 @@ export default function WidgetEditor() {
         )}
       </div>
 
-      <div className="w-full max-w-5xl mt-12">
-        <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
-        <div className="relative">
-          <FeedbackWidget firmaId={firmaId} config={config} />
-        </div>
-        <div className="mt-6 flex justify-center">
-          <button className="px-6 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300 transition"
-            onClick={() => {
-              setColor("#f8f8f8");
-              setAccentColor("#ffffff");
-              setTextColor("#000000");
-              setFont("Inter, sans-serif");
-              setRadius("16px");
-              setBoxRadius("16px");
-              setLogoUrl("");
-              setHeadingStyles({ bold: false, italic: false, underline: false, color: "#000000" });
-            }}>
-            Zurücksetzen auf Standardwerte
-          </button>
+     <div className="w-full overflow-x-auto mt-12">
+  <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
+  <div className="min-w-fit mx-auto">
+    <FeedbackWidget firmaId={firmaId} config={config} />
+  </div>
+  <div className="mt-6 flex justify-center">
+
+          <button
+  className="px-6 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300 transition"
+  onClick={() => {
+    setColor("#ffffff"); // Hintergrund
+    setAccentColor("#f3f4f6"); // Box-Hintergrund
+    setTextColor("#111827");
+    setFont("system-ui, sans-serif");
+    setRadius("35px");
+    setBoxRadius("35px");
+    setLogoUrl("");
+    setHeadingFontSize("29px");
+    setHeadingStyles({
+      bold: true,
+      italic: false,
+      underline: false,
+      color: "#111827",
+    });
+    setArrowColor("#ffffff");
+    setArrowBgColor("#111827");
+    setWidgetStylePreset("glass");
+    setStylePreset("flat");
+    setBackgroundImageUrl("");
+  }}
+>
+  Zurücksetzen auf Standardwerte
+</button>
+
         </div>
       </div>
 
