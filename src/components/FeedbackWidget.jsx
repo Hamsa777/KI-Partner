@@ -42,7 +42,12 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
           if (!Array.isArray(json)) throw new Error("Antwort ist kein Array");
 
           const parsed = json.map((entry) => ({
-            date: new Date(entry.date).toLocaleDateString("de-DE"),
+            date: new Date(entry.date).toLocaleDateString("de-DE", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+}),
+
             name: entry.name,
             rating: parseInt(entry.rating),
             comment: entry.comment,
