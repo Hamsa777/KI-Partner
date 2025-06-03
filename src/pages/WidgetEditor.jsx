@@ -4,7 +4,7 @@ import FeedbackWidget from "../components/FeedbackWidget";
 
 export default function WidgetEditor() {
   const { firmaId } = useParams();
-
+  
 const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
 const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
 const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
@@ -31,6 +31,39 @@ const [headingStyles, setHeadingStyles] = useState({
 
 
   const [activeTab, setActiveTab] = useState("colors");
+useEffect(() => {
+  if (!firmaId) return;
+
+  fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data) return;
+      setColor(data.color ?? "#ffffff");
+      setAccentColor(data.accentColor ?? "#f3f4f6");
+      setTextColor(data.textColor ?? "#111827");
+      setFont(data.font ?? "system-ui, sans-serif");
+      setRadius(data.radius ?? "35px");
+      setBoxRadius(data.boxRadius ?? "35px");
+      setCustomTitle(data.customTitle ?? "Das sagen unsere Kunden");
+      setLogoUrl(data.logoUrl ?? "");
+      setHeadingFontSize(data.headingFontSize ?? "29px");
+      setArrowColor(data.arrowColor ?? "#ffffff");
+      setArrowBgColor(data.arrowBgColor ?? "#111827");
+      setWidgetStylePreset(data.widgetStylePreset ?? "glass");
+      setStylePreset(data.stylePreset ?? "flat");
+      setBackgroundImageUrl(data.backgroundImageUrl ?? "");
+      setVisibleCards(data.visibleCards ?? 3);
+      setHeadingStyles(data.headingStyles ?? {
+        bold: true,
+        italic: false,
+        underline: false,
+        color: "#111827",
+      });
+    })
+    .catch((err) => {
+      console.error("❌ Fehler beim Laden der Config:", err);
+    });
+}, [firmaId]);
 
   useEffect(() => {
     if (font) {
@@ -160,7 +193,7 @@ const [headingStyles, setHeadingStyles] = useState({
     value={visibleCards}
     onChange={(e) => setVisibleCards(Number(e.target.value))}
   >
-    {[1, 2, 3, 4].map((num) => (
+    {[1, 2, 3, 4, 5].map((num) => (
       <option key={num} value={num}>{num}</option>
     ))}
   </select>

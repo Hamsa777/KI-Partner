@@ -140,7 +140,7 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
           style={{
             backgroundColor: arrowBgColor,
             top: "50%",
-            left: "-30px",
+            left: "-29px",
             transform: "translateY(-50%)",
           }}
         >
@@ -182,7 +182,7 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
           style={{
             backgroundColor: arrowBgColor,
             top: "50%",
-            right: "-30px",
+            right: "-29px",
             transform: "translateY(-50%)",
           }}
         >

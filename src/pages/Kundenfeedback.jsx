@@ -103,9 +103,9 @@ export default function Kundenfeedback() {
 
           <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
             {[
-              "Link zum Feedback-Formular teilen (z. B. per E-Mail oder Website)",
-              "Kunden hinterlassen Bewertungen über ein individuelles Formular",
-              "Bewertungen werden automatisch verarbeitet und gespeichert",
+              "Nach dem Kauf werden Sie weitergeleitet auf das Onboarding-Formular für Ihr Unternehmen. ",
+              "Nachdem Sie ongeboardet werden, erhalten Sie per Mail einen Link zum Feedbackformular um Bewertungen von Ihren Kunden zu sammeln, einen Google-sheets Link, welcher Ihnen die Bewertungen Ihrer Kunden anzeigt inklusive eines hochintelligenten GPT-Vorschlags der das Feedback auswertet und einen auf Ihr Unternehmen abgestimmten Verbesserungsvorschlag generiert. Dazu den Link zu Ihrem individuellen Widgeteditor für optimale Anpassung an Ihr Unternehmen.",
+              "Sollten Sie zufrieden sein mit dem Ergebnis erhalten  Sie bei Erwerb",
               "Einbettbarer Feedback-Widget zeigt Bewertungen live an",
               "Optional: Automatische Dankesnachricht an Kunden",
             ].map((text, i) => (
