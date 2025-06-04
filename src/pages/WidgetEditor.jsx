@@ -99,7 +99,7 @@ useEffect(() => {
   };
 
   const iframeCode = `<iframe 
-  src="https://www.ki-partner24.de/embed/${firmaId}"
+  src="https://www.ki-partner24.de/embed/${firmaId}?t=${Date.now()}"
   width="100%"
   height="360"
   style="border: none; display: block;"

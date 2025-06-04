@@ -23,7 +23,9 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
   useEffect(() => {
     if (configFromProps || !firmaId) return;
 
-    fetch(`https://feedback.ki-partner24.de/api/config/${firmaId}`)
+    const timestamp = Date.now();
+    fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json?t=${timestamp}`)
+
       .then((res) => res.json())
       .then((data) => setConfig(data))
       .catch((err) => console.error("❌ Fehler beim Laden der Config:", err));
