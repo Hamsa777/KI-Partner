@@ -17,15 +17,19 @@ export default function FeedbackCard({
   const [showButton, setShowButton] = useState(false);
   const commentRef = useRef(null);
 
-  useEffect(() => {
-    if (commentRef.current) {
-      const lineHeight = parseFloat(getComputedStyle(commentRef.current).lineHeight);
-      const maxVisibleHeight = lineHeight * 2;
-      if (commentRef.current.scrollHeight > maxVisibleHeight) {
-        setShowButton(true);
-      }
+ useEffect(() => {
+  if (commentRef.current) {
+    const el = commentRef.current;
+    const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+    const visibleLines = 1; // so wie line-clamp-1
+    const maxHeight = lineHeight * visibleLines;
+
+    if (el.scrollHeight > maxHeight + 2) {
+      setShowButton(true);
     }
-  }, []);
+  }
+}, []);
+
   let boxClasses = "p-4 flex flex-col transition-all duration-300";
 
   if (stylePreset === "glass") {

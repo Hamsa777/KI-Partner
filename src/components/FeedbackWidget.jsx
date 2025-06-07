@@ -62,7 +62,20 @@ export default function FeedbackWidget({ firmaId, config: propConfig }) {
           rating: parseInt(entry.rating),
           comment: entry.comment,
         }));
-        setBewertungen(parsed);
+        // Doppelte Bewertungen entfernen (nach name + comment + date)
+const unique = [];
+const seen = new Set();
+
+for (const fb of parsed) {
+  const key = `${fb.name}-${fb.comment}-${fb.date}`;
+  if (!seen.has(key)) {
+    seen.add(key);
+    unique.push(fb);
+  }
+}
+
+setBewertungen(unique);
+
         setLoading(false);
       })
       .catch((err) => {
@@ -172,7 +185,7 @@ export default function FeedbackWidget({ firmaId, config: propConfig }) {
             width: `${containerWidth}px`,
           }}
         >
-          {bewertungen.map((review, i) => (
+          {bewertungen.slice().reverse().map((review, i) => (
             <div
               key={i}
               className="flex-shrink-0 snap-start"
@@ -205,16 +218,20 @@ export default function FeedbackWidget({ firmaId, config: propConfig }) {
         </button>
       </div>
 
-      <div className="text-center text-[14px] text-gray-400 mt-0 mb-0 leading-none">
-        <a
-          href="https://www.ki-partner24.de"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:underline"
-        >
-          powered by KI-Partner
-        </a>
-      </div>
+     <div
+  className="text-center text-[14px] text-gray-400 mt-0 mb-0 leading-none"
+  style={{ fontFamily: 'system-ui' }} // feste Schriftart
+>
+  <a
+    href="https://www.ki-partner24.de"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    powered by KI-Partner
+  </a>
+</div>
+
     </div>
   );
 }

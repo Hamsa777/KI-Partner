@@ -162,18 +162,6 @@ const liveConfig = {
   <GoogleFontSelector font={font} setFont={setFont} />
 </label>
 
-<label>Schriftgröße Überschrift:
-  <input
-    type="number"
-    min="8"
-    max="60"
-    className="w-full p-2 border"
-    value={parseInt(headingFontSize)}
-    onChange={(e) => setHeadingFontSize(`${e.target.value}px`)}
-  />
-</label>
-
-
             <label>Schriftgröße Überschrift:
               <input type="number" min="8" max="60" className="w-full p-2 border" value={parseInt(headingFontSize)} onChange={(e) => setHeadingFontSize(`${e.target.value}px`)} />
             </label>
