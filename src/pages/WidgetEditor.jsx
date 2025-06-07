@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FeedbackWidget from "../components/FeedbackWidget";
+import GoogleFontSelector from "../components/GoogleFontSelector"; // Pfad ggf. anpassen
 
 export default function WidgetEditor() {
   const { firmaId } = useParams();
@@ -8,7 +9,7 @@ export default function WidgetEditor() {
 const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
 const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
 const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
-const [font, setFont] = useState("system-ui, sans-serif");
+const [font, setFont] = useState("Inter"); // Nur Google-Font Name – ohne '', ohne Fallback
 const [radius, setRadius] = useState("35px");
 const [boxRadius, setBoxRadius] = useState("35px");
 const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
@@ -20,7 +21,7 @@ const [widgetStylePreset, setWidgetStylePreset] = useState("glass");
 const [stylePreset, setStylePreset] = useState("flat");
 const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
 const [visibleCards, setVisibleCards] = useState(3); // Standard z. B. 3
-
+const [serverConfig, setServerConfig] = useState(null);
 
 const [headingStyles, setHeadingStyles] = useState({
   bold: true,
@@ -38,10 +39,11 @@ useEffect(() => {
     .then((res) => res.json())
     .then((data) => {
       if (!data) return;
+      setServerConfig(data);
       setColor(data.color ?? "#ffffff");
       setAccentColor(data.accentColor ?? "#f3f4f6");
       setTextColor(data.textColor ?? "#111827");
-      setFont(data.font ?? "system-ui, sans-serif");
+      setFont(typeof data.font === "string" ? data.font : "Inter");
       setRadius(data.radius ?? "35px");
       setBoxRadius(data.boxRadius ?? "35px");
       setCustomTitle(data.customTitle ?? "Das sagen unsere Kunden");
@@ -65,18 +67,9 @@ useEffect(() => {
     });
 }, [firmaId]);
 
-  useEffect(() => {
-    if (font) {
-      const fontName = font.split(",")[0].replace(/['"]/g, "").replace(/ /g, "+");
-      const link = document.createElement("link");
-      link.href = `https://fonts.googleapis.com/css2?family=${fontName}&display=swap`;
-      link.rel = "stylesheet";
-      document.head.appendChild(link);
-      return () => {
-        document.head.removeChild(link);
-      };
-    }
-  }, [font]);
+
+
+
 
   const config = {
     color,
@@ -99,13 +92,31 @@ useEffect(() => {
   };
 
   const iframeCode = `<iframe 
-  src="https://www.ki-partner24.de/embed/${firmaId}?t=${Date.now()}"
+  src="https://www.ki-partner24.de/embed/${firmaId}"
   width="100%"
   height="360"
   style="border: none; display: block;"
   loading="lazy"
   title="Kundenbewertungen Widget"
 />`;
+const liveConfig = {
+  color,
+  accentColor,
+  font,
+  radius,
+  logoUrl,
+  boxRadius,
+  headingStyles,
+  textColor,
+  headingFontSize,
+  customTitle,
+  arrowColor,
+  arrowBgColor,
+  widgetStylePreset,
+  stylePreset,
+  backgroundImageUrl,
+  visibleCards,
+};
 
   return (
     <div className="min-h-screen bg-gray-50 p-10 flex flex-col items-center">
@@ -145,14 +156,24 @@ useEffect(() => {
           </div>
         )}
 
-        {activeTab === "font" && (
-          <div className="grid gap-4">
-            <label>Schriftart:
-              <select className="w-full p-2 border" value={font} onChange={(e) => setFont(e.target.value)}>
-                {["Inter", "Roboto", "Open Sans", "Lato", "Montserrat", "Poppins", "Raleway", "Ubuntu", "Nunito", "Work Sans", "system-ui", "Segoe UI", "Helvetica", "Arial", "sans-serif"]
-                  .map(f => <option key={f} value={`${f}, sans-serif`}>{f}</option>)}
-              </select>
-            </label>
+                  {activeTab === "font" && (
+                    <div className="grid gap-4">
+                    <label>Schriftart:
+  <GoogleFontSelector font={font} setFont={setFont} />
+</label>
+
+<label>Schriftgröße Überschrift:
+  <input
+    type="number"
+    min="8"
+    max="60"
+    className="w-full p-2 border"
+    value={parseInt(headingFontSize)}
+    onChange={(e) => setHeadingFontSize(`${e.target.value}px`)}
+  />
+</label>
+
+
             <label>Schriftgröße Überschrift:
               <input type="number" min="8" max="60" className="w-full p-2 border" value={parseInt(headingFontSize)} onChange={(e) => setHeadingFontSize(`${e.target.value}px`)} />
             </label>
@@ -217,7 +238,11 @@ useEffect(() => {
      <div className="w-full overflow-x-auto mt-12">
   <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
   <div className="min-w-fit mx-auto">
-    <FeedbackWidget firmaId={firmaId} config={config} />
+   <FeedbackWidget firmaId={firmaId} config={liveConfig} />
+
+
+
+
   </div>
   <div className="mt-6 flex justify-center">
 
@@ -227,7 +252,8 @@ useEffect(() => {
     setColor("#ffffff"); // Hintergrund
     setAccentColor("#f3f4f6"); // Box-Hintergrund
     setTextColor("#111827");
-    setFont("system-ui, sans-serif");
+    setFont("Inter");
+
     setRadius("35px");
     setBoxRadius("35px");
     setLogoUrl("");

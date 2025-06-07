@@ -2,73 +2,78 @@ import React, { useEffect, useState, useRef } from "react";
 import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function FeedbackWidget({ firmaId, config: configFromProps }) {
-  const [config, setConfig] = useState(configFromProps || {});
+export default function FeedbackWidget({ firmaId, config: propConfig }) {
+  const [config, setConfig] = useState(null);
   const [bewertungen, setBewertungen] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fontLoaded, setFontLoaded] = useState(false);
   const containerRef = useRef(null);
-
-  const cardWidth = 260;
-  const gap = 16;
-  const visible = Math.min(config.visibleCards || 3, 4);
-  const containerWidth = visible * cardWidth + (visible - 1) * gap;
-
+  
+  
   useEffect(() => {
-    if (configFromProps) {
-      setConfig(configFromProps);
-    }
-  }, [configFromProps]);
-
-  useEffect(() => {
-    if (configFromProps || !firmaId) return;
-
-    const timestamp = Date.now();
-    fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json?t=${timestamp}`)
-
+  if (propConfig) {
+    setConfig(propConfig); // Wenn vom Editor übergeben → Vorrang!
+  } else if (firmaId) {
+    const url = `https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json?t=${Date.now()}`;
+    fetch(url)
       .then((res) => res.json())
-      .then((data) => setConfig(data))
+      .then(setConfig)
       .catch((err) => console.error("❌ Fehler beim Laden der Config:", err));
-  }, [firmaId, configFromProps]);
+  }
+}, [propConfig, firmaId]);
 
+
+  // 👉 Font dynamisch laden
+  useEffect(() => {
+    if (!config?.font) return;
+
+    const cleanFont = config.font.trim().replace(/['"]/g, "").split(",")[0];
+    const fontName = cleanFont.replace(/ /g, "+");
+    const href = `https://fonts.googleapis.com/css2?family=${fontName}&display=swap`;
+
+    if (document.querySelector(`link[href="${href}"]`)) {
+      setFontLoaded(true);
+      return;
+    }
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.onload = () => setFontLoaded(true);
+    document.head.appendChild(link);
+  }, [config?.font]);
+
+  // 👉 Bewertungen laden
   useEffect(() => {
     if (!firmaId) return;
-
     const url = `https://feedback.ki-partner24.de/api/feedback/${firmaId}`;
 
     fetch(url)
-      .then(async (res) => {
-        const text = await res.text();
-        try {
-          const json = JSON.parse(text);
-          if (!Array.isArray(json)) throw new Error("Antwort ist kein Array");
-
-          const parsed = json.map((entry) => ({
-            date: new Date(entry.date).toLocaleDateString("de-DE", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-}),
-
-            name: entry.name,
-            rating: parseInt(entry.rating),
-            comment: entry.comment,
-          }));
-
-          setBewertungen(parsed);
-          setLoading(false);
-        } catch (err) {
-          console.error("❌ Ungültiges JSON:", err.message, text);
-          setError("Fehler beim Lesen der Feedback-Daten.");
-          setLoading(false);
-        }
+      .then((res) => res.json())
+      .then((json) => {
+        const parsed = json.map((entry) => ({
+          date: new Date(entry.date).toLocaleDateString("de-DE", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          }),
+          name: entry.name,
+          rating: parseInt(entry.rating),
+          comment: entry.comment,
+        }));
+        setBewertungen(parsed);
+        setLoading(false);
       })
       .catch((err) => {
-        console.error("❌ Fetch-Fehler:", err);
-        setError("Fehler beim Abrufen der Feedback-Daten.");
+        console.error("❌ Fehler beim Abrufen der Feedback-Daten:", err);
+        setError("Feedback konnte nicht geladen werden.");
         setLoading(false);
       });
   }, [firmaId]);
+
+  // ⛔️ Warten bis Config und Font geladen sind
+  if (!config || !fontLoaded) return null;
 
   const {
     color = "#ffffff",
@@ -88,7 +93,13 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
     widgetStylePreset = "classic",
     stylePreset = "classic",
     backgroundImageUrl = "",
+    visibleCards = 3,
   } = config;
+
+  const cardWidth = 260;
+  const gap = 16;
+  const visible = Math.min(visibleCards, 4);
+  const containerWidth = visible * cardWidth + (visible - 1) * gap;
 
   const widgetClasses = [
     "space-y-4 p-4 relative transition-all mx-auto",
@@ -107,11 +118,11 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
     color: headingColor,
   };
 
-  const scrollByCard = (direction = "right") => {
-    const container = containerRef.current;
-    if (!container) return;
-    const scrollAmount = direction === "right" ? cardWidth + gap : -(cardWidth + gap);
-    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  const scrollByCard = (dir) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
+    el.scrollBy({ left: scroll, behavior: "smooth" });
   };
 
   if (error) return <p className="text-red-500">{error}</p>;
@@ -127,9 +138,9 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        fontFamily: font,
+        fontFamily: `'${config.font}', sans-serif`,
         borderRadius: radius,
-        maxWidth: `${containerWidth + 80}px`, // genug Platz für Pfeile außen
+        maxWidth: `${containerWidth + 80}px`,
       }}
     >
       <div className="relative flex justify-center items-center">
@@ -140,7 +151,6 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
       </div>
 
       <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
-        {/* Pfeil links */}
         <button
           onClick={() => scrollByCard("left")}
           className="absolute z-10 p-2 rounded-full shadow hover:scale-110 transition"
@@ -154,7 +164,6 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
           <ChevronLeft color={arrowColor} />
         </button>
 
-        {/* Bewertungen */}
         <div
           ref={containerRef}
           className="flex gap-4 overflow-hidden snap-x snap-mandatory"
@@ -182,7 +191,6 @@ export default function FeedbackWidget({ firmaId, config: configFromProps }) {
           ))}
         </div>
 
-        {/* Pfeil rechts */}
         <button
           onClick={() => scrollByCard("right")}
           className="absolute z-10 p-2 rounded-full shadow hover:scale-110 transition"

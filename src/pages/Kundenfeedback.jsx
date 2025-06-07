@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Kundenfeedback() {
   return (
-    <section className="bg-gradient-to-b from-white to-gray-100 min-h-screen px-6 py-20 flex items-center justify-center">
+    <section className="bg-gradient-to-b from-white to-gray-100 min-h-screen px-6 py-14 flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -21,7 +21,7 @@ export default function Kundenfeedback() {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8"
         >
-          Kundenfeedback automatisieren
+          KI-gestütze Feedback Automation
         </motion.h1>
 
         <motion.p
@@ -31,22 +31,10 @@ export default function Kundenfeedback() {
           viewport={{ once: true }}
           className="text-gray-700 text-lg leading-relaxed mb-4"
         >
-          Feedback ist der Schlüssel zu Wachstum und Kundenzufriedenheit. Mit unserer{" "}
-          <strong className="text-black">KI-gestützten Lösung</strong> sammeln Sie automatisiert
-          Bewertungen – professionell, zuverlässig und{" "}
-          <strong className="text-black">markenkonform eingebettet</strong>.
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-gray-700 text-lg leading-relaxed mb-10"
-        >
-          Einfach Link teilen, Kunden bewerten lassen und Ergebnisse in Echtzeit anzeigen –{" "}
-          <strong className="text-black">DSGVO-konform</strong>, automatisiert und komplett ohne
-          Programmierkenntnisse.
+          Zeigen Sie Ihre Bewertungen auf Ihrer Webseite an und{" "}<strong className="text-black">steigern Sie somit Ihre Umsätze</strong>.
+          Neukunden möchten wissen welche Erfahrungen mit Ihrem Unternehmen gemacht wurden, um mit bestem Gewissen{" "}<strong className="text-black">Ihre Produkte oder Dienstleistungen zu erwerben</strong>.
+          Mit unserer KI-gestützten Lösung{" "}<strong className="text-black"></strong> sammeln Sie automatisiert Kundenbewertungen, welche zeitgleich in Ihrem {" "}<strong className="text-black">professionell konfigurierten Feedbackwidget </strong>landen.
+          Dazu erhalten Sie {" "}<strong className="text-black">wertvolle KI-Verbesserungsvorschläge </strong>als Antwort auf die Kundenbewertungen unter Berücksichtigung Ihrer Unternehmensbranche und Tätigkeit.
         </motion.p>
 
         {/* Haupt-Card */}
@@ -103,11 +91,12 @@ export default function Kundenfeedback() {
 
           <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
             {[
-              "Nach dem Kauf werden Sie weitergeleitet auf das Onboarding-Formular für Ihr Unternehmen. ",
-              "Nachdem Sie ongeboardet werden, erhalten Sie per Mail einen Link zum Feedbackformular um Bewertungen von Ihren Kunden zu sammeln, einen Google-sheets Link, welcher Ihnen die Bewertungen Ihrer Kunden anzeigt inklusive eines hochintelligenten GPT-Vorschlags der das Feedback auswertet und einen auf Ihr Unternehmen abgestimmten Verbesserungsvorschlag generiert. Dazu den Link zu Ihrem individuellen Widgeteditor für optimale Anpassung an Ihr Unternehmen.",
-              "Sollten Sie zufrieden sein mit dem Ergebnis erhalten  Sie bei Erwerb",
-              "Einbettbarer Feedback-Widget zeigt Bewertungen live an",
-              "Optional: Automatische Dankesnachricht an Kunden",
+              "Nachdem Kauf werden Sie weitergeleitet auf das Onboarding-Formular für Ihr Unternehmen. Pflichtabfragen sind: Firmenname, Email-Adresse, Unternehmensbranche und Unternehmensbeschreibung. (Branche und Beschreibung werden benötigt um KI-Vorschläge mit Berücksichtigung auf Ihr Unternehmen zu generieren.)",
+              "Nachdem Sie ongeboardet werden, erhalten Sie per Mail einen Link zum Feedbackformular um Bewertungen von Ihren Kunden zu sammeln, einen Google-sheets Link, welcher die Bewertungen Ihrer Kunden speichert inklusive eines hochintelligenten KI-Vorschlags und den Link zu Ihrem persönlichen Widgeteditor für maximale Individualisierung.",
+              "Sie können über das Feedbackformular eigene Bewertungen schreiben oder den Link Ihren Kunden schicken beispielsweise in der Fusszeile Ihrer Bestätigungsmails. Diese Bewertungen landen automatisiert in Ihrem Feedbackwidget.",
+              "Um Ihr Feedbackwidget maximal anpassen zu können, erhalten Sie Zugriff auf unseren simplen individuellen Design-Editor. Sie speichern dort Ihre Anpassungen, kopieren den Embed-Code und fügen Ihn auf Ihre Webseite ein.",
+              "Nachdem einfügen haben Sie Ihre Bewertungen in professionellem Design auf Ihrer Webseite eingebettet. Neukunden sehen die zufriedenen Erfahrungen mit Ihrem Unternehmen und fühlen sich sicherer bei Ihnen zu kaufen.",
+
             ].map((text, i) => (
               <motion.div
                 key={i}
