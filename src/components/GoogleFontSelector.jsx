@@ -1,5 +1,5 @@
 const googleFonts = [
-  "Inter", "Roboto", "Open Sans", "Lato", "Noto Sans", "Montserrat", "Poppins",
+  "Helvetica", "Arial", "Segoe UI", "System-ui", "Times New Roman", "Inter", "Roboto", "Open Sans", "Lato", "Noto Sans", "Montserrat", "Poppins",
   "Raleway", "Ubuntu", "Nunito", "Work Sans", "Quicksand", "Rubik",
   "Merriweather", "DM Sans", "Oswald", "Manrope", "Playfair Display",
   "Karla", "Fira Sans","Cabin", "Kanit", "Urbanist", "Rajdhani",

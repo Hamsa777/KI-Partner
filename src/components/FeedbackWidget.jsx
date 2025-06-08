@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import sampleData from "../assets/sampleData.json";
 
 export default function FeedbackWidget({ firmaId, config: propConfig }) {
   const [config, setConfig] = useState(null);
@@ -47,45 +48,60 @@ export default function FeedbackWidget({ firmaId, config: propConfig }) {
   }, [config?.font]);
 
   // 👉 Bewertungen laden
-  useEffect(() => {
-    if (!firmaId) return;
-    const url = `https://feedback.ki-partner24.de/api/feedback/${firmaId}`;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => {
-        const parsed = json.map((entry) => ({
-          date: new Date(entry.date).toLocaleDateString("de-DE", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          }),
-          name: entry.name,
-          rating: parseInt(entry.rating),
-          comment: entry.comment,
-        }));
-        // Doppelte Bewertungen entfernen (nach name + comment + date)
-const unique = [];
-const seen = new Set();
-
-for (const fb of parsed) {
-  const key = `${fb.name}-${fb.comment}-${fb.date}`;
-  if (!seen.has(key)) {
-    seen.add(key);
-    unique.push(fb);
+  // 👉 Bewertungen laden
+useEffect(() => {
+  if (!firmaId) {
+    // Lokale Beispiel-Daten laden
+    const parsed = sampleData.map((entry) => ({
+      date: new Date(entry.date).toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+      name: entry.name,
+      rating: parseInt(entry.rating),
+      comment: entry.comment,
+    }));
+    setBewertungen(parsed);
+    setLoading(false);
+    return;
   }
-}
 
-setBewertungen(unique);
+  const url = `https://feedback.ki-partner24.de/api/feedback/${firmaId}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((json) => {
+      const parsed = json.map((entry) => ({
+        date: new Date(entry.date).toLocaleDateString("de-DE", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }),
+        name: entry.name,
+        rating: parseInt(entry.rating),
+        comment: entry.comment,
+      }));
 
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("❌ Fehler beim Abrufen der Feedback-Daten:", err);
-        setError("Feedback konnte nicht geladen werden.");
-        setLoading(false);
-      });
-  }, [firmaId]);
+      const unique = [];
+      const seen = new Set();
+      for (const fb of parsed) {
+        const key = `${fb.name}-${fb.comment}-${fb.date}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          unique.push(fb);
+        }
+      }
+
+      setBewertungen(unique);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("❌ Fehler beim Abrufen der Feedback-Daten:", err);
+      setError("Feedback konnte nicht geladen werden.");
+      setLoading(false);
+    });
+}, [firmaId]);
+
 
   // ⛔️ Warten bis Config und Font geladen sind
   if (!config || !fontLoaded) return null;
@@ -151,7 +167,23 @@ setBewertungen(unique);
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
-  if (bewertungen.length === 0) return <p className="text-gray-500 text-sm">Noch keine Bewertungen vorhanden.</p>;
+  if (bewertungen.length === 0) {
+  // ⛔️ Noch keine echten Bewertungen? → Fallback auf Demo
+  const parsed = sampleData.map((entry) => ({
+    date: new Date(entry.date).toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }),
+    name: entry.name,
+    rating: parseInt(entry.rating),
+    comment: entry.comment,
+  }));
+
+  setBewertungen(parsed);
+  return null; // kein rendern in diesem Durchlauf – wird direkt neu geladen
+}
+
 
   return (
     <div

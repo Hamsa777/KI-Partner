@@ -20,6 +20,7 @@ import EmbedDemo from "./pages/EmbedDemo.jsx";
 import EmbedPage from "./pages/EmbedPage.jsx";
 import WidgetEditor from "./pages/WidgetEditor.jsx";
 import WidgetBotCode from "./pages/WidgetBotCode.jsx";
+import TestEditor from "./pages/TestEditor.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -44,6 +45,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/editor/:firmaId" element={<WidgetEditor />} />
         <Route path="/embed/demo" element={<EmbedDemo />} />
         <Route path="/widgetbotcode/:firmaId" element={<WidgetBotCode />} />
+        <Route path="/TestEditor/" element={<TestEditor />} />
        
 
       </Routes>
