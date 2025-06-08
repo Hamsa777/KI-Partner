@@ -96,6 +96,7 @@ setBewertungen(unique);
     boxRadius = "16px",
     customTitle = "Unsere Kundenbewertungen",
     logoUrl = null,
+    logoSize,
     theme = "light",
     textColor = theme === "dark" ? "#f5f5f5" : "#222",
     headingStyles = {},
@@ -160,63 +161,74 @@ setBewertungen(unique);
         <h2 className="text-3xl text-center" style={headingStyle}>
           {customTitle}
         </h2>
-        {logoUrl && <img src={logoUrl} alt="Logo" className="absolute right-0 h-10" />}
+      {logoUrl && (
+  <img
+    src={logoUrl}
+    alt="Logo"
+    className="absolute right-0"
+    style={{ height: logoSize || "60px", objectFit: "contain" }}
+  />
+)}
+
+
+
       </div>
 
-      <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
-        <button
-          onClick={() => scrollByCard("left")}
-          className="absolute z-10 p-2 rounded-full shadow hover:scale-110 transition"
-          style={{
-            backgroundColor: arrowBgColor,
-            top: "50%",
-            left: "-29px",
-            transform: "translateY(-50%)",
-          }}
-        >
-          <ChevronLeft color={arrowColor} />
-        </button>
+     <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
+  {/* Linker Pfeil */}
+  <button
+  onClick={() => scrollByCard("left")}
+  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
+  style={{
+    backgroundColor: arrowBgColor,
+    marginLeft: "-29px",
+  }}
+>
+  <ChevronLeft color={arrowColor} />
+</button>
 
-        <div
-          ref={containerRef}
-          className="flex gap-4 overflow-hidden snap-x snap-mandatory"
-          style={{
-            scrollBehavior: "smooth",
-            width: `${containerWidth}px`,
-          }}
-        >
-          {bewertungen.slice().reverse().map((review, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 snap-start"
-              style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
-            >
-              <FeedbackCard
-                review={review}
-                accentColor={accentColor}
-                nameColor={textColor}
-                commentColor={textColor}
-                dateColor={textColor}
-                boxRadius={boxRadius}
-                stylePreset={stylePreset}
-              />
-            </div>
-          ))}
-        </div>
 
-        <button
-          onClick={() => scrollByCard("right")}
-          className="absolute z-10 p-2 rounded-full shadow hover:scale-110 transition"
-          style={{
-            backgroundColor: arrowBgColor,
-            top: "50%",
-            right: "-29px",
-            transform: "translateY(-50%)",
-          }}
-        >
-          <ChevronRight color={arrowColor} />
-        </button>
+  {/* Feedback-Karten */}
+  <div
+    ref={containerRef}
+    className="flex gap-4 overflow-hidden snap-x snap-mandatory"
+    style={{
+      scrollBehavior: "smooth",
+      width: `${containerWidth}px`,
+    }}
+  >
+    {bewertungen.slice().reverse().map((review, i) => (
+      <div
+        key={i}
+        className="flex-shrink-0 snap-start"
+        style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
+      >
+        <FeedbackCard
+          review={review}
+          accentColor={accentColor}
+          nameColor={textColor}
+          commentColor={textColor}
+          dateColor={textColor}
+          boxRadius={boxRadius}
+          stylePreset={stylePreset}
+        />
       </div>
+    ))}
+  </div>
+
+ <button
+  onClick={() => scrollByCard("right")}
+  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
+  style={{
+    backgroundColor: arrowBgColor,
+    marginRight: "-29px",
+  }}
+>
+  <ChevronRight color={arrowColor} />
+</button>
+
+</div>
+
 
      <div
   className="text-center text-[14px] text-gray-400 mt-0 mb-0 leading-none"

@@ -22,6 +22,7 @@ const [stylePreset, setStylePreset] = useState("flat");
 const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
 const [visibleCards, setVisibleCards] = useState(3); // Standard z. B. 3
 const [serverConfig, setServerConfig] = useState(null);
+const [logoSize, setLogoSize] = useState("60px"); // z. B. Standardgröße
 
 const [headingStyles, setHeadingStyles] = useState({
   bold: true,
@@ -77,6 +78,7 @@ useEffect(() => {
     font,
     radius,
     logoUrl,
+    logoSize,
     boxRadius,
     headingStyles,
     textColor,
@@ -105,6 +107,7 @@ const liveConfig = {
   font,
   radius,
   logoUrl,
+  logoSize,
   boxRadius,
   headingStyles,
   textColor,
@@ -217,8 +220,25 @@ const liveConfig = {
               <input type="text" className="w-full p-2 border" value={customTitle} onChange={(e) => setCustomTitle(e.target.value)} />
             </label>
             <label>Logo-URL:
-              <input type="text" className="w-full p-2 border" value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} />
-            </label>
+      <input
+        type="text"
+        className="w-full p-2 border"
+        value={logoUrl}
+        onChange={(e) => setLogoUrl(e.target.value)}
+      />
+    </label>
+
+    <label>Logo-Größe (px):
+      <input
+        type="number"
+        min="10"
+        max="200"
+        className="w-full p-2 border"
+        value={parseInt(logoSize)}
+        onChange={(e) => setLogoSize(`${e.target.value}px`)}
+      />
+    </label>
+
           </div>
         )}
       </div>
