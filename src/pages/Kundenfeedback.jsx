@@ -57,7 +57,7 @@ export default function Kundenfeedback() {
           {/* Hover-Overlay mit zwei Buttons */}
           <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex">
             <a
-              href="https://tally.so/r/nrqqNL"
+              href="https://www.ki-partner24.de/testeditor"
               target="_blank"
               rel="noopener noreferrer"
               className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-l-3xl"
@@ -67,7 +67,7 @@ export default function Kundenfeedback() {
             </a>
             <div className="w-px bg-gray-300 my-6"></div>
             <a
-              href="https://buy.stripe.com/test_bIY7tu01x4ys3Uk9AC"
+              href="https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv"
               target="_blank"
               rel="noopener noreferrer"
               className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-r-3xl"
@@ -129,7 +129,7 @@ export default function Kundenfeedback() {
   viewport={{ once: true }}
 >
   <a
-    href="https://tally.so/r/nrqqNL"
+    href="https://www.ki-partner24.de/testeditor"
     target="_blank"
     rel="noopener noreferrer"
     className="inline-block mt-10 px-6 py-3 bg-[#283593] text-white text-sm font-medium rounded-full shadow hover:bg-[#1f2d66] transition"

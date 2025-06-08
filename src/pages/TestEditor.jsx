@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import FeedbackWidget from "../components/FeedbackWidget";
 import GoogleFontSelector from "../components/GoogleFontSelector";
 import sampleData from "../assets/sampleData.json";
+import { Link as MotionLink } from "react-router-dom"; 
+import { motion } from "framer-motion"; 
 
 export default function TestEditor() {
   const [color, setColor] = useState("#ffffff");
@@ -63,7 +65,7 @@ export default function TestEditor() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-10 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-10 text-center">Feedback-Widget Live-Test</h1>
+      <h1 className="text-2xl font-bold mb-10 text-center">Feedbackwidget Testversion</h1>
 
       <div className="w-full max-w-2xl">
         <div className="flex space-x-4 mb-6 border-b">
@@ -130,6 +132,34 @@ export default function TestEditor() {
         </div>
         <p className="text-center text-yellow-600 mt-6">⚠️ Hinweis: Änderungen werden hier nur getestet und <strong>nicht gespeichert</strong>.</p>
       </div>
+     <div className="mt-4 text-center">
+
+  <motion.a
+  href="https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv"
+  target="_blank"
+  rel="noopener noreferrer"
+
+    whileHover={{
+      scale: 1.02,
+      backgroundColor: "#1a237e",
+    }}
+    transition={{ duration: 0.3, ease: "easeOut" }}
+    className="inline-block bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium"
+  >
+    Jetzt kaufen & eigenes Widget sichern
+  </motion.a>
+
+  <div className="mt-4">
+    <a
+      href="/"
+      className="text-sm text-gray-500 hover:text-gray-700 underline transition"
+    >
+      Zurück zur Startseite
+    </a>
+  </div>
+</div>
+
     </div>
+    
   );
 }
