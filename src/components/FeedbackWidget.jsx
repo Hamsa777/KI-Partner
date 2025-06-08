@@ -30,7 +30,9 @@ export default function FeedbackWidget({ firmaId, config: propConfig }) {
 
     const cleanFont = config.font.trim().replace(/['"]/g, "").split(",")[0];
     const fontName = cleanFont.replace(/ /g, "+");
-    const href = `https://fonts.googleapis.com/css2?family=${fontName}&display=swap`;
+    const href = `https://fonts.googleapis.com/css2?family=${fontName}:wght@400;500;600;700;800;900&display=swap`;
+
+
 
     if (document.querySelector(`link[href="${href}"]`)) {
       setFontLoaded(true);
@@ -124,13 +126,21 @@ setBewertungen(unique);
       : "bg-white shadow-xl",
   ].join(" ");
 
-  const headingStyle = {
-    fontSize: headingFontSize,
-    fontWeight: headingStyles.bold ? "bold" : "normal",
-    fontStyle: headingStyles.italic ? "italic" : "normal",
-    textDecoration: headingStyles.underline ? "underline" : "none",
-    color: headingColor,
-  };
+ const headingStyle = {
+  fontSize: headingFontSize,
+  fontWeight: headingStyles.bold
+    ? (headingStyles.weight ?? 700)
+    : 400, // wenn kein Haken bei Fett, dann normal
+  fontStyle: headingStyles.italic ? "italic" : "normal",
+  textDecoration: headingStyles.underline ? "underline" : "none",
+  color: headingColor,
+  WebkitFontSmoothing: "antialiased",
+  MozOsxFontSmoothing: "grayscale",
+};
+
+
+
+
 
   const scrollByCard = (dir) => {
     const el = containerRef.current;

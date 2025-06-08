@@ -28,10 +28,24 @@ const [headingStyles, setHeadingStyles] = useState({
   bold: true,
   italic: false,
   underline: false,
+  weight: 700,
   color: "#111827",
 });
 
+useEffect(() => {
+    if (!font) return;
+    const fontUrl = `https://fonts.googleapis.com/css2?family=${font.replace(/ /g, '+')}:wght@500;600;700;800;900&display=swap`;
 
+
+    const existing = document.getElementById("dynamic-font");
+    if (existing) existing.remove();
+
+    const link = document.createElement("link");
+    link.id = "dynamic-font";
+    link.rel = "stylesheet";
+    link.href = fontUrl;
+    document.head.appendChild(link);
+  }, [font]);
   const [activeTab, setActiveTab] = useState("colors");
 useEffect(() => {
   if (!firmaId) return;
@@ -41,6 +55,7 @@ useEffect(() => {
     .then((data) => {
       if (!data) return;
       setServerConfig(data);
+      setLogoSize(data.logoSize ?? "60px");
       setColor(data.color ?? "#ffffff");
       setAccentColor(data.accentColor ?? "#f3f4f6");
       setTextColor(data.textColor ?? "#111827");
@@ -56,12 +71,14 @@ useEffect(() => {
       setStylePreset(data.stylePreset ?? "flat");
       setBackgroundImageUrl(data.backgroundImageUrl ?? "");
       setVisibleCards(data.visibleCards ?? 3);
-      setHeadingStyles(data.headingStyles ?? {
-        bold: true,
-        italic: false,
-        underline: false,
-        color: "#111827",
-      });
+      setHeadingStyles({
+  bold: data.headingStyles?.bold ?? true,
+  italic: data.headingStyles?.italic ?? false,
+  underline: data.headingStyles?.underline ?? false,
+  color: data.headingStyles?.color ?? "#111827",
+  weight: data.headingStyles?.weight ?? 700,
+});
+
     })
     .catch((err) => {
       console.error("❌ Fehler beim Laden der Config:", err);
@@ -166,14 +183,73 @@ const liveConfig = {
 </label>
 
             <label>Schriftgröße Überschrift:
-              <input type="number" min="8" max="60" className="w-full p-2 border" value={parseInt(headingFontSize)} onChange={(e) => setHeadingFontSize(`${e.target.value}px`)} />
-            </label>
-            <fieldset className="border p-4 rounded space-y-2">
-              <legend className="font-semibold">Überschrift-Stil</legend>
-              <label className="flex items-center gap-2"><input type="checkbox" checked={headingStyles.bold} onChange={(e) => setHeadingStyles({ ...headingStyles, bold: e.target.checked })} /> Fett</label>
-              <label className="flex items-center gap-2"><input type="checkbox" checked={headingStyles.italic} onChange={(e) => setHeadingStyles({ ...headingStyles, italic: e.target.checked })} /> Kursiv</label>
-              <label className="flex items-center gap-2"><input type="checkbox" checked={headingStyles.underline} onChange={(e) => setHeadingStyles({ ...headingStyles, underline: e.target.checked })} /> Unterstrichen</label>
-            </fieldset>
+  <input
+    type="number"
+    min="8"
+    max="60"
+    className="w-full p-2 border"
+    value={parseInt(headingFontSize)}
+    onChange={(e) => setHeadingFontSize(`${e.target.value}px`)}
+  />
+</label>
+
+<fieldset className="border p-4 rounded space-y-2">
+  <legend className="font-semibold">Überschrift-Stil</legend>
+
+  <label className="flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={headingStyles.bold}
+      onChange={(e) =>
+        setHeadingStyles({ ...headingStyles, bold: e.target.checked })
+      }
+    />
+    Fett
+  </label>
+
+  {headingStyles.bold && (
+  <label>Schriftgewicht:
+    <select
+      className="w-full p-2 border"
+      value={headingStyles.weight ?? 700}
+      onChange={(e) =>
+        setHeadingStyles({
+          ...headingStyles,
+          weight: parseInt(e.target.value),
+        })
+      }
+    >
+      {[500, 600, 700, 800, 900].map((w) => (
+        <option key={w} value={w}>{w}</option>
+      ))}
+    </select>
+  </label>
+)}
+
+  <label className="flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={headingStyles.italic}
+      onChange={(e) =>
+        setHeadingStyles({ ...headingStyles, italic: e.target.checked })
+      }
+    />
+    Kursiv
+  </label>
+
+  <label className="flex items-center gap-2">
+    <input
+      type="checkbox"
+      checked={headingStyles.underline}
+      onChange={(e) =>
+        setHeadingStyles({ ...headingStyles, underline: e.target.checked })
+      }
+    />
+    Unterstrichen
+  </label>
+</fieldset>
+
+
           </div>
         )}
 
@@ -270,6 +346,7 @@ const liveConfig = {
       bold: true,
       italic: false,
       underline: false,
+      weight: 700,
       color: "#111827",
     });
     setArrowColor("#ffffff");
