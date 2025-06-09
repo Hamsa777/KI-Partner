@@ -37,20 +37,25 @@ export default function FeedbackCard({
   }
    else if (stylePreset === "flat") {
     boxClasses += " bg-transparent border border-gray-200 shadow-none";
-  } else {
-    boxClasses += " bg-white shadow-lg"; // default: classic
-  }
+  } else if (stylePreset === "transparent") {
+  boxClasses += " bg-white/20 backdrop-blur-sm border border-white/30 shadow-md";
+}
+ else {
+  boxClasses += " bg-white shadow-lg"; // default: classic
+}
+
   
   return (
     <div className="min-w-[260px] max-w-[260px] flex-shrink-0">
       <div
   className={`${boxClasses} ${expanded ? "" : "min-h-[120px]"}`}
-        style={{
-          backgroundColor: accentColor,
-          borderRadius: boxRadius,
-          position: "relative",
-          minHeight: "115px",
-        }}
+       style={{
+  backgroundColor: stylePreset === "transparent" ? "transparent" : accentColor,
+  borderRadius: boxRadius,
+  position: "relative",
+  minHeight: "115px",
+}}
+
       >
       
       {/* Name + Badge + Sterne */}

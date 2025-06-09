@@ -134,7 +134,7 @@ export default function Kundenfeedback() {
     rel="noopener noreferrer"
     className="inline-block mt-10 px-6 py-3 bg-[#283593] text-white text-sm font-medium rounded-full shadow hover:bg-[#1f2d66] transition"
   >
-    Jetzt testen
+    Kostenlos testen
   </a>
 </motion.div>
 

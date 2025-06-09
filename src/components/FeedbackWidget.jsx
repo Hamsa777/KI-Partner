@@ -133,14 +133,17 @@ useEffect(() => {
   const visible = Math.min(visibleCards, 4);
   const containerWidth = visible * cardWidth + (visible - 1) * gap;
 
-  const widgetClasses = [
-    "space-y-4 p-4 relative transition-all mx-auto",
-    widgetStylePreset === "glass"
-      ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
-      : widgetStylePreset === "flat"
-      ? "bg-transparent border border-gray-200 shadow-none"
-      : "bg-white shadow-xl",
-  ].join(" ");
+ const widgetClasses = [
+  "space-y-4 p-4 relative transition-all mx-auto",
+  widgetStylePreset === "glass"
+    ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+    : widgetStylePreset === "flat"
+    ? "bg-transparent border border-gray-200 shadow-none"
+    : widgetStylePreset === "transparent"
+    ? "bg-transparent border-none shadow-none"
+    : "bg-white shadow-xl",
+].join(" ");
+
 
  const headingStyle = {
   fontSize: headingFontSize,

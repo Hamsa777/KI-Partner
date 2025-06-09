@@ -140,7 +140,7 @@ const liveConfig = {
 
   return (
     <div className="min-h-screen bg-gray-50 p-10 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-10 text-center">Ihr personalisierter Embed-Code</h1>
+      <h1 className="text-2xl font-bold mb-10 text-center">Ihr personalisiertes Feedbackwidget</h1>
 
       <div className="w-full max-w-2xl">
         <div className="flex space-x-4 mb-6 border-b">
@@ -263,12 +263,18 @@ const liveConfig = {
               </select>
             </label>
             <label>Box-Stil:
-              <select className="w-full p-2 border" value={stylePreset} onChange={(e) => setStylePreset(e.target.value)}>
-                <option value="classic">Classic Shadow</option>
-                <option value="glass">Glass Look</option>
-                <option value="flat">Minimal Flat</option>
-              </select>
-            </label>
+            <select
+              className="w-full p-2 border"
+              value={stylePreset}
+              onChange={(e) => setStylePreset(e.target.value)}
+            >
+              <option value="classic">Classic Shadow</option>
+              <option value="glass">Glass Look</option>
+              <option value="flat">Minimal Flat</option>
+              <option value="transparent">Transparent</option> {/* ✅ NEU */}
+            </select>
+          </label>
+
             <label>Widget-Abrundung:
               <input type="number" min="0" max="60" className="w-full p-2 border" value={parseInt(radius)} onChange={(e) => setRadius(`${e.target.value}px`)} />
             </label>
