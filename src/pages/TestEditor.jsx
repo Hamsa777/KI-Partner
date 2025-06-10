@@ -112,7 +112,7 @@ export default function TestEditor() {
             <label>Box-Stil:<select className="w-full p-2 border" value={stylePreset} onChange={(e) => setStylePreset(e.target.value)}><option value="classic">Classic Shadow</option><option value="glass">Glass Look</option><option value="flat">Minimal Flat</option> <option value="transparent">Transparent</option> {/* ✅ NEU */}</select></label>
             <label>Widget-Abrundung:<input type="number" min="0" max="60" className="w-full p-2 border" value={parseInt(radius)} onChange={(e) => setRadius(`${e.target.value}px`)} /></label>
             <label>Box-Abrundung:<input type="number" min="0" max="60" className="w-full p-2 border" value={parseInt(boxRadius)} onChange={(e) => setBoxRadius(`${e.target.value}px`)} /></label>
-            <label>Anzahl sichtbarer Bewertungen:<select className="w-full p-2 border" value={visibleCards} onChange={(e) => setVisibleCards(Number(e.target.value))}>{[1, 2, 3, 4, 5].map((num) => (<option key={num} value={num}>{num}</option>))}</select></label>
+            <label>Anzahl sichtbarer Bewertungen:<select className="w-full p-2 border" value={visibleCards} onChange={(e) => setVisibleCards(Number(e.target.value))}>{[1, 2, 3, 4].map((num) => (<option key={num} value={num}>{num}</option>))}</select></label>
           </div>
         )}
 
