@@ -21,7 +21,7 @@ export default function ServiceCards() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {services.map(({ id, title, description, icon, url, isExternal }) => {
-          const isPreview = id === "telefon";
+          const isPreview = id === "telefon" || id === "chatbot";
           const IconComponent = Icons[icon];
           const HourglassIcon = Icons.FaHourglassHalf;
 
