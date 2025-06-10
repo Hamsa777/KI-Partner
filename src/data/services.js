@@ -14,7 +14,7 @@ export const services = [
     description: "Automatisieren Sie häufige Fragen und entlasten Sie Ihr Team – 24/7 erreichbar.",
     id: "chatbots",
     icon: "FaRobot",
-    url: "/chatbots",
+    url: "#",         ///chatbots
     isExternal: false
   },
   {
