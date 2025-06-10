@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FeedbackWidget from "../components/FeedbackWidget";
 import GoogleFontSelector from "../components/GoogleFontSelector"; // Pfad ggf. anpassen
-import ReviewManager from "./ReviewManager";
+
 
 export default function WidgetEditor() {
   const { firmaId } = useParams();
-  
 const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
 const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
 const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
@@ -288,7 +287,7 @@ const liveConfig = {
     value={visibleCards}
     onChange={(e) => setVisibleCards(Number(e.target.value))}
   >
-    {[1, 2, 3, 4, 5].map((num) => (
+    {[1, 2, 3, 4].map((num) => (
       <option key={num} value={num}>{num}</option>
     ))}
   </select>
@@ -339,38 +338,55 @@ const liveConfig = {
 
           <button
   className="px-6 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300 transition"
-  onClick={() => {
-    setColor("#ffffff"); // Hintergrund
-    setAccentColor("#f3f4f6"); // Box-Hintergrund
-    setTextColor("#111827");
-    setFont("Inter");
+  onClick={async () => {
+    try {
+      const res = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json`);
+      if (!res.ok) throw new Error("Fehler beim Laden der Serverdaten");
+      const data = await res.json();
 
-    setRadius("35px");
-    setBoxRadius("35px");
-    setLogoUrl("");
-    setHeadingFontSize("29px");
-    setHeadingStyles({
-      bold: true,
-      italic: false,
-      underline: false,
-      weight: 700,
-      color: "#111827",
-    });
-    setArrowColor("#ffffff");
-    setArrowBgColor("#111827");
-    setWidgetStylePreset("glass");
-    setStylePreset("flat");
-    setBackgroundImageUrl("");
+      setLogoSize(data.logoSize ?? "60px");
+      setColor(data.color ?? "#ffffff");
+      setAccentColor(data.accentColor ?? "#f3f4f6");
+      setTextColor(data.textColor ?? "#111827");
+      setFont(typeof data.font === "string" ? data.font : "Inter");
+      setRadius(data.radius ?? "35px");
+      setBoxRadius(data.boxRadius ?? "35px");
+      setCustomTitle(data.customTitle ?? "Das sagen unsere Kunden");
+      setLogoUrl(data.logoUrl ?? "");
+      setHeadingFontSize(data.headingFontSize ?? "29px");
+      setArrowColor(data.arrowColor ?? "#ffffff");
+      setArrowBgColor(data.arrowBgColor ?? "#111827");
+      setWidgetStylePreset(data.widgetStylePreset ?? "glass");
+      setStylePreset(data.stylePreset ?? "flat");
+      setBackgroundImageUrl(data.backgroundImageUrl ?? "");
+      setVisibleCards(data.visibleCards ?? 3);
+      setHeadingStyles({
+        bold: data.headingStyles?.bold ?? true,
+        italic: data.headingStyles?.italic ?? false,
+        underline: data.headingStyles?.underline ?? false,
+        color: data.headingStyles?.color ?? "#111827",
+        weight: data.headingStyles?.weight ?? 700,
+      });
+
+      alert("✅ Server-Konfiguration wurde geladen!");
+
+    } catch (error) {
+      console.error("Fehler beim Zurücksetzen:", error);
+      alert("❌ Fehler beim Zurücksetzen auf Serverdaten");
+    }
   }}
 >
-  Zurücksetzen auf Standardwerte
+  Zurücksetzen auf zuletzt gespeichert
 </button>
+
+
+
 
         </div>
       </div>
 
       <button
-  className="mt-4 px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition"
+  className="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-900 transition"
   onClick={async () => {
     try {
       const response = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}`, {
