@@ -14,7 +14,7 @@ export default function ModernChatWidget() {
   const toggleButtonRef = useRef(null);
 
   const config = {
-    endpoint: "http://91.99.76.52:8000/bot",
+    endpoint: "http://91.99.76.52:8001/bot",
     welcomeMessage: "Willkommen! Wie kann ich dir helfen?",
     botAvatar: logo,
     userAvatar: "https://cdn-icons-png.flaticon.com/512/847/847969.png",

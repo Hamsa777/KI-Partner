@@ -21,6 +21,7 @@ import EmbedPage from "./pages/EmbedPage.jsx";
 import WidgetEditor from "./pages/WidgetEditor.jsx";
 import WidgetBotCode from "./pages/WidgetBotCode.jsx";
 import TestEditor from "./pages/TestEditor.jsx";
+import ChatBotEditor from "./pages/ChatBotEditor";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -46,7 +47,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/embed/demo" element={<EmbedDemo />} />
         <Route path="/widgetbotcode/:firmaId" element={<WidgetBotCode />} />
         <Route path="/TestEditor/" element={<TestEditor />} />
-       
+        <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />
 
       </Routes>
     </BrowserRouter>

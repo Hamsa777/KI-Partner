@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.9.0",
     "framer-motion": "^12.7.3",
     "lucide-react": "^0.507.0",
     "puppeteer": "^24.8.2",

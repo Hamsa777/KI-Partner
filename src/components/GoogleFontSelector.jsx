@@ -3,7 +3,7 @@ const googleFonts = [
   "Raleway", "Ubuntu", "Nunito", "Work Sans", "Quicksand", "Rubik",
   "Merriweather", "DM Sans", "Oswald", "Manrope", "Playfair Display",
   "Karla", "Fira Sans","Cabin", "Kanit", "Urbanist", "Rajdhani",
-  "Exo 2", "Audiowide", "Saira Semi Condensed"
+  "Exo 2", "Audiowide", "Saira Semi Condensed", "Pirata One"
 ];
 
 export default function GoogleFontSelector({ font, setFont }) {

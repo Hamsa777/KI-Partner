@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FeedbackWidget from "../components/FeedbackWidget";
 import GoogleFontSelector from "../components/GoogleFontSelector"; // Pfad ggf. anpassen
+import ReviewManager from "./ReviewManager";
 
 export default function WidgetEditor() {
   const { firmaId } = useParams();
