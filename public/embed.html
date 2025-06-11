@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Feedback Widget</title>
+
+    <!-- React CDN -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Optional: Deine eigene CSS-Datei (empfohlen für Styling) -->
+    <link rel="stylesheet" href="https://www.ki-partner24.de/embed.css" />
+
     <style>
       body {
         margin: 0;
@@ -12,21 +18,46 @@
         font-family: sans-serif;
         background: transparent;
       }
+
+      .feedback-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        padding: 15px;
+        margin-bottom: 12px;
+        border-left: 4px solid #ca1b5a;
+      }
+
+      .feedback-name {
+        font-weight: bold;
+        color: #111;
+      }
+
+      .feedback-comment {
+        display: block;
+        margin-top: 4px;
+        color: #444;
+      }
+
+      .feedback-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 15px;
+      }
     </style>
   </head>
   <body>
     <div id="widget-root"></div>
 
     <script>
-      console.log("✅ FeedbackWidget direkt geladen");
+      console.log("✅ FeedbackWidget geladen");
 
       (function () {
-        const { useState, useEffect, useRef } = React;
+        const { useState, useEffect } = React;
 
         function FeedbackWidget({ firmaId }) {
           const [bewertungen, setBewertungen] = useState([]);
           const [loading, setLoading] = useState(true);
-          const ref = useRef(null);
 
           useEffect(() => {
             fetch(`https://feedback.ki-partner24.de/api/feedback/${firmaId}`)
@@ -34,43 +65,30 @@
               .then((data) => {
                 setBewertungen(data);
                 setLoading(false);
-              });
+              })
+              .catch(() => setLoading(false));
           }, [firmaId]);
 
           return React.createElement(
             "div",
-            {
-              style: {
-                padding: "10px",
-                background: "#fff",
-                borderRadius: "8px",
-                maxWidth: "600px",
-                margin: "0 auto",
-              },
-            },
+            { className: "feedback-wrapper" },
             loading
               ? "Lade Feedback..."
+              : bewertungen.length === 0
+              ? "Noch keine Bewertungen vorhanden."
               : bewertungen.map((b, i) =>
                   React.createElement(
                     "div",
-                    {
-                      key: i,
-                      style: {
-                        marginBottom: "12px",
-                        borderBottom: "1px solid #eee",
-                        paddingBottom: "8px",
-                      },
-                    },
-                    React.createElement("strong", null, b.name + ": "),
-                    React.createElement("span", null, b.comment)
+                    { className: "feedback-card", key: i },
+                    React.createElement("span", { className: "feedback-name" }, b.name),
+                    React.createElement("span", { className: "feedback-comment" }, b.comment)
                   )
                 )
           );
         }
 
-        // 👇 Firma-ID aus der URL lesen
         const urlParams = new URLSearchParams(window.location.search);
-        const firmaId = urlParams.get("firmaId") || "demo123"; // fallback für Tests
+        const firmaId = urlParams.get("firmaId") || "demo123";
 
         const root = document.getElementById("widget-root");
         ReactDOM.createRoot(root).render(

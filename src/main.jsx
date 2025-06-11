@@ -22,6 +22,7 @@ import WidgetEditor from "./pages/WidgetEditor.jsx";
 import WidgetBotCode from "./pages/WidgetBotCode.jsx";
 import TestEditor from "./pages/TestEditor.jsx";
 import ChatBotEditor from "./pages/ChatBotEditor";
+import WidgetVorschau from "./components/WidgetVorschau";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -48,6 +49,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/widgetbotcode/:firmaId" element={<WidgetBotCode />} />
         <Route path="/TestEditor/" element={<TestEditor />} />
         <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />
+        <Route path="/widgetvorschau" element={<WidgetVorschau />} />
 
       </Routes>
     </BrowserRouter>

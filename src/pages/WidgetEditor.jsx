@@ -23,6 +23,7 @@ const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
 const [visibleCards, setVisibleCards] = useState(3); // Standard z. B. 3
 const [serverConfig, setServerConfig] = useState(null);
 const [logoSize, setLogoSize] = useState("60px"); // z. B. Standardgröße
+const [backgroundImagePosition, setBackgroundImagePosition] = useState({ x: 50, y: 50 });
 
 const [headingStyles, setHeadingStyles] = useState({
   bold: true,
@@ -70,6 +71,7 @@ useEffect(() => {
       setWidgetStylePreset(data.widgetStylePreset ?? "glass");
       setStylePreset(data.stylePreset ?? "flat");
       setBackgroundImageUrl(data.backgroundImageUrl ?? "");
+      setBackgroundImagePosition(data.backgroundImagePosition ?? { x: 50, y: 50 });
       setVisibleCards(data.visibleCards ?? 3);
       setHeadingStyles({
   bold: data.headingStyles?.bold ?? true,
@@ -107,6 +109,7 @@ useEffect(() => {
     stylePreset,
     backgroundImageUrl,
     visibleCards,
+    backgroundImagePosition,
 
   };
 
@@ -135,7 +138,9 @@ const liveConfig = {
   widgetStylePreset,
   stylePreset,
   backgroundImageUrl,
+  backgroundImagePosition,
   visibleCards,
+  setBackgroundImagePosition,
 };
 
   return (
@@ -328,7 +333,8 @@ const liveConfig = {
      <div className="w-full overflow-x-auto mt-12">
   <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
   <div className="min-w-fit mx-auto">
-   <FeedbackWidget firmaId={firmaId} config={liveConfig} />
+   <FeedbackWidget firmaId={firmaId} config={liveConfig} editorMode={true} backgroundImagePosition={backgroundImagePosition}
+  setBackgroundImagePosition={setBackgroundImagePosition}/>
 
 
 

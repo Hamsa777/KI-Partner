@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaComments, FaShoppingCart } from "react-icons/fa";
 import { HiClipboardDocumentCheck } from "react-icons/hi2";
 import { motion } from "framer-motion";
+import MyWidget from "../components/feedbackwidget/MyWidget";
 
 export default function Kundenfeedback() {
   return (
@@ -114,6 +115,7 @@ export default function Kundenfeedback() {
               </motion.div>
             ))}
           </div>
+          
         </section>
 
         <motion.div
@@ -128,6 +130,7 @@ export default function Kundenfeedback() {
   transition={{ duration: 0.5, delay: 0.4 }}
   viewport={{ once: true }}
 >
+  
   <a
     href="https://www.ki-partner24.de/testeditor"
     target="_blank"
@@ -136,7 +139,7 @@ export default function Kundenfeedback() {
   >
     Kostenlos testen
   </a>
-</motion.div>
+</motion.div> 
 
           <Link
             to="/"
@@ -147,5 +150,7 @@ export default function Kundenfeedback() {
         </motion.div>
       </motion.div>
     </section>
+    
   );
+  
 }

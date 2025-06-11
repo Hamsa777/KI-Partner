@@ -13,6 +13,7 @@ export default function KIPartnerLanding() {
       <ServiceCards />
       <Warum />
       <MyWidget />
+    
       <ContactSection />
       <Footer />
       <WidgetBot /> 

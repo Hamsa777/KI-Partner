@@ -3,14 +3,51 @@ import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import sampleData from "../assets/sampleData.json";
 
-export default function FeedbackWidget({ firmaId, config: propConfig }) {
+export default function FeedbackWidget({
+  firmaId,
+  config: propConfig,
+  editorMode = false,
+  backgroundImagePosition,
+  setBackgroundImagePosition
+}) {
   const [config, setConfig] = useState(null);
   const [bewertungen, setBewertungen] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fontLoaded, setFontLoaded] = useState(false);
   const containerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef(null);
   
+
+
+
+  useEffect(() => {
+  const handleMouseMove = (e) => {
+    if (!isDragging || !dragRef.current) return;
+    const rect = dragRef.current.getBoundingClientRect();
+    const x = 100 - ((e.clientX - rect.left) / rect.width) * 100;
+    const y = 100 - ((e.clientY - rect.top) / rect.height) * 100;
+
+
+    if (config?.setBackgroundImagePosition) {
+      config.setBackgroundImagePosition({
+        x: Math.min(100, Math.max(0, x)),
+        y: Math.min(100, Math.max(0, y)),
+      });
+    }
+  };
+
+  const stopDragging = () => setIsDragging(false);
+
+  window.addEventListener("mousemove", handleMouseMove);
+  window.addEventListener("mouseup", stopDragging);
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("mouseup", stopDragging);
+  };
+}, [isDragging, config]);
+
   
   useEffect(() => {
   if (propConfig) {
@@ -134,7 +171,7 @@ useEffect(() => {
   const containerWidth = visible * cardWidth + (visible - 1) * gap;
 
  const widgetClasses = [
-  "space-y-4 p-4 relative transition-all mx-auto",
+  "p-2 pt-3 pb-4 relative transition-all mx-auto",
   widgetStylePreset === "glass"
     ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
     : widgetStylePreset === "flat"
@@ -190,18 +227,27 @@ useEffect(() => {
 
   return (
     <div
-      className={widgetClasses}
-      style={{
-        backgroundColor: backgroundImageUrl ? undefined : color,
-        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        fontFamily: `'${config.font}', sans-serif`,
-        borderRadius: radius,
-        maxWidth: `${containerWidth + 80}px`,
-      }}
-    >
+  ref={dragRef}
+  onMouseDown={() => editorMode && setIsDragging(true)}
+  className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
+  style={{
+    backgroundColor: backgroundImageUrl ? undefined : color,
+    backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: backgroundImageUrl
+  ? `${(backgroundImagePosition?.x ?? 50)}% ${(backgroundImagePosition?.y ?? 50)}%`
+  : "center",
+
+    fontFamily: `'${config.font}', sans-serif`,
+    borderRadius: radius,
+    maxWidth: `${containerWidth + 80}px`,
+    cursor: editorMode && backgroundImageUrl ? "grab" : "default",
+    userSelect: editorMode ? "none" : "auto",
+
+  }}
+>
+
       <div className="relative flex justify-center items-center">
         <h2 className="text-3xl text-center" style={headingStyle}>
           {customTitle}
