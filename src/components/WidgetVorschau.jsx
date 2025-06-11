@@ -20,7 +20,8 @@ const WidgetVorschau = () => {
       </p>
 
       {demoFirmaIds.map((id, index) => (
-        <div key={id} className="w-full px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div key={id} className="w-full max-w-6xl mx-auto mb-12">
+
 
           <h2 className="text-center font-semibold text-base mt-2 mb-2">
             Vorschau: Widget {index + 1}

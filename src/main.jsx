@@ -51,6 +51,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />
         <Route path="/widgetvorschau" element={<WidgetVorschau />} />
 
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

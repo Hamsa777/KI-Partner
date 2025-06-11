@@ -27,6 +27,7 @@ export default function FeedbackWidget({
     if (!isDragging || !dragRef.current) return;
     const rect = dragRef.current.getBoundingClientRect();
     const x = 100 - ((e.clientX - rect.left) / rect.width) * 100;
+
     const y = 100 - ((e.clientY - rect.top) / rect.height) * 100;
 
 
@@ -171,7 +172,7 @@ useEffect(() => {
   const containerWidth = visible * cardWidth + (visible - 1) * gap;
 
  const widgetClasses = [
-  "p-2 pt-3 pb-4 relative transition-all mx-auto",
+  "space-y-4 p-4 relative transition-all mx-auto",
   widgetStylePreset === "glass"
     ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
     : widgetStylePreset === "flat"
