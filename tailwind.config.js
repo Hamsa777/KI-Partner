@@ -7,5 +7,5 @@ export default {
         futuristic: "url('/bg/futuristic-blue.svg')",
       },},
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [],
 }
