@@ -6,10 +6,9 @@ const MotionLink = motion(Link);
 
 const demoFirmaIds = [
   "e7205931",
+   "d6877aa9",
   "2ab3e141",
-  "1930e89f",
-  "4854c86e",
-  "d6877aa9"
+  "4854c86e"
 ];
 
 const WidgetVorschau = () => {

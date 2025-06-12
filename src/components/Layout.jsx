@@ -1,6 +1,6 @@
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
-import ChatbotWidget from "./WidgetBot"; // <-- import hinzufügen
+//import ChatbotWidget from "./WidgetBot"; // <-- import hinzufügen
 //import BackgroundLayer from "./BackgroundLayer"; <BackgroundLayer />
 
 
@@ -13,8 +13,8 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Chatbot unten rechts */}
-      <ChatbotWidget />
+      {/* <ChatbotWidget />*/}
+ 
     </>
   );
 }

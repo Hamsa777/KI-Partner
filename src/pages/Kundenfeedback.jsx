@@ -38,14 +38,17 @@ export default function Kundenfeedback() {
   Einfach, automatisiert, professionell.
 </motion.p>
 
-        <motion.a
-          href="/widgetvorschau"
-          whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
-          transition={{ duration: 0.3 }}
-          className="inline-block bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium mt-8"
-        >
-          Jetzt Beispiel Designs ansehen
-        </motion.a>
+       <motion.a
+  href="/widgetvorschau"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+  transition={{ duration: 0.3 }}
+  className="inline-block bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium mt-8"
+>
+  Jetzt Beispiel Designs ansehen
+</motion.a>
+
 
         {/* Haupt-Card */}
         <motion.div
@@ -101,10 +104,23 @@ export default function Kundenfeedback() {
 
           <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
   {[
+    // Schritt 1
     "Nach dem Kauf werden Sie automatisch auf unser Onboarding-Formular weitergeleitet. Dort hinterlegen Sie Firmenname, E-Mail-Adresse, Ihre Branche und eine kurze Unternehmensbeschreibung – diese Angaben nutzt unsere KI, um individuelle Antwortvorschläge zu erstellen.",
-    'Direkt nach dem Onboarding erhalten Sie per E-Mail:\n– den Link zum <a href="https://tally.so/r/nrqqNL" target="_blank" rel="noopener noreferrer" class="text-[#283593] underline font-medium">KI-Partner Bewertungsformular</a>\n– ein Google Sheet zur Einsicht aller Bewertungen\n– und Ihren persönlichen Editor-Link zur Anpassung des Feedback-Widgets.',
-    "Sie können das Formular selbst nutzen oder bequem an Ihre Kunden weiterleiten – z. B. per E-Mail, in der Fußzeile von Bestellbestätigungen oder über QR-Codes. Alle Bewertungen erscheinen automatisch in Ihrem Widget – inklusive KI-gestütztem Antwortvorschlag.",
+    
+    // Schritt 2 (mit Aufzählungen, KI-Vorschlag + Trustpilot-Hinweis)
+    'Direkt nach dem Onboarding erhalten Sie per E-Mail:<br /><br />' +
+    '• den Link zum <a href="https://tally.so/r/nrqqNL" target="_blank" rel="noopener noreferrer" class="text-[#283593] underline font-medium">KI-Partner Bewertungsformular</a><br />' +
+    '• ein Google Sheet mit allen eingehenden Bewertungen inklusive passender KI-Antwortvorschläge<br />' +
+    '• Ihren persönlichen Editor-Link zur Anpassung des Feedback-Widgets<br /><br />' +
+    'Tipp: Auch bestehende Bewertungen (z. B. von Google, Trustpilot oder ProvenExpert) können ganz einfach manuell über das Formular eingereicht und im Widget angezeigt werden.',
+
+    // Schritt 3
+    "Sie können das Formular selbst nutzen oder bequem an Ihre Kunden weiterleiten – z. B. per E-Mail, in der Fußzeile von Bestellbestätigungen oder über QR-Codes. Alle Bewertungen erscheinen automatisch in Ihrem Widget.",
+
+    // Schritt 4
     "Im Widget-Editor passen Sie Farben, Schrift, Stil, Rahmen, Logo und Überschrift individuell an. Ihre Einstellungen werden gespeichert und ein persönlicher Embed-Code generiert – kopierfertig für Ihre Website.",
+
+    // Schritt 5
     "Nach dem Einfügen erscheint Ihr Widget im Livebetrieb – mit echtem Feedback, professionellem Design und automatisierter Verwaltung. So stärken Sie Vertrauen, steigern Conversions und präsentieren Ihr Unternehmen von der besten Seite."
   ].map((text, i) => (
     <motion.div
@@ -121,11 +137,12 @@ export default function Kundenfeedback() {
 
       <p
         className="text-gray-700 text-base sm:text-lg"
-        dangerouslySetInnerHTML={{ __html: text.replace(/\n/g, "<br />") }}
+        dangerouslySetInnerHTML={{ __html: text }}
       />
     </motion.div>
   ))}
 </div>
+
 
           
         </section>

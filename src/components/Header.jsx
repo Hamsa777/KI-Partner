@@ -15,11 +15,12 @@ export default function Header() {
           <Link to="/ueberuns" className="hover:underline text-gray-800">
             Über uns
           </Link>
-          <Link to="/ablauf" className="hover:underline text-gray-800">
+        {/*  <Link to="/ablauf" className="hover:underline text-gray-800">
             Ablauf
           </Link>
+          */}
         </div>
-
+           
         {/* Logo & Slogan – sauber mittig */}
         <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center pt-1">
           <Link to="/" className="flex items-center cursor-pointer mt-2">
