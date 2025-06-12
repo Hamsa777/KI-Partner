@@ -37,24 +37,28 @@ export default function Header() {
 
         {/* Rechte Navigation */}
         <div className="flex items-center space-x-4 text-sm sm:text-base pt-1">
-          <Link
-            to="/dokumenten-automatisierung"
-            className="hover:underline text-gray-800"
-          >
-            Demo testen
-          </Link>
+  <a
+    href="/testeditor"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline text-gray-800"
+  >
+    Kostenlos testen
+  </a>
 
-          <MotionLink
-            to="/kontakt"
-            whileHover={{
-              scale: 1.02,
-              backgroundColor: "#1a237e",
-            }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-[#283593] text-white px-4 py-1.5 rounded-full"
-          >
-            Kontakt
-          </MotionLink>
+
+
+          <motion.a
+  href="mailto:kontakt@ki-partner24.de"
+  whileHover={{
+    scale: 1.02,
+    backgroundColor: "#1a237e",
+  }}
+  transition={{ duration: 0.3, ease: "easeOut" }}
+  className="bg-[#283593] text-white px-4 py-1.5 rounded-full"
+>
+  Kontakt
+</motion.a>
         </div>
       </div>
     </header>

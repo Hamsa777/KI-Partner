@@ -25,18 +25,32 @@ export default function Kundenfeedback() {
           KI-gestütze Feedback Automation
         </motion.h1>
 
-       <motion.p
+     <motion.p
   initial={{ opacity: 0 }}
   whileInView={{ opacity: 1 }}
   transition={{ duration: 0.4, delay: 0.2 }}
   viewport={{ once: true }}
   className="text-gray-700 text-lg leading-relaxed mb-4"
 >
-  Präsentieren Sie echte Kundenbewertungen direkt auf Ihrer Website, für mehr Vertrauen und höhere Conversions.  
-  Mit unserem KI-gestützten System sammeln Sie Feedback automatisch über das <strong className="text-black">KI-Partner Bewertungsformular</strong> und zeigen es live im <strong className="text-black">individuell gestaltbaren Feedback-Widget</strong> an.  
-  Die integrierte KI liefert <strong className="text-black">wertvolle Verbesserungsvorschläge</strong> auf jede Bewertung – abgestimmt auf Ihre Branche.  
-  Einfach, automatisiert, professionell.
+  <a
+    href="https://www.qualtrics.com/blog/online-review-stats/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-600 underline"
+  >
+    Statistisch
+  </a>{" "}
+  gesehen informieren sich 90 % der Kunden vor dem Kauf über Bewertungen – Vertrauen ist kaufentscheidend.  
+  Genau hier setzen wir mit unserem KI-gestützten Bewertungssystem an: <br />Es sammelt Bewertungen automatisch über das{" "}
+  <strong className="text-black">KI-Partner Bewertungsformular</strong> und zeigt sie live im{" "}
+  <strong className="text-black">individuell gestaltbaren Feedback-Widget</strong> an.  
+  Dazu liefert Ihnen unsere integrierte KI basierend auf den Feedbacks und Ihrer Branche{" "}
+  <strong className="text-black">wertvolle Verbesserungsvorschläge</strong>, die Sie in Ihrem Unternehmen umsetzen können.<br />
+  Mehr Vertrauen, mehr Verkäufe – mit KI-gestütztem Social Proof auf Ihrer Website.
 </motion.p>
+
+
+
 
        <motion.a
   href="/widgetvorschau"
@@ -105,12 +119,12 @@ export default function Kundenfeedback() {
           <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
   {[
     // Schritt 1
-    "Nach dem Kauf werden Sie automatisch auf unser Onboarding-Formular weitergeleitet. Dort hinterlegen Sie Firmenname, E-Mail-Adresse, Ihre Branche und eine kurze Unternehmensbeschreibung – diese Angaben nutzt unsere KI, um individuelle Antwortvorschläge zu erstellen.",
+    "Nach dem Kauf werden Sie automatisch auf unser Onboarding-Formular weitergeleitet. Dort hinterlegen Sie Firmenname, E-Mail-Adresse, Ihre Branche und eine kurze Unternehmensbeschreibung – diese Angaben nutzt unsere KI, um individuelle Verbesserungsvorschläge zu generieren.",
     
     // Schritt 2 (mit Aufzählungen, KI-Vorschlag + Trustpilot-Hinweis)
     'Direkt nach dem Onboarding erhalten Sie per E-Mail:<br /><br />' +
     '• den Link zum <a href="https://tally.so/r/nrqqNL" target="_blank" rel="noopener noreferrer" class="text-[#283593] underline font-medium">KI-Partner Bewertungsformular</a><br />' +
-    '• ein Google Sheet mit allen eingehenden Bewertungen inklusive passender KI-Antwortvorschläge<br />' +
+    '• ein Google Sheet mit allen eingehenden Bewertungen inklusive passender KI-Verbesserungsvorschläge<br />' +
     '• Ihren persönlichen Editor-Link zur Anpassung des Feedback-Widgets<br /><br />' +
     'Tipp: Auch bestehende Bewertungen (z. B. von Google, Trustpilot oder ProvenExpert) können ganz einfach manuell über das Formular eingereicht und im Widget angezeigt werden.',
 

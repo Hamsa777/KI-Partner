@@ -11,7 +11,7 @@ export default function MyWidget() {
       <iframe
         src="https://www.ki-partner24.de/embed/ffc5042a"
         width="100%"
-        height="360"
+        height="280"
         style={{ border: "none", display: "block" }}
         loading="lazy"
         title="Kundenbewertungen Widget"

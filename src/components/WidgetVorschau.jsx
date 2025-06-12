@@ -6,7 +6,7 @@ const MotionLink = motion(Link);
 
 const demoFirmaIds = [
   "e7205931",
-   "d6877aa9",
+  "d6877aa9",
   "2ab3e141",
   "4854c86e"
 ];
@@ -30,7 +30,7 @@ const WidgetVorschau = () => {
           <iframe
             src={`https://www.ki-partner24.de/embed/${id}`}
             width="100%"
-            height="360"
+            height="300"
             style={{ border: "none", display: "block" }}
             loading="lazy"
             title={`Kundenbewertungen Widget ${id}`}

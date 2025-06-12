@@ -245,7 +245,8 @@ useEffect(() => {
 
     fontFamily: `'${config.font}', sans-serif`,
     borderRadius: radius,
-    maxWidth: `${containerWidth + 80}px`,
+    maxWidth: `${containerWidth}px`,
+
     cursor: editorMode && backgroundImageUrl ? "grab" : "default",
     userSelect: editorMode ? "none" : "auto",
 
