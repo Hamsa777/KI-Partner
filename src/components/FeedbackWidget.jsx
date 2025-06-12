@@ -8,7 +8,7 @@ export default function FeedbackWidget({
   config: propConfig,
   editorMode = false,
   backgroundImagePosition,
-  setBackgroundImagePosition
+  setBackgroundImagePosition,
 }) {
   const [config, setConfig] = useState(null);
   const [bewertungen, setBewertungen] = useState([]);
@@ -148,6 +148,7 @@ useEffect(() => {
     color = "#ffffff",
     accentColor = "#f8f8f8",
     font = "Inter, sans-serif",
+    textFontSize = "14px",
     radius = "16px",
     boxRadius = "16px",
     customTitle = "Unsere Kundenbewertungen",
@@ -193,6 +194,7 @@ useEffect(() => {
   color: headingColor,
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale",
+  
 };
 
 
@@ -236,9 +238,10 @@ useEffect(() => {
     backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    backgroundPosition: backgroundImageUrl
-  ? `${(backgroundImagePosition?.x ?? 50)}% ${(backgroundImagePosition?.y ?? 50)}%`
+  backgroundPosition: backgroundImageUrl
+  ? `${config.backgroundImagePosition?.x ?? 50}% ${config.backgroundImagePosition?.y ?? 50}%`
   : "center",
+
 
     fontFamily: `'${config.font}', sans-serif`,
     borderRadius: radius,
@@ -303,6 +306,8 @@ useEffect(() => {
           dateColor={textColor}
           boxRadius={boxRadius}
           stylePreset={stylePreset}
+          textFontSize={textFontSize}
+
         />
       </div>
     ))}

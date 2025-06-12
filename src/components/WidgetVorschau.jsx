@@ -3,8 +3,8 @@ import React from "react";
 const demoFirmaIds = [
   "e7205931",
   "2ab3e141",
-  "98d3a258",
-  "ffc5042a",
+  "1930e89f",
+  "d6877aa9",
   "e6c9cef8"
 ];
 
@@ -20,7 +20,8 @@ const WidgetVorschau = () => {
       </p>
 
       {demoFirmaIds.map((id, index) => (
-        <div key={id} className="w-full max-w-6xl mx-auto mb-12">
+        <div key={id} className="w-full mx-auto mb-12">
+
 
 
           <h2 className="text-center font-semibold text-base mt-2 mb-2">

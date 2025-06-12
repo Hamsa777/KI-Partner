@@ -10,6 +10,7 @@ const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
 const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
 const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
 const [font, setFont] = useState("Inter"); // Nur Google-Font Name – ohne '', ohne Fallback
+const [textFontSize, setTextFontSize] = useState("14px");
 const [radius, setRadius] = useState("35px");
 const [boxRadius, setBoxRadius] = useState("35px");
 const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
@@ -91,27 +92,7 @@ useEffect(() => {
 
 
 
-  const config = {
-    color,
-    accentColor,
-    font,
-    radius,
-    logoUrl,
-    logoSize,
-    boxRadius,
-    headingStyles,
-    textColor,
-    headingFontSize,
-    customTitle,
-    arrowColor,
-    arrowBgColor,
-    widgetStylePreset,
-    stylePreset,
-    backgroundImageUrl,
-    visibleCards,
-    backgroundImagePosition,
-
-  };
+ 
 
   const iframeCode = `<iframe 
   src="https://www.ki-partner24.de/embed/${firmaId}"
@@ -125,6 +106,7 @@ const liveConfig = {
   color,
   accentColor,
   font,
+  textFontSize,
   radius,
   logoUrl,
   logoSize,
@@ -252,7 +234,20 @@ const liveConfig = {
     />
     Unterstrichen
   </label>
+  
 </fieldset>
+<label className="block font-medium mb-1">
+  Schriftgröße für Text (px):
+  <input
+    type="number"
+    min="10"
+    max="18"
+    className="w-full p-2 border"
+    value={parseInt(textFontSize)}
+    onChange={(e) => setTextFontSize(`${e.target.value}px`)}
+  />
+</label>
+
 
 
           </div>
@@ -333,8 +328,7 @@ const liveConfig = {
      <div className="w-full overflow-x-auto mt-12">
   <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
   <div className="min-w-fit mx-auto">
-   <FeedbackWidget firmaId={firmaId} config={liveConfig} editorMode={true} backgroundImagePosition={backgroundImagePosition}
-  setBackgroundImagePosition={setBackgroundImagePosition}/>
+   <FeedbackWidget firmaId={firmaId} config={liveConfig} editorMode={true}/>
 
 
 
@@ -373,7 +367,7 @@ const liveConfig = {
         color: data.headingStyles?.color ?? "#111827",
         weight: data.headingStyles?.weight ?? 700,
       });
-
+      setBackgroundImagePosition(data.backgroundImagePosition ?? { x: 50, y: 50 });
       alert("✅ Server-Konfiguration wurde geladen!");
 
     } catch (error) {
@@ -391,19 +385,40 @@ const liveConfig = {
         </div>
       </div>
 
-      <button
+     <button
   className="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-900 transition"
   onClick={async () => {
     try {
+      const configToSave = {
+        color,
+        accentColor,
+        font,
+        textFontSize,
+        radius,
+        logoUrl,
+        logoSize,
+        boxRadius,
+        headingStyles,
+        textColor,
+        headingFontSize,
+        customTitle,
+        arrowColor,
+        arrowBgColor,
+        widgetStylePreset,
+        stylePreset,
+        backgroundImageUrl,
+        visibleCards,
+        backgroundImagePosition, // ✅ wichtig
+      };
+
       const response = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(config),
+        body: JSON.stringify(configToSave),
       });
 
-      // ⛑ Falls keine JSON-Antwort zurückkommt (z. B. bei 500)
       let result = {};
       try {
         result = await response.json();
@@ -426,6 +441,7 @@ const liveConfig = {
 >
   Änderungen speichern
 </button>
+
 
 
 
