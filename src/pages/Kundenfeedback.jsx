@@ -25,18 +25,27 @@ export default function Kundenfeedback() {
           KI-gestütze Feedback Automation
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-gray-700 text-lg leading-relaxed mb-4"
+       <motion.p
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.4, delay: 0.2 }}
+  viewport={{ once: true }}
+  className="text-gray-700 text-lg leading-relaxed mb-4"
+>
+  Präsentieren Sie echte Kundenbewertungen direkt auf Ihrer Website, für mehr Vertrauen und höhere Conversions.  
+  Mit unserem KI-gestützten System sammeln Sie Feedback automatisch über das <strong className="text-black">KI-Partner Bewertungsformular</strong> und zeigen es live im <strong className="text-black">individuell gestaltbaren Feedback-Widget</strong> an.  
+  Die integrierte KI liefert <strong className="text-black">wertvolle Verbesserungsvorschläge</strong> auf jede Bewertung – abgestimmt auf Ihre Branche.  
+  Einfach, automatisiert, professionell.
+</motion.p>
+
+        <motion.a
+          href="/widgetvorschau"
+          whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+          transition={{ duration: 0.3 }}
+          className="inline-block bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium mt-8"
         >
-          Zeigen Sie Ihre Bewertungen auf Ihrer Webseite an und{" "}<strong className="text-black">steigern Sie somit Ihre Umsätze</strong>.
-          Neukunden möchten wissen welche Erfahrungen mit Ihrem Unternehmen gemacht wurden, um mit bestem Gewissen{" "}<strong className="text-black">Ihre Produkte oder Dienstleistungen zu erwerben</strong>.
-          Mit unserer KI-gestützten Lösung{" "}<strong className="text-black"></strong> sammeln Sie automatisiert Kundenbewertungen, welche zeitgleich in Ihrem {" "}<strong className="text-black">professionell konfigurierten Feedbackwidget </strong>landen.
-          Dazu erhalten Sie {" "}<strong className="text-black">wertvolle KI-Verbesserungsvorschläge </strong>als Antwort auf die Kundenbewertungen unter Berücksichtigung Ihrer Unternehmensbranche und Tätigkeit.
-        </motion.p>
+          Jetzt Beispiel Designs ansehen
+        </motion.a>
 
         {/* Haupt-Card */}
         <motion.div
@@ -51,7 +60,7 @@ export default function Kundenfeedback() {
             <FaComments className="text-4xl mb-4 text-[#283593]" />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Kundenfeedback-System</h3>
             <p className="text-sm text-gray-600">
-              Bewertungen sammeln und automatisch anzeigen lassen.
+              Kundenfeedback erfassen, KI-basiert auswerten & automatisch auf Ihrer Website präsentieren.
             </p>
           </div>
 
@@ -91,30 +100,33 @@ export default function Kundenfeedback() {
           </motion.h2>
 
           <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
-            {[
-              "Nachdem Kauf werden Sie weitergeleitet auf das Onboarding-Formular für Ihr Unternehmen. Pflichtabfragen sind: Firmenname, Email-Adresse, Unternehmensbranche und Unternehmensbeschreibung. (Branche und Beschreibung werden benötigt um KI-Vorschläge mit Berücksichtigung auf Ihr Unternehmen zu generieren.)",
-              "Nachdem Sie ongeboardet werden, erhalten Sie per Mail einen Link zum Feedbackformular um Bewertungen von Ihren Kunden zu sammeln, einen Google-sheets Link, welcher die Bewertungen Ihrer Kunden speichert inklusive eines hochintelligenten KI-Vorschlags und den Link zu Ihrem persönlichen Widgeteditor für maximale Individualisierung.",
-              "Sie können über das Feedbackformular eigene Bewertungen schreiben oder den Link Ihren Kunden schicken beispielsweise in der Fusszeile Ihrer Bestätigungsmails. Diese Bewertungen landen automatisiert in Ihrem Feedbackwidget.",
-              "Um Ihr Feedbackwidget maximal anpassen zu können, erhalten Sie Zugriff auf unseren simplen individuellen Design-Editor. Sie speichern dort Ihre Anpassungen, kopieren den Embed-Code und fügen Ihn auf Ihre Webseite ein.",
-              "Nachdem einfügen haben Sie Ihre Bewertungen in professionellem Design auf Ihrer Webseite eingebettet. Neukunden sehen die zufriedenen Erfahrungen mit Ihrem Unternehmen und fühlen sich sicherer bei Ihnen zu kaufen.",
+  {[
+    "Nach dem Kauf werden Sie automatisch auf unser Onboarding-Formular weitergeleitet. Dort hinterlegen Sie Firmenname, E-Mail-Adresse, Ihre Branche und eine kurze Unternehmensbeschreibung – diese Angaben nutzt unsere KI, um individuelle Antwortvorschläge zu erstellen.",
+    'Direkt nach dem Onboarding erhalten Sie per E-Mail:\n– den Link zum <a href="https://tally.so/r/nrqqNL" target="_blank" rel="noopener noreferrer" class="text-[#283593] underline font-medium">KI-Partner Bewertungsformular</a>\n– ein Google Sheet zur Einsicht aller Bewertungen\n– und Ihren persönlichen Editor-Link zur Anpassung des Feedback-Widgets.',
+    "Sie können das Formular selbst nutzen oder bequem an Ihre Kunden weiterleiten – z. B. per E-Mail, in der Fußzeile von Bestellbestätigungen oder über QR-Codes. Alle Bewertungen erscheinen automatisch in Ihrem Widget – inklusive KI-gestütztem Antwortvorschlag.",
+    "Im Widget-Editor passen Sie Farben, Schrift, Stil, Rahmen, Logo und Überschrift individuell an. Ihre Einstellungen werden gespeichert und ein persönlicher Embed-Code generiert – kopierfertig für Ihre Website.",
+    "Nach dem Einfügen erscheint Ihr Widget im Livebetrieb – mit echtem Feedback, professionellem Design und automatisierter Verwaltung. So stärken Sie Vertrauen, steigern Conversions und präsentieren Ihr Unternehmen von der besten Seite."
+  ].map((text, i) => (
+    <motion.div
+      key={i}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: i * 0.1 }}
+      viewport={{ once: true }}
+      className="flex flex-col items-center"
+    >
+      <div className="w-8 h-8 rounded-full bg-[#283593] text-white flex items-center justify-center font-semibold text-sm mb-4">
+        {i + 1}
+      </div>
 
-            ].map((text, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="flex flex-col items-center"
-              >
-                <div className="w-8 h-8 rounded-full bg-[#283593] text-white flex items-center justify-center font-semibold text-sm mb-4">
-  {i + 1}
+      <p
+        className="text-gray-700 text-base sm:text-lg"
+        dangerouslySetInnerHTML={{ __html: text.replace(/\n/g, "<br />") }}
+      />
+    </motion.div>
+  ))}
 </div>
 
-                <p className="text-gray-700 text-base sm:text-lg">{text}</p>
-              </motion.div>
-            ))}
-          </div>
           
         </section>
 

@@ -150,7 +150,7 @@ const liveConfig = {
             <label>Schriftfarbe:<input type="color" className="w-full p-2 border" value={textColor} onChange={(e) => setTextColor(e.target.value)} /></label>
             <label>Pfeilfarbe:<input type="color" className="w-full p-2 border" value={arrowColor} onChange={(e) => setArrowColor(e.target.value)} /></label>
             <label>Pfeil-Hintergrundfarbe:<input type="color" className="w-full p-2 border" value={arrowBgColor} onChange={(e) => setArrowBgColor(e.target.value)} /></label>
-            <label>Hintergrundbild-URL (optional):
+            <label>Hintergrundbild-URL (empfohlen):
   <input
     type="text"
     className="w-full p-2 border"
@@ -241,7 +241,7 @@ const liveConfig = {
   <input
     type="number"
     min="10"
-    max="18"
+    max="20"
     className="w-full p-2 border"
     value={parseInt(textFontSize)}
     onChange={(e) => setTextFontSize(`${e.target.value}px`)}

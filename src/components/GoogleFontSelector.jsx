@@ -5,7 +5,8 @@ const googleFonts = [
   "Karla", "Fira Sans","Cabin", "Kanit", "Urbanist", "Rajdhani",
   "Exo 2", "Saira Semi Condensed", "Coda", "Patua One", "Oxanium",
   "Chakra Petch", "Quantico", "Cormorant Garamond", "EB Garamond",
-  "Lora", "Crimson Pro", "Barlow", "Sora", "Prompt", "Baloo 2", "Fredoka"
+  "Lora", "Crimson Pro", "Barlow", "Sora", "Prompt", "Baloo 2", "Fredoka",
+  "Source Sans Pro", "Cormorant Garamond", "EB Garamond", "Tenor Sans"
 ];
 
 export default function GoogleFontSelector({ font, setFont }) {

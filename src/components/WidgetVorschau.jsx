@@ -1,11 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const MotionLink = motion(Link);
 
 const demoFirmaIds = [
   "e7205931",
   "2ab3e141",
   "1930e89f",
-  "d6877aa9",
-  "e6c9cef8"
+  "4854c86e",
+  "d6877aa9"
 ];
 
 const WidgetVorschau = () => {
@@ -21,9 +25,6 @@ const WidgetVorschau = () => {
 
       {demoFirmaIds.map((id, index) => (
         <div key={id} className="w-full mx-auto mb-12">
-
-
-
           <h2 className="text-center font-semibold text-base mt-2 mb-2">
             Vorschau: Widget {index + 1}
           </h2>
@@ -37,6 +38,41 @@ const WidgetVorschau = () => {
           />
         </div>
       ))}
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+        className="flex flex-col items-center gap-3 mt-8"
+      >
+       <motion.a
+  href="/testeditor"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+  transition={{ duration: 0.3 }}
+  className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
+>
+  Jetzt eigenes Widget im Testeditor erstellen
+</motion.a>
+
+<motion.a
+  href="https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+  transition={{ duration: 0.3 }}
+  className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
+>
+  Feedbacksystem kaufen
+</motion.a>
+
+
+        <p className="text-xs text-gray-400 max-w-md text-center mt-4 px-2">
+          Alle Marken- und Logoelemente dienen ausschließlich zur Veranschaulichung von Designbeispielen. 
+          Die Rechte an Logos und Marken liegen bei den jeweiligen Eigentümern. Es besteht keine geschäftliche Verbindung zu den genannten Unternehmen.
+        </p>
+      </motion.div>
     </div>
   );
 };
