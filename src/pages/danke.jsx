@@ -16,6 +16,8 @@ export default function DankeSeite() {
 
     const fetchSecret = async () => {
       try {
+        console.log("Session-ID aus URL:", sessionId);
+
         const res = await fetch("https://hook.eu2.make.com/lr1tfhcsg58ckwvxgzcwaf7b8u4d4w5v", {
           method: "POST",
           headers: {
@@ -24,8 +26,11 @@ export default function DankeSeite() {
           body: JSON.stringify({ session_id: sessionId })
         });
 
-        const data = await res.json();
-        // Erwartet: { "SecretKey": "abc123xyz" }
+        const text = await res.text();
+        console.log("Antwort (roh) von Make:", text);
+
+        const data = JSON.parse(text);
+
         if (data.SecretKey) {
           setSecretKey(data.SecretKey);
         } else {
