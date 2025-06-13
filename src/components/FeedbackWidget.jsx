@@ -165,7 +165,7 @@ useEffect(() => {
     theme = "light",
     textColor = theme === "dark" ? "#f5f5f5" : "#222",
     headingStyles = {},
-    headingFontSize = "24px",
+    headingFontSize = "22px",
     headingColor = headingStyles.color || textColor,
     arrowColor = "#000",
     arrowBgColor = "#fff",

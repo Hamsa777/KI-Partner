@@ -13,28 +13,30 @@ export default function DankeSeite() {
       setError(true);
       return;
     }
+
     const fetchSecret = async () => {
       try {
-        const res = await fetch("https://hook.eu2.make.com/DEIN-WEBHOOK-ENDPUNKT", {
+        const res = await fetch("https://hook.eu2.make.com/lr1tfhcsg58ckwvxgzcwaf7b8u4d4w5v", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ session_id: sessionId })
         });
-        // hier erwartet JS ein JSON-Objekt
+
         const data = await res.json();
-        // Make muss jetzt {"SecretKey": "xyz..."} zurückliefern
+        // Erwartet: { "SecretKey": "abc123xyz" }
         if (data.SecretKey) {
           setSecretKey(data.SecretKey);
         } else {
           setError(true);
         }
       } catch (err) {
-        console.error(err);
+        console.error("Fehler beim Laden des secretKey:", err);
         setError(true);
       }
     };
+
     fetchSecret();
   }, [sessionId]);
 
