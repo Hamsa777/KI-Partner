@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const MotionLink = motion(Link);
+
 
 export default function HeroSection() {
   return (
@@ -32,17 +32,18 @@ export default function HeroSection() {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="mt-8 flex justify-center gap-4"
       >
-        <MotionLink
-          to="/kontakt"
-          whileHover={{
-            scale: 1.02,
-            backgroundColor: "#1a237e",
-          }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium"
-        >
-          Kostenlose Beratung
-        </MotionLink>
+       <motion.a
+  href="mailto:kontakt@ki-partner24.de"
+  whileHover={{
+    scale: 1.02,
+    backgroundColor: "#1a237e",
+  }}
+  transition={{ duration: 0.3, ease: "easeOut" }}
+  className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium"
+>
+  Kostenlose Beratung
+</motion.a>
+
       </motion.div>
     </section>
   );

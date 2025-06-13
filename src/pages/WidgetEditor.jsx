@@ -88,12 +88,6 @@ useEffect(() => {
     });
 }, [firmaId]);
 
-
-
-
-
- 
-
   const iframeCode = `<iframe 
   src="https://www.ki-partner24.de/embed/${firmaId}"
   width="100%"
