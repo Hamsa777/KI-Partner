@@ -1,49 +1,75 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/KI-Partner Vektorlogo.png";
 
 export default function DankeSeite() {
+  const [secretKey, setSecretKey] = useState(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchSecret = async () => {
+      try {
+        // 1️⃣ Rufe dein Make-Webhook auf (der das Secret erzeugt und zurückgibt)
+        const res = await fetch("https://hook.eu2.make.com/lr1tfhcsg58ckwvxgzcwaf7b8u4d4w5v", {
+          method: "POST",
+        });
+        const { SecretKey } = await res.json();
+
+        if (SecretKey) {
+          setSecretKey(SecretKey);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      }
+    };
+
+    fetchSecret();
+  }, []);
+
+  // Baue die Tally-URL mit dem abgefragten secretKey
+  const tallyUrl = secretKey
+    ? `https://tally.so/r/wAao5z?secretKey=${secretKey}`
+    : null;
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-10 px-6 text-center">
       {/* Logo */}
-      <img src={Logo} alt="KI-Partner Logo" className="w-56 h-auto mb-6" />
+      <img
+        src={Logo}
+        alt="KI-Partner Logo"
+        className="w-56 h-auto mb-6"
+      />
 
-      {/* Text */}
+      {/* Überschrift */}
       <h1 className="text-3xl font-bold mb-4 text-black">
         Vielen Dank für Ihren Kauf bei KI-Partner!
       </h1>
 
-      <p className="text-gray-700 text-base mb-4 max-w-xl">
-        Wir freuen uns, Sie bei der Automatisierung Ihrer Geschäftsprozesse unterstützen zu dürfen.
+      {/* Beschreibung */}
+      <p className="text-gray-700 text-base mb-6 max-w-xl">
+        Im nächsten Schritt gehen Sie durch das Onboarding.
       </p>
 
-      <p className="text-sm text-gray-600 mb-6 max-w-xl">
-        Sie erhalten in Kürze eine E-Mail mit dem Link zur Einrichtung Ihres Unternehmens-Brandings. <br />
-        Bitte prüfen Sie auch Ihren Spam-Ordner, falls die Nachricht nicht direkt erscheint.
-      </p>
-
-      <Link
-        to="/"
-        className="bg-black text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-gray-800 transition"
-      >
-        Zurück zur Startseite
-      </Link>
-
-      {/* Fixer Chatbot */}
-      <div className="w-full max-w-[700px] mt-10">
-        <iframe
-          src="https://www.ki-partner24.de/widgetbot/f809a6e1"
-          style={{
-            width: "100%",
-            maxWidth: "700px",
-            height: "600px",
-            border: "none",
-            overflow: "hidden"
-          }}
-          loading="lazy"
-          title="KI-Partner Chatbot"
-        />
-      </div>
+      {/* Fehler- oder Ladezustand */}
+      {error ? (
+        <p className="text-red-600 mb-4">
+          Es ist ein Fehler aufgetreten. Bitte kontaktieren Sie uns.
+        </p>
+      ) : !secretKey ? (
+        <p className="text-gray-600 mb-4">Lade Ihren persönlichen Link…</p>
+      ) : (
+        /* Onboarding-Button mit secretKey in der URL */
+        <a
+          href={tallyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-indigo-700 hover:bg-indigo-900 text-white px-6 py-3 rounded-full font-semibold transition duration-200 mb-6"
+        >
+          Jetzt Onboarding starten
+        </a>
+      )}
     </div>
   );
 }

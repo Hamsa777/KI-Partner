@@ -30,7 +30,7 @@ const WidgetVorschau = () => {
           <iframe
             src={`https://www.ki-partner24.de/embed/${id}`}
             width="100%"
-            height="320"
+            height="327"
             style={{ border: "none", display: "block" }}
             loading="lazy"
             title={`Kundenbewertungen Widget ${id}`}

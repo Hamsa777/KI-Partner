@@ -23,7 +23,7 @@ import WidgetBotCode from "./pages/WidgetBotCode.jsx";
 import TestEditor from "./pages/TestEditor.jsx";
 import ChatBotEditor from "./pages/ChatBotEditor";
 import WidgetVorschau from "./components/WidgetVorschau";
-
+import Weiterleitung from "./components/Weiterleitung.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -50,6 +50,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/TestEditor/" element={<TestEditor />} />
         <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />
         <Route path="/widgetvorschau" element={<WidgetVorschau />} />
+        <Route path="weiterleitung-x9a7b1k3" element={<Weiterleitung />} />
 
 
       </Routes>
