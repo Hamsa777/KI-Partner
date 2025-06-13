@@ -18,7 +18,15 @@ export default function FeedbackWidget({
   const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
-  
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const check = () => setIsMobile(window.innerWidth < 768);
+  check();
+  window.addEventListener("resize", check);
+  return () => window.removeEventListener("resize", check);
+}, []);
+
 
 
 
@@ -169,7 +177,7 @@ useEffect(() => {
 
   const cardWidth = 260;
   const gap = 16;
-  const visible = Math.min(visibleCards, 4);
+  const visible = isMobile ? 1 : Math.min(visibleCards, 4);
   const containerWidth = visible * cardWidth + (visible - 1) * gap;
 
  const widgetClasses = [
@@ -185,17 +193,15 @@ useEffect(() => {
 
 
  const headingStyle = {
-  fontSize: headingFontSize,
-  fontWeight: headingStyles.bold
-    ? (headingStyles.weight ?? 700)
-    : 400, // wenn kein Haken bei Fett, dann normal
+  fontSize: isMobile ? "25px" : (headingStyles?.fontSize || "24px"),
+  fontWeight: headingStyles.bold ? (headingStyles.weight ?? 700) : 400,
   fontStyle: headingStyles.italic ? "italic" : "normal",
   textDecoration: headingStyles.underline ? "underline" : "none",
-  color: headingColor,
+  color: headingStyles.color || textColor,
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale",
-  
 };
+
 
 
 
@@ -260,7 +266,7 @@ useEffect(() => {
     src={logoUrl}
     alt="Logo"
     className="absolute right-0"
-    style={{ height: logoSize || "60px", objectFit: "contain" }}
+    style={{ height: isMobile ? "50px" : (logoSize || "60px"), objectFit: "contain" }}
   />
 )}
 

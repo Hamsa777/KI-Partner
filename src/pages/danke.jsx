@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Logo from "../assets/KI-Partner Vektorlogo.png";
 
 export default function DankeSeite() {
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("session_id");
   const [secretKey, setSecretKey] = useState(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (!sessionId) {
+      setError(true);
+      return;
+    }
     const fetchSecret = async () => {
       try {
-        // 1️⃣ Rufe dein Make-Webhook auf (der das Secret erzeugt und zurückgibt)
-        const res = await fetch("https://hook.eu2.make.com/lr1tfhcsg58ckwvxgzcwaf7b8u4d4w5v", {
+        const res = await fetch("https://hook.eu2.make.com/DEIN-WEBHOOK-ENDPUNKT", {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ session_id: sessionId })
         });
-        const { SecretKey } = await res.json();
-
-        if (SecretKey) {
-          setSecretKey(SecretKey);
+        // hier erwartet JS ein JSON-Objekt
+        const data = await res.json();
+        // Make muss jetzt {"SecretKey": "xyz..."} zurückliefern
+        if (data.SecretKey) {
+          setSecretKey(data.SecretKey);
         } else {
           setError(true);
         }
@@ -24,35 +35,22 @@ export default function DankeSeite() {
         setError(true);
       }
     };
-
     fetchSecret();
-  }, []);
+  }, [sessionId]);
 
-  // Baue die Tally-URL mit dem abgefragten secretKey
   const tallyUrl = secretKey
     ? `https://tally.so/r/wAao5z?secretKey=${secretKey}`
     : null;
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-10 px-6 text-center">
-      {/* Logo */}
-      <img
-        src={Logo}
-        alt="KI-Partner Logo"
-        className="w-56 h-auto mb-6"
-      />
-
-      {/* Überschrift */}
+      <img src={Logo} alt="KI-Partner Logo" className="w-56 h-auto mb-6" />
       <h1 className="text-3xl font-bold mb-4 text-black">
         Vielen Dank für Ihren Kauf bei KI-Partner!
       </h1>
-
-      {/* Beschreibung */}
       <p className="text-gray-700 text-base mb-6 max-w-xl">
-        Im nächsten Schritt gehen Sie durch das Onboarding.
+        Im nächsten Schritt richten Sie Ihr individuelles Branding ein.
       </p>
-
-      {/* Fehler- oder Ladezustand */}
       {error ? (
         <p className="text-red-600 mb-4">
           Es ist ein Fehler aufgetreten. Bitte kontaktieren Sie uns.
@@ -60,7 +58,6 @@ export default function DankeSeite() {
       ) : !secretKey ? (
         <p className="text-gray-600 mb-4">Lade Ihren persönlichen Link…</p>
       ) : (
-        /* Onboarding-Button mit secretKey in der URL */
         <a
           href={tallyUrl}
           target="_blank"
