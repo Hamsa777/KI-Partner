@@ -193,7 +193,7 @@ useEffect(() => {
 
 
  const headingStyle = {
-  fontSize: isMobile ? "25px" : (headingStyles?.fontSize || "24px"),
+  fontSize: isMobile ? "15px" : (headingStyles?.fontSize || "24px"),
   fontWeight: headingStyles.bold ? (headingStyles.weight ?? 700) : 400,
   fontStyle: headingStyles.italic ? "italic" : "normal",
   textDecoration: headingStyles.underline ? "underline" : "none",
@@ -266,7 +266,7 @@ useEffect(() => {
     src={logoUrl}
     alt="Logo"
     className="absolute right-0"
-    style={{ height: isMobile ? "50px" : (logoSize || "60px"), objectFit: "contain" }}
+    style={{ height: isMobile ? "80px" : (logoSize || "60px"), objectFit: "contain" }}
   />
 )}
 
