@@ -193,7 +193,7 @@ useEffect(() => {
 
 
  const headingStyle = {
-  fontSize: isMobile ? "15px" : (headingStyles?.fontSize || "24px"),
+  fontSize: isMobile ? "25px" : headingFontSize,
   fontWeight: headingStyles.bold ? (headingStyles.weight ?? 700) : 400,
   fontStyle: headingStyles.italic ? "italic" : "normal",
   textDecoration: headingStyles.underline ? "underline" : "none",
