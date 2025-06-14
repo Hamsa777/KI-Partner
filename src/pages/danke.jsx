@@ -16,7 +16,7 @@ export default function DankeSeite() {
 
     const fetchAccess = async () => {
       try {
-        const res = await fetch("https://hook.eu2.make.com/DEIN-MAKE-WEBHOOK", {
+        const res = await fetch("https://hook.eu2.make.com/amhe9v47fuhuvaovw2dibbgl2o9woxmv", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
