@@ -10,15 +10,12 @@ export default function DankeSeite() {
 
   useEffect(() => {
     if (!sessionId) {
-      console.warn("❌ Keine session_id in der URL gefunden.");
       setError(true);
       return;
     }
 
-    const fetchAccessCode = async () => {
+    const fetchAccess = async () => {
       try {
-        console.log("🔁 Anfrage an Make mit session_id:", sessionId);
-
         const res = await fetch("https://hook.eu2.make.com/DEIN-MAKE-WEBHOOK", {
           method: "POST",
           headers: {
@@ -27,26 +24,21 @@ export default function DankeSeite() {
           body: JSON.stringify({ session_id: sessionId })
         });
 
-        const text = await res.text();
-        console.log("📨 Antwort von Make (roh):", text);
-
-        const data = JSON.parse(text);
-        console.log("✅ Geparste Antwort:", data);
+        const data = await res.json();
+        console.log("✅ Access Code erhalten:", data.access);
 
         if (data.access) {
-          console.log("🟢 Access-Code erhalten:", data.access);
           setAccess(data.access);
         } else {
-          console.error("❌ Kein Access-Code in der Antwort gefunden.");
           setError(true);
         }
       } catch (err) {
-        console.error("💥 Fehler beim Laden des Access-Codes:", err);
+        console.error("❌ Fehler beim Abrufen des Access Codes:", err);
         setError(true);
       }
     };
 
-    fetchAccessCode();
+    fetchAccess();
   }, [sessionId]);
 
   const tallyUrl = access
@@ -63,13 +55,17 @@ export default function DankeSeite() {
         Im nächsten Schritt richten Sie Ihr individuelles Branding ein.
       </p>
 
-      {error ? (
+      {!access && !error && (
+        <p className="text-gray-600 mb-4">Lade deinen persönlichen Link…</p>
+      )}
+
+      {error && (
         <p className="text-red-600 mb-4">
           Es ist ein Fehler aufgetreten. Bitte kontaktieren Sie uns.
         </p>
-      ) : !access ? (
-        <p className="text-gray-600 mb-4">Lade deinen persönlichen Link…</p>
-      ) : (
+      )}
+
+      {access && (
         <a
           href={tallyUrl}
           target="_blank"
