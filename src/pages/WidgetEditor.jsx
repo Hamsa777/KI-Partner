@@ -10,7 +10,7 @@ const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
 const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
 const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
 const [font, setFont] = useState("Inter"); // Nur Google-Font Name – ohne '', ohne Fallback
-const [textFontSize, setTextFontSize] = useState("14px");
+const [textFontSize, setTextFontSize] = useState("15px");
 const [radius, setRadius] = useState("35px");
 const [boxRadius, setBoxRadius] = useState("35px");
 const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
@@ -25,6 +25,8 @@ const [visibleCards, setVisibleCards] = useState(3); // Standard z. B. 3
 const [serverConfig, setServerConfig] = useState(null);
 const [logoSize, setLogoSize] = useState("60px"); // z. B. Standardgröße
 const [backgroundImagePosition, setBackgroundImagePosition] = useState({ x: 50, y: 50 });
+const [mobileHeadingFontSize, setMobileHeadingFontSize] = useState("23px");
+const [mobileLogoSize, setMobileLogoSize] = useState("40px");
 
 const [headingStyles, setHeadingStyles] = useState({
   bold: true,
@@ -49,6 +51,17 @@ useEffect(() => {
     document.head.appendChild(link);
   }, [font]);
   const [activeTab, setActiveTab] = useState("colors");
+
+  useEffect(() => {
+  if (!serverConfig) return;
+
+  if (activeTab === "mobile") {
+    setVisibleCards(1);
+  } else {
+    setVisibleCards(serverConfig.visibleCards ?? 3);
+  }
+}, [activeTab, serverConfig]);
+
 useEffect(() => {
   if (!firmaId) return;
 
@@ -74,6 +87,9 @@ useEffect(() => {
       setBackgroundImageUrl(data.backgroundImageUrl ?? "");
       setBackgroundImagePosition(data.backgroundImagePosition ?? { x: 50, y: 50 });
       setVisibleCards(data.visibleCards ?? 3);
+      setMobileHeadingFontSize(data.mobileHeadingFontSize ?? "23px");
+      setMobileLogoSize(data.mobileLogoSize ?? "40px");
+
       setHeadingStyles({
   bold: data.headingStyles?.bold ?? true,
   italic: data.headingStyles?.italic ?? false,
@@ -117,6 +133,8 @@ const liveConfig = {
   backgroundImagePosition,
   visibleCards,
   setBackgroundImagePosition,
+  mobileHeadingFontSize,
+  mobileLogoSize,
 };
 
   return (
@@ -124,16 +142,24 @@ const liveConfig = {
       <h1 className="text-2xl font-bold mb-10 text-center">Ihr personalisiertes Feedbackwidget</h1>
 
       <div className="w-full max-w-2xl">
-        <div className="flex space-x-4 mb-6 border-b">
-          {["colors", "font", "layout", "branding"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 ${activeTab === tab ? "border-b-2 border-black font-semibold" : "text-gray-500"}`}
-            >
-              {tab === "colors" ? "Farben" : tab === "font" ? "Schrift" : tab === "layout" ? "Layout" : "Branding"}
-            </button>
-          ))}
+        <div className="flex justify-center space-x-4 mb-6 border-b">
+
+         {["colors", "font", "layout", "branding", "mobile"].map((tab) => (
+  <button
+    key={tab}
+    onClick={() => setActiveTab(tab)}
+    className={`px-4 py-2 ${activeTab === tab ? "border-b-2 border-black font-semibold" : "text-gray-500"}`}
+  >
+    {{
+      colors: "Farben",
+      font: "Schrift",
+      layout: "Layout",
+      branding: "Branding",
+      mobile: "Mobilgerät",
+    }[tab]}
+  </button>
+))}
+
         </div>
 
         {activeTab === "colors" && (
@@ -317,6 +343,39 @@ const liveConfig = {
 
           </div>
         )}
+        {activeTab === "mobile" && (
+  <div className="grid gap-4">
+    <label>Überschriftgröße (mobil):
+      <input
+        type="number"
+        min="10"
+        max="40"
+        autoComplete="off"
+        className="w-full p-2 border"
+        value={parseInt(mobileHeadingFontSize)}
+        onChange={(e) => setMobileHeadingFontSize(`${e.target.value}px`)}
+      />
+    </label>
+    <label>Logo-Größe (mobil):
+      <input
+      name="ignore"
+  type="number"
+  autoComplete="new-password"
+  inputMode="numeric"
+        min="10"
+        max="100"
+        
+       
+       
+
+        className="w-full p-2 border"
+        value={parseInt(mobileLogoSize)}
+        onChange={(e) => setMobileLogoSize(`${e.target.value}px`)}
+      />
+    </label>
+  </div>
+)}
+
       </div>
 
      <div className="w-full overflow-x-auto mt-12">
@@ -402,7 +461,9 @@ const liveConfig = {
         stylePreset,
         backgroundImageUrl,
         visibleCards,
-        backgroundImagePosition, // ✅ wichtig
+        backgroundImagePosition,
+         mobileHeadingFontSize,
+        mobileLogoSize,
       };
 
       const response = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}`, {

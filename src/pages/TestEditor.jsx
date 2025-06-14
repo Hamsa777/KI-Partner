@@ -23,6 +23,8 @@ export default function TestEditor() {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
   const [visibleCards, setVisibleCards] = useState(3);
   const [activeTab, setActiveTab] = useState("colors");
+  const [textFontSize, setTextFontSize] = useState("15px");
+
   const [headingStyles, setHeadingStyles] = useState({
     bold: true,
     italic: false,
@@ -61,14 +63,15 @@ export default function TestEditor() {
     stylePreset,
     backgroundImageUrl,
     visibleCards,
+    textFontSize,
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-10 flex flex-col items-center">
+     <div className="min-h-screen bg-gray-50 p-10 flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-10 text-center">Feedbackwidget Testversion</h1>
 
       <div className="w-full max-w-2xl">
-        <div className="flex space-x-4 mb-6 border-b">
+        <div className="flex justify-center space-x-4 mb-6 border-b">
           {["colors", "font", "layout", "branding"].map((tab) => (
             <button
               key={tab}
@@ -88,7 +91,7 @@ export default function TestEditor() {
             <label>Schriftfarbe:<input type="color" className="w-full p-2 border" value={textColor} onChange={(e) => setTextColor(e.target.value)} /></label>
             <label>Pfeilfarbe:<input type="color" className="w-full p-2 border" value={arrowColor} onChange={(e) => setArrowColor(e.target.value)} /></label>
             <label>Pfeil-Hintergrundfarbe:<input type="color" className="w-full p-2 border" value={arrowBgColor} onChange={(e) => setArrowBgColor(e.target.value)} /></label>
-            <label>Hintergrundbild-URL (optional):<input type="text" className="w-full p-2 border" value={backgroundImageUrl} onChange={(e) => setBackgroundImageUrl(e.target.value)} /></label>
+            <label>Hintergrundbild-URL (empfohlen):<input type="text" className="w-full p-2 border" value={backgroundImageUrl} onChange={(e) => setBackgroundImageUrl(e.target.value)} /></label>
           </div>
         )}
 
@@ -103,6 +106,17 @@ export default function TestEditor() {
               <label className="flex items-center gap-2"><input type="checkbox" checked={headingStyles.italic} onChange={(e) => setHeadingStyles({ ...headingStyles, italic: e.target.checked })} /> Kursiv</label>
               <label className="flex items-center gap-2"><input type="checkbox" checked={headingStyles.underline} onChange={(e) => setHeadingStyles({ ...headingStyles, underline: e.target.checked })} /> Unterstrichen</label>
             </fieldset>
+            <label>Schriftgröße Bewertungstext:
+            <input
+              type="number"
+              min="8"
+              max="40"
+              className="w-full p-2 border"
+              value={parseInt(textFontSize)}
+              onChange={(e) => setTextFontSize(`${e.target.value}px`)}
+            />
+</label>
+
           </div>
         )}
 

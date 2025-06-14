@@ -5,7 +5,7 @@ import Logo from "../assets/KI-Partner Vektorlogo.png";
 export default function DankeSeite() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
-  const [secretKey, setSecretKey] = useState(null);
+  const [access, setAccess] = useState(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -14,10 +14,8 @@ export default function DankeSeite() {
       return;
     }
 
-    const fetchSecret = async () => {
+    const fetchAccessCode = async () => {
       try {
-        console.log("Session-ID aus URL:", sessionId);
-
         const res = await fetch("https://hook.eu2.make.com/lr1tfhcsg58ckwvxgzcwaf7b8u4d4w5v", {
           method: "POST",
           headers: {
@@ -27,26 +25,24 @@ export default function DankeSeite() {
         });
 
         const text = await res.text();
-        console.log("Antwort (roh) von Make:", text);
-
         const data = JSON.parse(text);
 
-        if (data.SecretKey) {
-          setSecretKey(data.SecretKey);
+        if (data.access) {
+          setAccess(data.access);
         } else {
           setError(true);
         }
       } catch (err) {
-        console.error("Fehler beim Laden des secretKey:", err);
+        console.error("Fehler beim Abrufen des Access-Codes:", err);
         setError(true);
       }
     };
 
-    fetchSecret();
+    fetchAccessCode();
   }, [sessionId]);
 
-  const tallyUrl = secretKey
-    ? `https://tally.so/r/wAao5z?secretKey=${secretKey}`
+  const tallyUrl = access
+    ? `https://tally.so/r/wAao5z?access=${access}`
     : null;
 
   return (
@@ -58,12 +54,13 @@ export default function DankeSeite() {
       <p className="text-gray-700 text-base mb-6 max-w-xl">
         Im nächsten Schritt richten Sie Ihr individuelles Branding ein.
       </p>
+
       {error ? (
         <p className="text-red-600 mb-4">
           Es ist ein Fehler aufgetreten. Bitte kontaktieren Sie uns.
         </p>
-      ) : !secretKey ? (
-        <p className="text-gray-600 mb-4">Lade Ihren persönlichen Link…</p>
+      ) : !access ? (
+        <p className="text-gray-600 mb-4">Lade deinen persönlichen Link…</p>
       ) : (
         <a
           href={tallyUrl}

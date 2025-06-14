@@ -19,7 +19,7 @@ export default function FeedbackWidget({
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-
+ 
 useEffect(() => {
   const check = () => setIsMobile(window.innerWidth < 768);
   check();
@@ -156,7 +156,7 @@ useEffect(() => {
     color = "#ffffff",
     accentColor = "#f8f8f8",
     font = "Inter, sans-serif",
-    textFontSize = "14px",
+    textFontSize = "16px",
     radius = "16px",
     boxRadius = "16px",
     customTitle = "Unsere Kundenbewertungen",
@@ -173,11 +173,14 @@ useEffect(() => {
     stylePreset = "classic",
     backgroundImageUrl = "",
     visibleCards = 3,
+    mobileHeadingFontSize = "23px", // ✅ HINZUGEFÜGT
+    mobileLogoSize = "40px",         // ✅ HINZUGEFÜGT
   } = config;
 
   const cardWidth = 260;
   const gap = 16;
   const visible = isMobile ? 1 : Math.min(visibleCards, 4);
+  
   const containerWidth = visible * cardWidth + (visible - 1) * gap;
 
  const widgetClasses = [
@@ -193,7 +196,9 @@ useEffect(() => {
 
 
  const headingStyle = {
-  fontSize: isMobile ? "23px" : headingFontSize,
+ fontSize: (editorMode && visibleCards === 1) ? mobileHeadingFontSize : headingFontSize,
+
+
   fontWeight: headingStyles.bold ? (headingStyles.weight ?? 700) : 400,
   fontStyle: headingStyles.italic ? "italic" : "normal",
   textDecoration: headingStyles.underline ? "underline" : "none",
@@ -266,7 +271,13 @@ useEffect(() => {
     src={logoUrl}
     alt="Logo"
     className="absolute right-0"
-    style={{ height: isMobile ? "66px" : (logoSize || "60px"), objectFit: "contain" }}
+    style={{
+  height: (editorMode && visibleCards === 1) ? mobileLogoSize : (logoSize || "60px"),
+
+  objectFit: "contain"
+}}
+
+
   />
 )}
 

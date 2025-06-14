@@ -1,32 +1,64 @@
 [
   {
-    "name": "Maximilian L.",
+    "name": "Sophie K.",
     "rating": 5,
-    "comment": "Wer hätte es gedacht? Es gibt kaum einen besseren Service!",
-    "date": "2025-06-08"
+    "comment": "Dank KI-Partner konnte ich endlich alle meine echten Google-Bewertungen nahtlos auf meiner Website anzeigen lassen – ohne komplizierte Technik. Die Darstellung ist richtig hochwertig, das Vertrauen meiner Kunden ist spürbar gestiegen!",
+    "date": "2025-06-10"
   },
   {
-    "name": "Jonas V.",
+    "name": "David H.",
     "rating": 5,
-    "comment": "Habe für mich und meine Eltern bestellt – einfach top.",
-    "date": "2025-06-08"
+    "comment": "Ich liebe die KI-Verbesserungsvorschläge! Nach jeder Bewertung erhalte ich automatisch Ideen, wie ich meinen Service noch besser machen kann. Das ist nicht nur smart – das spart mir auch enorm viel Zeit im Kundenfeedback-Prozess.",
+    "date": "2025-06-10"
   },
   {
-    "name": "Nico S.",
+    "name": "Isabelle T.",
     "rating": 5,
-    "comment": "Reibungsloser Ablauf, tolle Unterstützung.",
-    "date": "2025-06-08"
+    "comment": "Das Bewertungssystem von KI-Partner sieht nicht nur super aus, es funktioniert auch zuverlässig. Ich konnte Schriftart, Farben und Titel ganz auf meine Marke abstimmen – es fügt sich perfekt in mein Design ein.",
+    "date": "2025-06-10"
   },
   {
-    "name": "Lars F.",
+    "name": "Leon M.",
     "rating": 5,
-    "comment": "Sehr gute Arbeit!.",
-    "date": "2025-06-08"
+    "comment": "Besonders beeindruckt hat mich die einfache Integration: Ich musste nur einen Code einfügen, und sofort waren meine Bewertungen live. Das Tool von KI-Partner spart mir enorm viel Zeit und wirkt auf der Seite richtig professionell.",
+    "date": "2025-06-10"
   },
   {
-    "name": "Anna M.",
+    "name": "Mara S.",
     "rating": 5,
-    "comment": "Immer wieder gern.",
-    "date": "2025-06-08"
+    "comment": "Die Kombination aus echten Kundenmeinungen und automatischen KI-Vorschlägen ist Gold wert. Ich sehe direkt, was Kunden gut finden – und wo ich noch nachbessern kann. Super hilfreich und motivierend.",
+    "date": "2025-06-10"
+  },
+  {
+    "name": "Tobias R.",
+    "rating": 5,
+    "comment": "Ich nutze das Widget von KI-Partner erst seit einer Woche und habe schon das Gefühl, dass die Absprungrate auf meiner Seite sinkt. Kunden bleiben länger, lesen die Bewertungen – das macht sofort einen professionellen Eindruck.",
+    "date": "2025-06-10"
+  },
+  
+  {
+    "name": "Finn E.",
+    "rating": 5,
+    "comment": "Was mir besonders gefällt: Die Bewertungen werden nicht einfach nur angezeigt, sondern wirklich ins Design eingebunden. Durch die verschiedenen Layouts von KI-Partner wirkt alles individuell und professionell.",
+    "date": "2025-06-10"
+  },
+  {
+    "name": "Lena B.",
+    "rating": 5,
+    "comment": "Ich war anfangs skeptisch, aber die Wirkung ist sofort spürbar. Kunden sprechen mich mittlerweile aktiv auf die Feedback-Box an. Und ich bekomme regelmäßig konkrete Hinweise von der KI, was ich noch verbessern kann.",
+    "date": "2025-06-10"
+  },
+
+  {
+    "name": "Julia W.",
+    "rating": 5,
+    "comment": "Ich habe lange nach einer Lösung gesucht, um Google-Bewertungen stilvoll in meine Seite einzubinden. KI-Partner hat genau das geliefert – und sogar noch mehr. Das Design ist modern, der Service top.",
+    "date": "2025-06-10"
+  },
+  {
+    "name": "Paul Z.",
+    "rating": 5,
+    "comment": "KI-Partner liefert ein Bewertungssystem, das technisch sauber, optisch ansprechend und funktional richtig stark ist. Für alle, die Wert auf Vertrauen, Transparenz und moderne Außenwirkung legen – klare Empfehlung!",
+    "date": "2025-06-10"
   }
 ]
