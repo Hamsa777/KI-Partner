@@ -10,13 +10,16 @@ export default function DankeSeite() {
 
   useEffect(() => {
     if (!sessionId) {
+      console.warn("❌ Keine session_id in der URL gefunden.");
       setError(true);
       return;
     }
 
     const fetchAccessCode = async () => {
       try {
-        const res = await fetch("https://hook.eu2.make.com/lr1tfhcsg58ckwvxgzcwaf7b8u4d4w5v", {
+        console.log("🔁 Anfrage an Make mit session_id:", sessionId);
+
+        const res = await fetch("https://hook.eu2.make.com/DEIN-MAKE-WEBHOOK", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -25,15 +28,20 @@ export default function DankeSeite() {
         });
 
         const text = await res.text();
+        console.log("📨 Antwort von Make (roh):", text);
+
         const data = JSON.parse(text);
+        console.log("✅ Geparste Antwort:", data);
 
         if (data.access) {
+          console.log("🟢 Access-Code erhalten:", data.access);
           setAccess(data.access);
         } else {
+          console.error("❌ Kein Access-Code in der Antwort gefunden.");
           setError(true);
         }
       } catch (err) {
-        console.error("Fehler beim Abrufen des Access-Codes:", err);
+        console.error("💥 Fehler beim Laden des Access-Codes:", err);
         setError(true);
       }
     };
