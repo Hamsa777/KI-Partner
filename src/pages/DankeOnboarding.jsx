@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-
+import Logo from "../assets/KI-Partner Vektorlogo.png";
 const serviceText = {
   feedback: {
     title: 'Onboarding erfolgreich!',
@@ -23,12 +23,15 @@ export default function DankeOnboarding() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-white text-[#000002] text-center">
+      
       <motion.div
+      
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="max-w-xl"
       >
+     
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-lg mb-4">{intro}</p>
         <p className="text-md mb-6 text-gray-700">{info}</p>
