@@ -18,23 +18,27 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile Burger Icon */}
-          <button
-            onClick={() => setMenuOpen(true)}
-            className="sm:hidden text-3xl text-[#283593]"
-          >
-            ☰
-          </button>
+                    {/* Burger-Icon RECHTS positioniert */}
+          <div className="sm:hidden">
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="text-3xl text-[#283593]"
+            >
+              ☰
+            </button>
+          </div>
 
-          {/* Logo & Slogan */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center pt-1">
-            <Link to="/" className="flex items-center cursor-pointer mt-2">
+
+                  {/* Logo & Slogan – mittig zentriert */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center pt-1 mt-2">
+            <Link to="/" className="flex items-center cursor-pointer">
               <img src={logo} alt="KI-Partner Logo" className="h-8 sm:h-10 w-auto" />
             </Link>
-            <p className="text-sm sm:text-base text-gray-600 mt-0 tracking-tight">
+            <p className="text-xs sm:text-sm text-gray-600 mt-1 whitespace-nowrap">
               Wir automatisieren Ihr Unternehmen mit KI
             </p>
           </div>
+
 
           {/* Rechte Desktop-Navigation */}
           <div className="hidden sm:flex items-center space-x-4 text-sm sm:text-base pt-1">
