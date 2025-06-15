@@ -10,7 +10,7 @@ export default function WidgetEditor() {
   const [accentColor, setAccentColor] = useState("#f3f4f6");
   const [textColor, setTextColor] = useState("#111827");
   const [font, setFont] = useState("Inter");
-  const [textFontSize, setTextFontSize] = useState("15px");
+  const [textFontSize, setTextFontSize] = useState("16px");
   const [radius, setRadius] = useState("35px");
   const [boxRadius, setBoxRadius] = useState("35px");
   const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
@@ -92,7 +92,7 @@ const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
         setMobileLogoSize(data.mobileLogoSize ?? "40px");
         setMobileCustomTitle(data.mobileCustomTitle ?? "");
         setLogoPosition(data.logoPosition ?? "right");
-setMobileLogoPosition(data.mobileLogoPosition ?? "right");
+        setMobileLogoPosition(data.mobileLogoPosition ?? "right");
 
 
 
