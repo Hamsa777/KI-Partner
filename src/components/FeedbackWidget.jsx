@@ -196,9 +196,8 @@ useEffect(() => {
 
 
  const headingStyle = {
- fontSize: (editorMode && visibleCards === 1) ? mobileHeadingFontSize : headingFontSize,
 
-
+  fontSize: isMobile ? mobileHeadingFontSize : headingFontSize,
   fontWeight: headingStyles.bold ? (headingStyles.weight ?? 700) : 400,
   fontStyle: headingStyles.italic ? "italic" : "normal",
   textDecoration: headingStyles.underline ? "underline" : "none",
@@ -272,10 +271,10 @@ useEffect(() => {
     alt="Logo"
     className="absolute right-0"
     style={{
-  height: (editorMode && visibleCards === 1) ? mobileLogoSize : (logoSize || "60px"),
-
+  height: isMobile ? mobileLogoSize : (logoSize || "60px"),
   objectFit: "contain"
 }}
+
 
 
   />
