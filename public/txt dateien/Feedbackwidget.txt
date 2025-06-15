@@ -260,7 +260,7 @@ export default function FeedbackWidget({
         userSelect: editorMode ? "none" : "auto"
       }}
     >
-      <div className="relative flex justify-center items-center min-h-[40px]">
+      <div className="relative flex justify-center items-center min-h-[56px]">
         {/* Überschrift: NUR anzeigen, wenn gesetzt! */}
         {effectiveCustomTitle && (
           <h2 className="text-3xl text-center w-full" style={headingStyle}>
