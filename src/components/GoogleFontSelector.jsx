@@ -22,7 +22,7 @@ const googleFonts = [
   "Tinos", "Vollkorn", "Zilla Slab",
 
   // 🟪 Display / Dekorativ (Überschriften, Branding)
-  "Abril Fatface", "Amatic SC", "Anton", "Black Ops One",
+  "Abril Fatface", "Alfa Slab One", "Amatic SC", "Anton", "Black Ops One",
   "Coda", "Cookie", "Fredoka One", "Great Vibes", "Kaushan Script",
   "Lobster", "Luckiest Guy", "Pacifico", "Patua One", "Press Start 2P",
   "Risque", "Satisfy", "Ultra", "Unica One", "Yellowtail",

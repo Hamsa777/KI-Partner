@@ -325,7 +325,7 @@ const [direction, setDirection] = useState(0);
         </div>
         <button
           onClick={() => scrollByCard("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-300 ease-out hover:scale-110 flex items-center justify-center"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
           style={{
             backgroundColor: arrowBgColor,
             marginRight: "-29px",
