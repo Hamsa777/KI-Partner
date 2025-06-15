@@ -24,6 +24,7 @@ import TestEditor from "./pages/TestEditor.jsx";
 import ChatBotEditor from "./pages/ChatBotEditor";
 import WidgetVorschau from "./components/WidgetVorschau";
 import NotFound from "./pages/NotFound.jsx";
+import DankeOnboarding from "./pages/DankeOnboarding.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -51,6 +52,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />
         <Route path="/widgetvorschau" element={<WidgetVorschau />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/dankeonboarding" element={<DankeOnboarding />} />
 
 
       </Routes>
