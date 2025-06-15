@@ -10,10 +10,10 @@ export default function Header() {
   return (
     <>
       <header className="bg-white sticky top-0 z-30 shadow-sm border-b">
-        <div className="relative flex items-center justify-between px-6 pt-5 pb-5 max-w-6xl mx-auto">
+        <div className="relative flex items-center px-6 pt-5 pb-5 max-w-6xl mx-auto">
           
           {/* Linke Desktop-Navigation */}
-          <div className="hidden sm:flex items-center space-x-6 text-sm sm:text-base pt-1">
+          <div className="hidden sm:flex items-center space-x-6 text-sm sm:text-base pt-1 flex-1">
             <Link to="/ueberuns" className="hover:underline text-gray-800">
               Über uns
             </Link>
@@ -33,8 +33,8 @@ export default function Header() {
             </p>
           </div>
 
-          {/* Rechte Navigation + Burger rechts (mobil sichtbar) */}
-          <div className="flex items-center space-x-4 text-sm sm:text-base pt-1">
+          {/* Rechte Navigation + Burger rechts */}
+          <div className="flex items-center space-x-4 text-sm sm:text-base pt-1 flex-1 justify-end">
             {/* Desktop-Links */}
             <a
               href="/testeditor"
