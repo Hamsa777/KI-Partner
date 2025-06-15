@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import FeedbackWidget from "../components/FeedbackWidget";
 import GoogleFontSelector from "../components/GoogleFontSelector"; // Pfad ggf. anpassen
 
 
 export default function WidgetEditor() {
-  const { firmaId } = useParams();
+const { firmaId } = useParams();
+const navigate = useNavigate();
 const [color, setColor] = useState("#ffffff"); // Hintergrund weiß
 const [accentColor, setAccentColor] = useState("#f3f4f6"); // Soft-Grau für Boxen
 const [textColor, setTextColor] = useState("#111827"); // Fast-Schwarz
@@ -66,9 +67,15 @@ useEffect(() => {
   if (!firmaId) return;
 
   fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (!data) return;
+  .then((res) => {
+    if (!res.ok) {
+      navigate("/404");
+      throw new Error("Firma nicht gefunden");
+    }
+    return res.json();
+  })
+  .then((data) => {
+    if (!data) return;
       setServerConfig(data);
       setLogoSize(data.logoSize ?? "60px");
       setColor(data.color ?? "#ffffff");

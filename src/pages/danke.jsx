@@ -56,7 +56,7 @@ export default function DankeSeite() {
       </p>
 
       {!access && !error && (
-        <p className="text-gray-600 mb-4">Lade deinen persönlichen Link…</p>
+        <p className="text-gray-600 mb-4">Lade Ihren persönlichen Link…</p>
       )}
 
       {error && (
