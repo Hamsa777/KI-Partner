@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import sampleData from "../assets/sampleData.json";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function FeedbackWidget({
   firmaId,
@@ -20,6 +21,21 @@ export default function FeedbackWidget({
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
+const [slideDirection, setSlideDirection] = useState(0); // -1 = links, 1 = rechts
+
+const handlePrev = () => {
+  if (startIndex > 0) {
+    setSlideDirection(-1);
+    setStartIndex(startIndex - 1);
+  }
+};
+const handleNext = () => {
+  if (startIndex < bewertungen.length - cardsToShow) {
+    setSlideDirection(1);
+    setStartIndex(startIndex + 1);
+  }
+};
 
   // Responsive Detection (Mobile)
   useEffect(() => {
@@ -260,7 +276,7 @@ export default function FeedbackWidget({
         userSelect: editorMode ? "none" : "auto"
       }}
     >
-      <div className="relative flex justify-center items-center min-h-[56px]">
+      <div className="relative flex justify-center items-center min-h-[40px]">
         {/* Überschrift: NUR anzeigen, wenn gesetzt! */}
         {effectiveCustomTitle && (
           <h2 className="text-3xl text-center w-full" style={headingStyle}>

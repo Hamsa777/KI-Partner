@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
-    "framer-motion": "^12.7.3",
+    "framer-motion": "^12.18.1",
     "lucide-react": "^0.507.0",
     "puppeteer": "^24.8.2",
     "react": "^18.2.0",

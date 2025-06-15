@@ -3,6 +3,7 @@ import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import sampleData from "../assets/sampleData.json";
 
+
 export default function FeedbackWidget({
   firmaId,
   config: propConfig,
@@ -20,6 +21,8 @@ export default function FeedbackWidget({
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [current, setCurrent] = useState(0);
+const [direction, setDirection] = useState(0);
 
   // Responsive Detection (Mobile)
   useEffect(() => {
@@ -322,7 +325,7 @@ export default function FeedbackWidget({
         </div>
         <button
           onClick={() => scrollByCard("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-300 ease-out hover:scale-110 flex items-center justify-center"
           style={{
             backgroundColor: arrowBgColor,
             marginRight: "-29px",

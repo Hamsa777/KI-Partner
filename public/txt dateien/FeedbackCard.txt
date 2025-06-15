@@ -16,10 +16,6 @@ const [expanded, setExpanded] = useState(false);
 const [showButton, setShowButton] = useState(false);
 const [commentHeight, setCommentHeight] = useState(0);
 const commentRef = useRef(null);
-useEffect(() => {
-  setExpanded(false);
-}, [review]);
-
 
 useEffect(() => {
   if (commentRef.current) {
@@ -50,17 +46,16 @@ useEffect(() => {
 
   return (
     <div className="min-w-[260px] max-w-[260px] flex-shrink-0">
-     <div
-  className={boxClasses}
+      <div
+  className={`${boxClasses} ${expanded ? "" : "min-h-[120px]"}`}
   style={{
     backgroundColor: stylePreset === "transparent" ? "transparent" : accentColor,
     borderRadius: boxRadius,
     fontSize: textFontSize,
     position: "relative",
-    minHeight: "115px", // nur für Optik, KEIN transition!
+    minHeight: "115px", // das reicht, KEIN transition hier!
   }}
 >
-
 
         {/* Name + Badge + Sterne */}
         <div className="flex items-center gap-2 mb-1">
@@ -90,7 +85,7 @@ useEffect(() => {
         </div>
 
         {/* Kommentar */}
-       <p
+        <p
   ref={commentRef}
   className={`italic transition-all duration-500 ease-in-out overflow-hidden`}
   style={{
@@ -102,7 +97,6 @@ useEffect(() => {
 >
   "{review.comment}"
 </p>
-
 
         {showButton && (
           <button
