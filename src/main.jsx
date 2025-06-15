@@ -11,7 +11,8 @@ import UeberUns from "./pages/UeberUns.jsx";
 import DokumentenAutomatisierung from "./pages/DokumentenAutomatisierung.jsx";
 import Kundenfeedback from "./pages/Kundenfeedback.jsx";
 import Chatbots from "./pages/chatbots.jsx";
-
+import Datenschutz from "./pages/Datenschutz.jsx";
+import Impressum from "./pages/Impressum.jsx";
 // Sonderseiten (ohne Header)
 import DankeSeite from "./pages/danke.jsx";
 import DemoDanke from "./pages/demodanke.jsx";
@@ -26,6 +27,7 @@ import WidgetVorschau from "./components/WidgetVorschau";
 import NotFound from "./pages/NotFound.jsx";
 import DankeOnboarding from "./pages/DankeOnboarding.jsx";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -38,6 +40,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/dokumenten-automatisierung" element={<DokumentenAutomatisierung />} />
           <Route path="/kundenfeedback" element={<Kundenfeedback />} />
           <Route path="/chatbots" element={<Chatbots />} />
+          <Route path="datenschutz" element={<Datenschutz />} />
+          <Route path="impressum" element={<Impressum />} />
+
         </Route>
 
         {/* Sonderseiten ohne Header */}

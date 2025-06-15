@@ -6,7 +6,7 @@ const serviceText = {
   feedback: {
     title: 'Onboarding erfolgreich!',
     intro: 'Ihre Angaben wurden erfolgreich übermittelt.',
-    info: 'Sie erhalten in kürze eine Mail mit allen erforderlichen Links und ihrem Embed-Code für die Eibettung Ihres Widgets.'
+    info: 'Sie erhalten in kürze eine Mail mit allen erforderlichen Links und ihrem Embed-Code für die Einbettung Ihres Widgets.'
   },
  // chatbot: {
    // title: 'Vielen Dank!',

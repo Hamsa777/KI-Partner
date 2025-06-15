@@ -40,7 +40,7 @@ export default function ServiceCards() {
                 <>
                   <HourglassIcon className="w-10 h-10 mb-4 text-[#283593]" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Bald verfügbar
+                    Demnächst verfügbar
                   </h3>
                   <p className="text-sm text-gray-700 leading-relaxed">
                     Dieser Service wird in Kürze verfügbar sein.
