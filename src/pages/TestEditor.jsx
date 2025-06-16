@@ -25,6 +25,7 @@ export default function TestEditor() {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("");
   const [backgroundImagePosition, setBackgroundImagePosition] = useState({ x: 50, y: 50 });
   const [visibleCards, setVisibleCards] = useState(3);
+  const [cardLayout, setCardLayout] = useState("default");
 
   // Mobile Optionen
   const [mobileHeadingFontSize, setMobileHeadingFontSize] = useState("26px");
@@ -82,7 +83,8 @@ export default function TestEditor() {
     mobileHeadingFontSize,
     mobileLogoSize,
     mobileCustomTitle,
-    mobileLogoPosition, // NEU
+    mobileLogoPosition, 
+    cardLayout,
   };
 
   return (
@@ -156,6 +158,18 @@ export default function TestEditor() {
                 <option value="transparent">Transparent</option>
               </select>
             </label>
+             <label>Design der Feedback-Karten:
+              <select
+                className="w-full p-2 border"
+                value={cardLayout}
+                onChange={(e) => setCardLayout(e.target.value)}
+              >
+                <option value="default">Standard (klassisch)</option>
+      
+                <option value="review-modern">Review Modern</option>
+                <option value="social-style">Social Style</option>
+              </select>
+            </label>
             <label>Widget-Abrundung:
               <input type="number" min="0" max="60" className="w-full p-2 border" value={parseInt(radius)} onChange={(e) => setRadius(`${e.target.value}px`)} />
             </label>
@@ -216,7 +230,7 @@ export default function TestEditor() {
       <div className="w-full overflow-x-auto mt-12">
         <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
         <div className="min-w-fit mx-auto">
-          <FeedbackWidget config={liveConfig} feedback={sampleData} editorMode={true} activeTab={activeTab} />
+          <FeedbackWidget config={liveConfig} feedback={sampleData} editorMode={true} activeTab={activeTab} cardLayout="Standard (klassisch)" />
         </div>
         <p className="text-center text-yellow-600 mt-6">⚠️ Hinweis: Änderungen werden hier nur getestet und <strong>nicht gespeichert</strong>.</p>
       </div>
