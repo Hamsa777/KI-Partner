@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import FeedbackWidget from "../components/FeedbackWidget";
 import GoogleFontSelector from "../components/GoogleFontSelector"; // Pfad ggf. anpassen
 
+console.log("WidgetEditor loaded", window.location.pathname);
+
 export default function WidgetEditor() {
   const { firmaId } = useParams();
   const navigate = useNavigate();
