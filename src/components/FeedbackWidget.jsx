@@ -166,6 +166,7 @@ const [direction, setDirection] = useState(0);
     visibleCards = 3,
     mobileHeadingFontSize = "23px",
     mobileLogoSize = "40px",
+    cardLayout = "Standard (klassisch)"
   } = config;
 
   // Vorschau-Logik für Editor und Mobilgeräte
@@ -185,8 +186,8 @@ const [direction, setDirection] = useState(0);
 
   // Sichtbare Karten
   const cardsToShow = showMobilePreview ? 1 : (isMobile ? 1 : Math.min(visibleCards, 4));
-  const cardWidth = 260;
-  const gap = 16;
+  const cardWidth = 300;    // NEU: 300px breit
+  const gap = 20; 
   const containerWidth = cardsToShow * cardWidth + (cardsToShow - 1) * gap;
 
   // Styles
@@ -258,19 +259,17 @@ const [direction, setDirection] = useState(0);
           : "center",
         fontFamily: `'${config.font}', sans-serif`,
         borderRadius: radius,
-        maxWidth: `${containerWidth + 80}px`,
+        maxWidth: `${containerWidth + 80}px`, // bei Bedarf auf z.B. +100 erhöhen für noch mehr Padding außen
         cursor: editorMode && backgroundImageUrl ? "grab" : "default",
         userSelect: editorMode ? "none" : "auto"
       }}
     >
       <div className="relative flex justify-center items-center min-h-[40px]">
-        {/* Überschrift: NUR anzeigen, wenn gesetzt! */}
         {effectiveCustomTitle && (
           <h2 className="text-3xl text-center w-full" style={headingStyle}>
             {effectiveCustomTitle}
           </h2>
         )}
-        {/* Logo: Position dynamisch per absolute + Tailwind */}
         {logoUrl && (
           <img
             src={logoUrl}
@@ -298,7 +297,7 @@ const [direction, setDirection] = useState(0);
         {/* Feedback-Karten */}
         <div
           ref={containerRef}
-          className="flex gap-4 overflow-hidden snap-x snap-mandatory"
+          className="flex gap-5 overflow-hidden snap-x snap-mandatory" // gap-5 = 20px
           style={{
             scrollBehavior: "smooth",
             width: `${containerWidth}px`,
@@ -319,6 +318,7 @@ const [direction, setDirection] = useState(0);
                 boxRadius={boxRadius}
                 stylePreset={stylePreset}
                 textFontSize={textFontSize}
+                cardLayout={config.cardLayout}
               />
             </div>
           ))}

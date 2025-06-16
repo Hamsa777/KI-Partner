@@ -30,6 +30,7 @@ export default function WidgetEditor() {
   const [mobileCustomTitle, setMobileCustomTitle] = useState("");
   const [logoPosition, setLogoPosition] = useState("right");       // Desktop
 const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
+const [cardLayout, setCardLayout] = useState("default");
 
 
 
@@ -93,6 +94,7 @@ const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
         setMobileCustomTitle(data.mobileCustomTitle ?? "");
         setLogoPosition(data.logoPosition ?? "right");
         setMobileLogoPosition(data.mobileLogoPosition ?? "right");
+        setCardLayout(data.cardLayout ?? "default");
 
 
 
@@ -138,6 +140,7 @@ const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
     mobileCustomTitle,
     logoPosition,
   mobileLogoPosition,
+  cardLayout,
   };
 
   const iframeCode = `<iframe 
@@ -293,6 +296,18 @@ const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
                 <option value="transparent">Transparent</option>
               </select>
             </label>
+            <label>Design der Feedback-Karten:
+              <select
+                className="w-full p-2 border"
+                value={cardLayout}
+                onChange={(e) => setCardLayout(e.target.value)}
+              >
+                <option value="default">Standard (klassisch)</option>
+      
+                <option value="review-modern">Review Modern</option>
+                <option value="social-style">Social Style</option>
+              </select>
+            </label>
             <label>Widget-Abrundung:
               <input type="number" min="0" max="60" className="w-full p-2 border" value={parseInt(radius)} onChange={(e) => setRadius(`${e.target.value}px`)} />
             </label>
@@ -403,7 +418,7 @@ const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
       <div className="w-full overflow-x-auto mt-12">
         <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
         <div className="min-w-fit mx-auto">
-          <FeedbackWidget firmaId={firmaId} config={liveConfig} editorMode={true} activeTab={activeTab} />
+          <FeedbackWidget firmaId={firmaId} config={liveConfig} editorMode={true} activeTab={activeTab} cardLayout="Standard (klassisch)"  />
         </div>
         <div className="mt-6 flex justify-center">
           <button
@@ -478,6 +493,7 @@ const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
               mobileCustomTitle,
               logoPosition,
               mobileLogoPosition,
+              cardLayout
             };
             const response = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}`, {
               method: "PUT",

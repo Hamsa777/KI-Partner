@@ -10,7 +10,7 @@ export default function WidgetEditor() {
   const [accentColor, setAccentColor] = useState("#f3f4f6");
   const [textColor, setTextColor] = useState("#111827");
   const [font, setFont] = useState("Inter");
-  const [textFontSize, setTextFontSize] = useState("15px");
+  const [textFontSize, setTextFontSize] = useState("16px");
   const [radius, setRadius] = useState("35px");
   const [boxRadius, setBoxRadius] = useState("35px");
   const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
@@ -28,6 +28,9 @@ export default function WidgetEditor() {
   const [mobileHeadingFontSize, setMobileHeadingFontSize] = useState("23px");
   const [mobileLogoSize, setMobileLogoSize] = useState("40px");
   const [mobileCustomTitle, setMobileCustomTitle] = useState("");
+  const [logoPosition, setLogoPosition] = useState("right");       // Desktop
+const [mobileLogoPosition, setMobileLogoPosition] = useState("right"); // Mobile
+
 
 
   const [headingStyles, setHeadingStyles] = useState({
@@ -88,6 +91,9 @@ export default function WidgetEditor() {
         setMobileHeadingFontSize(data.mobileHeadingFontSize ?? "23px");
         setMobileLogoSize(data.mobileLogoSize ?? "40px");
         setMobileCustomTitle(data.mobileCustomTitle ?? "");
+        setLogoPosition(data.logoPosition ?? "right");
+        setMobileLogoPosition(data.mobileLogoPosition ?? "right");
+
 
 
         setHeadingStyles({
@@ -130,6 +136,8 @@ export default function WidgetEditor() {
     mobileHeadingFontSize,
     mobileLogoSize,
     mobileCustomTitle,
+    logoPosition,
+  mobileLogoPosition,
   };
 
   const iframeCode = `<iframe 
@@ -318,6 +326,17 @@ export default function WidgetEditor() {
                 onChange={(e) => setLogoUrl(e.target.value)}
               />
             </label>
+            <label>Logo-Position (Desktop):
+      <select
+        className="w-full p-2 border"
+        value={logoPosition}
+        onChange={e => setLogoPosition(e.target.value)}
+      >
+        <option value="left">Links</option>
+        <option value="center">Zentriert</option>
+        <option value="right">Rechts</option>
+      </select>
+    </label>
             <label>Logo-Größe (px):
               <input
                 type="number"
@@ -366,6 +385,17 @@ export default function WidgetEditor() {
                 onChange={(e) => setMobileLogoSize(`${e.target.value}px`)}
               />
             </label>
+             <label>Logo-Position (Mobil):
+      <select
+        className="w-full p-2 border"
+        value={mobileLogoPosition}
+        onChange={e => setMobileLogoPosition(e.target.value)}
+      >
+        <option value="left">Links</option>
+        <option value="center">Zentriert</option>
+        <option value="right">Rechts</option>
+      </select>
+    </label>
           </div>
         )}
       </div>
@@ -446,6 +476,8 @@ export default function WidgetEditor() {
               mobileHeadingFontSize,
               mobileLogoSize,
               mobileCustomTitle,
+              logoPosition,
+              mobileLogoPosition,
             };
             const response = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}`, {
               method: "PUT",
