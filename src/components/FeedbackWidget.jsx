@@ -191,16 +191,19 @@ const [direction, setDirection] = useState(0);
   const containerWidth = cardsToShow * cardWidth + (cardsToShow - 1) * gap;
 
   // Styles
-  const widgetClasses = [
-    "space-y-4 p-4 relative transition-all mx-auto",
-    widgetStylePreset === "glass"
-      ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
-      : widgetStylePreset === "flat"
-      ? "bg-transparent border border-gray-200 shadow-none"
-      : widgetStylePreset === "transparent"
-      ? "bg-transparent border-none shadow-none"
-      : "bg-white shadow-xl",
-  ].join(" ");
+ const widgetClasses = [
+  "space-y-4 p-4 relative transition-all mx-auto",
+  widgetStylePreset === "glass"
+    ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+    : widgetStylePreset === "flat"
+    ? "bg-transparent border border-gray-200 shadow-none"
+    : widgetStylePreset === "transparent"
+   ? "bg-white/20 backdrop-blur-sm border border-white/30 shadow-md"
+    : widgetStylePreset === "apple-transparent"
+    ? "bg-black/25 backdrop-blur-2xl backdrop-saturate-150"
+    : "bg-white shadow-xl",
+].join(" ");
+
 
   const headingStyle = {
     fontSize: headingFont,

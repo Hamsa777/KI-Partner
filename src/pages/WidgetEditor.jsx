@@ -296,6 +296,7 @@ const [cardLayout, setCardLayout] = useState("default");
                 <option value="glass">Glass Look</option>
                 <option value="flat">Minimal Flat</option>
                 <option value="transparent">Transparent</option>
+                <option value="apple-transparent">Apple Transparent</option>
               </select>
             </label>
             <label>Design der Feedback-Karten:

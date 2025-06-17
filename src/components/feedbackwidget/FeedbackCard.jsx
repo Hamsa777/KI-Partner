@@ -56,15 +56,19 @@ useEffect(() => {
   // ...Dein bisheriger Code (useState etc.)...
 
 let boxClasses = "p-4 flex flex-col";
+
 if (stylePreset === "glass") {
   boxClasses += " bg-white/10 backdrop-blur-lg border border-white/30 shadow-lg";
 } else if (stylePreset === "flat") {
   boxClasses += " bg-transparent border border-gray-200 shadow-none";
 } else if (stylePreset === "transparent") {
-  boxClasses += " bg-white/20 backdrop-blur-sm border border-white/30 shadow-md";
+boxClasses += " bg-white/20 backdrop-blur-sm border border-white/30 shadow-md";
+} else if (stylePreset === "apple-transparent") {
+  boxClasses += " bg-black/50 backdrop-blur-2xl backdrop-saturate-150";
 } else {
   boxClasses += " bg-white shadow-lg";
 }
+
 
 
 
@@ -75,7 +79,11 @@ if (cardLayout === "review-modern") {
       <div
   className={boxClasses + " flex flex-col"}
   style={{
-    backgroundColor: stylePreset === "transparent" ? "transparent" : accentColor,
+    backgroundColor:
+  stylePreset === "transparent" || stylePreset === "apple-transparent"
+    ? "transparent"
+    : accentColor,
+
     borderRadius: boxRadius,
     fontSize: textFontSize,
     minHeight: Math.max(90, parseInt(textFontSize, 10) * 5 + 48), // Mehr Reserve!
@@ -139,7 +147,11 @@ if (cardLayout === "social-style") {
       <div
         className={boxClasses + " items-center"}
         style={{
-          backgroundColor: stylePreset === "transparent" ? "transparent" : accentColor,
+          backgroundColor:
+  stylePreset === "transparent" || stylePreset === "apple-transparent"
+    ? "transparent"
+    : accentColor,
+
           borderRadius: boxRadius,
           fontSize: textFontSize,
           position: "relative",
@@ -204,7 +216,11 @@ return (
     <div
       className={boxClasses+ " flex flex-col h-full"}
       style={{
-        backgroundColor: stylePreset === "transparent" ? "transparent" : accentColor,
+       backgroundColor:
+  stylePreset === "transparent" || stylePreset === "apple-transparent"
+    ? "transparent"
+    : accentColor,
+
         borderRadius: boxRadius,
         fontSize: textFontSize,
         position: "relative",
