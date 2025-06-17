@@ -358,7 +358,7 @@ const [cardLayout, setCardLayout] = useState("default");
               <input
                 type="number"
                 min="10"
-                max="200"
+                max="1000"
                 className="w-full p-2 border"
                 value={parseInt(logoSize)}
                 onChange={(e) => setLogoSize(`${e.target.value}px`)}

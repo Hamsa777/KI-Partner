@@ -1,7 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Logo from "../assets/KI-Partner Vektorlogo.png";
 const serviceText = {
   feedback: {
     title: 'Onboarding erfolgreich!',
