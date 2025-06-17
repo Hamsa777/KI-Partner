@@ -52,16 +52,20 @@ export default function Kundenfeedback() {
 
 
 
-       <motion.a
+      <motion.a
   href="/widgetvorschau"
   target="_blank"
   rel="noopener noreferrer"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.4 }}
+  viewport={{ once: true }}
   whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
-  transition={{ duration: 0.3 }}
   className="inline-block bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium mt-8"
 >
   Jetzt Beispiel Designs ansehen
 </motion.a>
+
 
 
         {/* Haupt-Card */}
@@ -84,7 +88,7 @@ export default function Kundenfeedback() {
           {/* Hover-Overlay mit zwei Buttons */}
           <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex">
             <a
-              href="https://www.ki-partner24.de/testeditor"
+              href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
               target="_blank"
               rel="noopener noreferrer"
               className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-l-3xl"
@@ -175,7 +179,7 @@ export default function Kundenfeedback() {
 >
   
   <a
-    href="https://www.ki-partner24.de/testeditor"
+    href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
     target="_blank"
     rel="noopener noreferrer"
     className="inline-block mt-10 px-6 py-3 bg-[#283593] text-white text-sm font-medium rounded-full shadow hover:bg-[#1f2d66] transition"

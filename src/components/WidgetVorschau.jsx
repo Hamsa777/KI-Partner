@@ -45,15 +45,14 @@ const WidgetVorschau = () => {
         className="flex flex-col items-center gap-3 mt-8"
       >
        <motion.a
-  href="/testeditor"
+  href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
   target="_blank"
   rel="noopener noreferrer"
   whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
   transition={{ duration: 0.3 }}
   className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
 >
-  Jetzt eigenes Widget im Testeditor erstellen
-</motion.a>
+Kostenlos testen</motion.a>
 
 <motion.a
   href="https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv"
@@ -63,7 +62,7 @@ const WidgetVorschau = () => {
   transition={{ duration: 0.3 }}
   className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
 >
-  Feedbacksystem kaufen
+  Jetzt kaufen
 </motion.a>
 
 
@@ -72,6 +71,14 @@ const WidgetVorschau = () => {
           Die Rechte an Logos und Marken liegen bei den jeweiligen Eigentümern. Es besteht keine geschäftliche Verbindung zu den genannten Unternehmen.
         </p>
       </motion.div>
+      <div className="mt-4">
+    <a
+      href="/"
+      className="text-sm text-gray-500 hover:text-gray-700 underline transition"
+    >
+      Zurück zur Startseite
+    </a>
+  </div>
     </div>
   );
 };

@@ -42,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/chatbots" element={<Chatbots />} />
           <Route path="datenschutz" element={<Datenschutz />} />
           <Route path="impressum" element={<Impressum />} />
+          <Route path="/widgetvorschau" element={<WidgetVorschau />} />
 
         </Route>
 

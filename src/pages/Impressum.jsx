@@ -18,7 +18,7 @@ export default function Impressum() {
       <section className="mb-6">
         <p><strong>Kontakt:</strong></p>
         <p className="mt-2">
-            {/* Telefon: [deine Telefonnummer]<br /> */}
+            Telefon: +49 (0) 178 3221470<br /> 
           
           E-Mail: <a href="mailto:kontakt@ki-partner24.de" className="underline hover:text-[#1a237e]">kontakt@ki-partner24.de</a>
         </p>
@@ -39,9 +39,7 @@ export default function Impressum() {
         </p>
       </section>
 
-      <p className="text-sm text-gray-500 mt-10 text-center">
-        © {new Date().getFullYear()} KI-Partner – Alle Rechte vorbehalten
-      </p>
+      
     </div>
   );
 }
