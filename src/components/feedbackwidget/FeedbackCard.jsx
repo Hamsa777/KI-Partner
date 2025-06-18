@@ -203,7 +203,7 @@ if (cardLayout === "social-style") {
         {showButton && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-sm text-blue-700 hover:text-blue-900 hover:underline transition mx-auto block"
+            className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
           >
             {expanded ? "Verbergen" : "Weiterlesen"}
           </button>
@@ -267,7 +267,7 @@ return (
   {showButton && (
     <button
       onClick={() => setExpanded(!expanded)}
-      className="text-base font-semibold text-blue-600  rounded hover:underline transition-all duration-200"
+      className="text-sm text-gray-400  rounded hover:underline transition-all duration-200"
       style={{ fontSize: "15px" }}
     >
       {expanded ? "Verbergen" : "Weiterlesen"}

@@ -24,6 +24,45 @@ export default function FeedbackWidget({
   const [current, setCurrent] = useState(0);
 const [direction, setDirection] = useState(0);
 
+
+// Wasserzeichen stabilisieren
+ useEffect(() => {
+  const el = document.getElementById("powered-by");
+  if (!el) return;
+
+  // Hintergrundfarbe vom Parent
+  const bgColor = window.getComputedStyle(el.parentElement).backgroundColor;
+
+  function getLuminance(rgb) {
+    const [r, g, b] = rgb
+      .replace(/[^\d,]/g, "")
+      .split(",")
+      .map(Number)
+      .map((v) => v / 255)
+      .map((v) =>
+        v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
+      );
+
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  }
+
+  const luminance = getLuminance(bgColor);
+
+  let textColor = "#ffffff"; // Standard: Weiß
+
+  if (luminance > 0.75) {
+    textColor = "#1a1a1a"; // Sehr heller Hintergrund → Dunkler Text
+  } else if (luminance > 0.4) {
+    textColor = "#333333"; // Mittelhell → Dunkelgrau
+  } else if (luminance > 0.15) {
+    textColor = "#f0f0f0"; // Mittel → Hellgrau
+  } else {
+    textColor = "#ffffff"; // Sehr dunkel → Weiß
+  }
+
+  el.style.color = textColor;
+}, []);
+
   // Responsive Detection (Mobile)
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -84,6 +123,8 @@ const [direction, setDirection] = useState(0);
     link.onload = () => setFontLoaded(true);
     document.head.appendChild(link);
   }, [config?.font]);
+
+  
 
   // Bewertungen laden (Demo/Server)
   useEffect(() => {
@@ -166,6 +207,7 @@ const [direction, setDirection] = useState(0);
     visibleCards = 3,
     mobileHeadingFontSize = "23px",
     mobileLogoSize = "40px",
+    cardLayout = "Standard (klassisch)"
   } = config;
 
   // Vorschau-Logik für Editor und Mobilgeräte
@@ -185,21 +227,24 @@ const [direction, setDirection] = useState(0);
 
   // Sichtbare Karten
   const cardsToShow = showMobilePreview ? 1 : (isMobile ? 1 : Math.min(visibleCards, 4));
-  const cardWidth = 260;
-  const gap = 16;
+  const cardWidth = 300;    // NEU: 300px breit
+  const gap = 20; 
   const containerWidth = cardsToShow * cardWidth + (cardsToShow - 1) * gap;
 
   // Styles
-  const widgetClasses = [
-    "space-y-4 p-4 relative transition-all mx-auto",
-    widgetStylePreset === "glass"
-      ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
-      : widgetStylePreset === "flat"
-      ? "bg-transparent border border-gray-200 shadow-none"
-      : widgetStylePreset === "transparent"
-      ? "bg-transparent border-none shadow-none"
-      : "bg-white shadow-xl",
-  ].join(" ");
+ const widgetClasses = [
+  "space-y-4 p-4 relative transition-all mx-auto",
+  widgetStylePreset === "glass"
+    ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+    : widgetStylePreset === "flat"
+    ? "bg-transparent border border-gray-200 shadow-none"
+    : widgetStylePreset === "transparent"
+   ? "bg-white/20 backdrop-blur-sm border border-white/30 shadow-md"
+    : widgetStylePreset === "apple-transparent"
+    ? "bg-black/25 backdrop-blur-2xl backdrop-saturate-150"
+    : "bg-white shadow-xl",
+].join(" ");
+
 
   const headingStyle = {
     fontSize: headingFont,
@@ -258,19 +303,17 @@ const [direction, setDirection] = useState(0);
           : "center",
         fontFamily: `'${config.font}', sans-serif`,
         borderRadius: radius,
-        maxWidth: `${containerWidth + 80}px`,
+        maxWidth: `${containerWidth + 80}px`, // bei Bedarf auf z.B. +100 erhöhen für noch mehr Padding außen
         cursor: editorMode && backgroundImageUrl ? "grab" : "default",
         userSelect: editorMode ? "none" : "auto"
       }}
     >
       <div className="relative flex justify-center items-center min-h-[40px]">
-        {/* Überschrift: NUR anzeigen, wenn gesetzt! */}
         {effectiveCustomTitle && (
           <h2 className="text-3xl text-center w-full" style={headingStyle}>
             {effectiveCustomTitle}
           </h2>
         )}
-        {/* Logo: Position dynamisch per absolute + Tailwind */}
         {logoUrl && (
           <img
             src={logoUrl}
@@ -298,7 +341,7 @@ const [direction, setDirection] = useState(0);
         {/* Feedback-Karten */}
         <div
           ref={containerRef}
-          className="flex gap-4 overflow-hidden snap-x snap-mandatory"
+          className="flex gap-5 overflow-hidden snap-x snap-mandatory" // gap-5 = 20px
           style={{
             scrollBehavior: "smooth",
             width: `${containerWidth}px`,
@@ -335,19 +378,21 @@ const [direction, setDirection] = useState(0);
           <ChevronRight color={arrowColor} />
         </button>
       </div>
-      <div
-        className="text-center text-[14px] text-gray-400 mt-0 mb-0 leading-none"
-        style={{ fontFamily: 'system-ui' }}
-      >
-        <a
-          href="https://www.ki-partner24.de"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:underline"
-        >
-          powered by KI-Partner
-        </a>
-      </div>
+     <div
+  id="powered-by"
+  className="text-center text-[14px] mt-0 mb-0 leading-none"
+  style={{ fontFamily: 'system-ui' }}
+>
+  <a
+    href="https://www.ki-partner24.de"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    powered by KI-Partner
+  </a>
+</div>
+
     </div>
   );
 }

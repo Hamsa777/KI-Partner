@@ -1,70 +1,45 @@
 {
   "blueprint": {
-    "name": "Zahnarzt E-Mail Scraper DE",
+    "name": "Dumpling AI Web Scraper to Sheets",
     "modules": [
       {
-        "module": "google-sheets:watchRows",
-        "name": "Google Sheets – Zahnarzt-URLs abrufen",
+        "module": "dumplingai:search_web",
+        "id": 1,
         "parameters": {
-          "sheetId": "DEIN_SHEET_ID",
-          "worksheetId": "DEIN_TABELLENBLATT_ID",
-          "limit": 200
+          "query": "Zahnarzt Deutschland",
+          "limit": 250,
+          "fields": ["name", "site", "email"]
         }
       },
       {
-        "module": "scrapingbee:makeRequest",
-        "name": "ScrapingBee – Impressum scrapen",
+        "module": "tools:iterator",
+        "id": 2,
         "parameters": {
-          "url": "{{1.website}}/impressum",
-          "method": "GET",
-          "headers": [
-            {
-              "name": "X-Api-Key",
-              "value": "DEIN_SCRAPINGBEE_KEY"
-            }
-          ]
+          "array": "{{1.data}}"
         }
       },
       {
-        "module": "text-parser:matchPattern",
-        "name": "E-Mail extrahieren",
+        "module": "google-sheets:add_row",
+        "id": 3,
         "parameters": {
-          "text": "{{2.body}}",
-          "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
-          "allMatches": true
-        }
-      },
-      {
-        "module": "google-sheets:addRow",
-        "name": "Google Sheets – E-Mail speichern",
-        "parameters": {
-          "sheetId": "DEIN_SHEET_ID",
-          "worksheetId": "DEIN_TABELLENBLATT_ID",
+          "spreadsheet_id": "1Ux_l5gwOfTAneBCrqPachso08wUVmRU41UAqB-7v0Gc/edit?gid=0#gid=0",
+          "sheet_name": "scraper",
           "values": [
-            "{{1.name}}",
-            "{{3.matches[0]}}",
-            "{{1.website}}"
+            "{{2.name}}",
+            "{{2.email}}",
+            "{{2.site}}"
           ]
         }
-      }
-    ],
-    "triggers": [
-      {
-        "type": "manual"
       }
     ],
     "connections": [
       {
-        "source": 1,
-        "target": 2
+        "from": 1,
+        "to": 2
       },
       {
-        "source": 2,
-        "target": 3
-      },
-      {
-        "source": 3,
-        "target": 4
+        "from": 2,
+        "to": 3
       }
     ]
   }
