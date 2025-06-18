@@ -25,10 +25,14 @@ function Badge() {
   return (
     <div className="relative">
       <div className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full shadow-inner group hover:animate-bounce-slow transition-transform">
-        <ShieldCheck className="w-4 h-4 text-green-500" />
+        <img
+  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png"
+  alt="Shield Icon"
+  className="w-4 h-4"
+/>
         {/* Tooltip */}
         <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
-          Verifiziert durch KI-Partner
+          Bewertung aus Google
         </div>
       </div>
     </div>

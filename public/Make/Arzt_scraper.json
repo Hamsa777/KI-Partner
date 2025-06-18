@@ -1,0 +1,71 @@
+{
+  "blueprint": {
+    "name": "Zahnarzt E-Mail Scraper DE",
+    "modules": [
+      {
+        "module": "google-sheets:watchRows",
+        "name": "Google Sheets – Zahnarzt-URLs abrufen",
+        "parameters": {
+          "sheetId": "DEIN_SHEET_ID",
+          "worksheetId": "DEIN_TABELLENBLATT_ID",
+          "limit": 200
+        }
+      },
+      {
+        "module": "scrapingbee:makeRequest",
+        "name": "ScrapingBee – Impressum scrapen",
+        "parameters": {
+          "url": "{{1.website}}/impressum",
+          "method": "GET",
+          "headers": [
+            {
+              "name": "X-Api-Key",
+              "value": "DEIN_SCRAPINGBEE_KEY"
+            }
+          ]
+        }
+      },
+      {
+        "module": "text-parser:matchPattern",
+        "name": "E-Mail extrahieren",
+        "parameters": {
+          "text": "{{2.body}}",
+          "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+          "allMatches": true
+        }
+      },
+      {
+        "module": "google-sheets:addRow",
+        "name": "Google Sheets – E-Mail speichern",
+        "parameters": {
+          "sheetId": "DEIN_SHEET_ID",
+          "worksheetId": "DEIN_TABELLENBLATT_ID",
+          "values": [
+            "{{1.name}}",
+            "{{3.matches[0]}}",
+            "{{1.website}}"
+          ]
+        }
+      }
+    ],
+    "triggers": [
+      {
+        "type": "manual"
+      }
+    ],
+    "connections": [
+      {
+        "source": 1,
+        "target": 2
+      },
+      {
+        "source": 2,
+        "target": 3
+      },
+      {
+        "source": 3,
+        "target": 4
+      }
+    ]
+  }
+}
