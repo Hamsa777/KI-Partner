@@ -17,7 +17,7 @@ import Impressum from "./pages/Impressum.jsx";
 import DankeSeite from "./pages/danke.jsx";
 import DemoDanke from "./pages/demodanke.jsx";
 import FeedbackPage from "./pages/FeedbackPage.jsx";
-import EmbedDemo from "./pages/EmbedDemo.jsx";
+
 import EmbedPage from "./pages/EmbedPage.jsx";
 import WidgetEditor from "./pages/WidgetEditor.jsx";
 import WidgetBotCode from "./pages/WidgetBotCode.jsx";
@@ -52,7 +52,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/feedback/:firmaId" element={<FeedbackPage />} />
         <Route path="/embed/:firmaId" element={<EmbedPage />} /> {/* ✅ wichtig */}
         <Route path="/editor/:firmaId" element={<WidgetEditor />} />
-        <Route path="/embed/demo" element={<EmbedDemo />} />
+     
         <Route path="/widgetbotcode/:firmaId" element={<WidgetBotCode />} />
         <Route path="/TestEditor/" element={<TestEditor />} />
         <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />

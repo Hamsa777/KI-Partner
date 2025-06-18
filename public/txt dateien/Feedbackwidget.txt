@@ -17,7 +17,7 @@ export default function FeedbackWidget({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fontLoaded, setFontLoaded] = useState(false);
-  const containerRef = useRef(null);
+  const Ref = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -255,11 +255,12 @@ setTimeout(() => {
 
   // Navigation für Feedbackkarten
   const scrollByCard = (dir) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
-    el.scrollBy({ left: scroll, behavior: "smooth" });
-  };
+  if (typeof containerRef === "undefined" || !containerRef?.current) return;
+  const el = containerRef.current;
+  const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
+  el.scrollBy({ left: scroll, behavior: "smooth" });
+};
+
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
@@ -332,7 +333,7 @@ setTimeout(() => {
         {/* Feedback-Karten */}
         <div
           ref={containerRef}
-          className="flex gap-5 overflow-hidden snap-x snap-mandatory" // gap-5 = 20px
+          className="flex gap-5 overflow-visible snap-x snap-mandatory" // gap-5 = 20px
           style={{
             scrollBehavior: "smooth",
             width: `${containerWidth}px`,
@@ -354,6 +355,7 @@ setTimeout(() => {
                 stylePreset={stylePreset}
                 textFontSize={textFontSize}
                 cardLayout={config.cardLayout}
+                outerRef={outerRef}
               />
             </div>
           ))}

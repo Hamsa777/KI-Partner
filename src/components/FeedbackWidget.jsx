@@ -17,14 +17,12 @@ export default function FeedbackWidget({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fontLoaded, setFontLoaded] = useState(false);
-  const Ref = useRef(null);
+  const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const outerRef = useRef(null);
-
+const [direction, setDirection] = useState(0);
 
   // Responsive Detection (Mobile)
   useEffect(() => {
@@ -32,36 +30,6 @@ export default function FeedbackWidget({
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
-  }, []);
-
-  // ResizeObserver für das Widget
-  useEffect(() => {
-    if (!outerRef.current) return;
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        window.parent.postMessage(
-          {
-            type: "widgetResize",
-            height: entry.contentRect.height,
-          },
-          "*"
-        );
-      }
-    });
-
-    resizeObserver.observe(outerRef.current);
-// ...nach resizeObserver.observe(outerRef.current);
-setTimeout(() => {
-  if (outerRef.current) {
-    window.parent.postMessage(
-      { type: "widgetResize", height: outerRef.current.getBoundingClientRect().height },
-      "*"
-    );
-  }
-}, 800);
-
-    return () => resizeObserver.disconnect();
   }, []);
 
   // Drag für Hintergrundbild (Editor-Feature)
@@ -255,11 +223,12 @@ setTimeout(() => {
 
   // Navigation für Feedbackkarten
   const scrollByCard = (dir) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
-    el.scrollBy({ left: scroll, behavior: "smooth" });
-  };
+  if (typeof containerRef === "undefined" || !containerRef?.current) return;
+  const el = containerRef.current;
+  const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
+  el.scrollBy({ left: scroll, behavior: "smooth" });
+};
+
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
@@ -281,7 +250,7 @@ setTimeout(() => {
 
   return (
     <div
-      ref={outerRef} // <-- WICHTIG! Hier statt dragRef
+      ref={dragRef}
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
       style={{
@@ -332,7 +301,7 @@ setTimeout(() => {
         {/* Feedback-Karten */}
         <div
           ref={containerRef}
-          className="flex gap-5 overflow-visible snap-x snap-mandatory" // gap-5 = 20px
+          className="flex gap-5 overflow-hidden snap-x snap-mandatory" // gap-5 = 20px
           style={{
             scrollBehavior: "smooth",
             width: `${containerWidth}px`,
@@ -354,7 +323,6 @@ setTimeout(() => {
                 stylePreset={stylePreset}
                 textFontSize={textFontSize}
                 cardLayout={config.cardLayout}
-                outerRef={outerRef}
               />
             </div>
           ))}
