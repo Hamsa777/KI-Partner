@@ -22,46 +22,9 @@ export default function FeedbackWidget({
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
-const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const outerRef = useRef(null);
 
-
-// Wasserzeichen stabilisieren
- useEffect(() => {
-  const el = document.getElementById("powered-by");
-  if (!el) return;
-
-  // Hintergrundfarbe vom Parent
-  const bgColor = window.getComputedStyle(el.parentElement).backgroundColor;
-
-  function getLuminance(rgb) {
-    const [r, g, b] = rgb
-      .replace(/[^\d,]/g, "")
-      .split(",")
-      .map(Number)
-      .map((v) => v / 255)
-      .map((v) =>
-        v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
-      );
-
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  }
-
-  const luminance = getLuminance(bgColor);
-
-  let textColor = "#ffffff"; // Standard: Weiß
-
-  if (luminance > 0.75) {
-    textColor = "#1a1a1a"; // Sehr heller Hintergrund → Dunkler Text
-  } else if (luminance > 0.4) {
-    textColor = "#333333"; // Mittelhell → Dunkelgrau
-  } else if (luminance > 0.15) {
-    textColor = "#f0f0f0"; // Mittel → Hellgrau
-  } else {
-    textColor = "#ffffff"; // Sehr dunkel → Weiß
-  }
-
-  el.style.color = textColor;
-}, []);
 
   // Responsive Detection (Mobile)
   useEffect(() => {
@@ -69,6 +32,36 @@ const [direction, setDirection] = useState(0);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // ResizeObserver für das Widget
+  useEffect(() => {
+    if (!outerRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        window.parent.postMessage(
+          {
+            type: "widgetResize",
+            height: entry.contentRect.height,
+          },
+          "*"
+        );
+      }
+    });
+
+    resizeObserver.observe(outerRef.current);
+// ...nach resizeObserver.observe(outerRef.current);
+setTimeout(() => {
+  if (outerRef.current) {
+    window.parent.postMessage(
+      { type: "widgetResize", height: outerRef.current.getBoundingClientRect().height },
+      "*"
+    );
+  }
+}, 800);
+
+    return () => resizeObserver.disconnect();
   }, []);
 
   // Drag für Hintergrundbild (Editor-Feature)
@@ -123,8 +116,6 @@ const [direction, setDirection] = useState(0);
     link.onload = () => setFontLoaded(true);
     document.head.appendChild(link);
   }, [config?.font]);
-
-  
 
   // Bewertungen laden (Demo/Server)
   useEffect(() => {
@@ -290,7 +281,7 @@ const [direction, setDirection] = useState(0);
 
   return (
     <div
-      ref={dragRef}
+      ref={outerRef} // <-- WICHTIG! Hier statt dragRef
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
       style={{
@@ -378,21 +369,19 @@ const [direction, setDirection] = useState(0);
           <ChevronRight color={arrowColor} />
         </button>
       </div>
-     <div
-  id="powered-by"
-  className="text-center text-[14px] mt-0 mb-0 leading-none"
-  style={{ fontFamily: 'system-ui' }}
->
-  <a
-    href="https://www.ki-partner24.de"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hover:underline"
-  >
-    powered by KI-Partner
-  </a>
-</div>
-
+      <div
+        className="text-center text-[14px] text-gray-400 mt-0 mb-0 leading-none"
+        style={{ fontFamily: 'system-ui' }}
+      >
+        <a
+          href="https://www.ki-partner24.de"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          powered by KI-Partner
+        </a>
+      </div>
     </div>
   );
 }

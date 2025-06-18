@@ -17,12 +17,14 @@ export default function FeedbackWidget({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fontLoaded, setFontLoaded] = useState(false);
-  const containerRef = useRef(null);
+  const Ref = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
-const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const outerRef = useRef(null);
+
 
   // Responsive Detection (Mobile)
   useEffect(() => {
@@ -30,6 +32,36 @@ const [direction, setDirection] = useState(0);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // ResizeObserver für das Widget
+  useEffect(() => {
+    if (!outerRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        window.parent.postMessage(
+          {
+            type: "widgetResize",
+            height: entry.contentRect.height,
+          },
+          "*"
+        );
+      }
+    });
+
+    resizeObserver.observe(outerRef.current);
+// ...nach resizeObserver.observe(outerRef.current);
+setTimeout(() => {
+  if (outerRef.current) {
+    window.parent.postMessage(
+      { type: "widgetResize", height: outerRef.current.getBoundingClientRect().height },
+      "*"
+    );
+  }
+}, 800);
+
+    return () => resizeObserver.disconnect();
   }, []);
 
   // Drag für Hintergrundbild (Editor-Feature)
@@ -249,7 +281,7 @@ const [direction, setDirection] = useState(0);
 
   return (
     <div
-      ref={dragRef}
+      ref={outerRef} // <-- WICHTIG! Hier statt dragRef
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
       style={{
@@ -300,7 +332,7 @@ const [direction, setDirection] = useState(0);
         {/* Feedback-Karten */}
         <div
           ref={containerRef}
-          className="flex gap-5 overflow-hidden snap-x snap-mandatory" // gap-5 = 20px
+          className="flex gap-5 overflow-visible snap-x snap-mandatory" // gap-5 = 20px
           style={{
             scrollBehavior: "smooth",
             width: `${containerWidth}px`,
@@ -322,6 +354,7 @@ const [direction, setDirection] = useState(0);
                 stylePreset={stylePreset}
                 textFontSize={textFontSize}
                 cardLayout={config.cardLayout}
+                outerRef={outerRef}
               />
             </div>
           ))}

@@ -10,7 +10,8 @@ export default function FeedbackCard({
   boxRadius = "16px",
   textFontSize = "20px",
   stylePreset = "classic",
-  cardLayout = "default"
+  cardLayout = "default",
+  outerRef
 }) {
  // GANZ OBEN in der Komponente:
 const [expanded, setExpanded] = useState(false);
@@ -39,6 +40,24 @@ function Badge() {
   );
 }
 
+function handleExpandClick() {
+  setExpanded((prev) => {
+    const newValue = !prev;
+    // Zeit für Transition der Card-Animation!
+    setTimeout(() => {
+      if (window.parent && outerRef && outerRef.current) {
+        window.parent.postMessage(
+          {
+            type: "widgetResize",
+            height: outerRef.current.getBoundingClientRect().height,
+          },
+          "*"
+        );
+      }
+    }, 400); // Passe die Zeit ggf. auf deine CSS-Transition an!
+    return newValue;
+  });
+}
 
 useEffect(() => {
   if (commentRef.current) {
@@ -130,14 +149,15 @@ if (cardLayout === "review-modern") {
               {review.date}
             </span>
           </div>
-          {showButton && (
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className="text-sm rounded-full px-4  bg-red-600 text-white font-bold hover:bg-red-800 transition"
-            >
-              {expanded ? "Verbergen" : "Weiterlesen"}
-            </button>
-          )}
+         {showButton && (
+  <button
+    onClick={handleExpandClick}
+    className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
+  >
+    {expanded ? "Verbergen" : "Weiterlesen"}
+  </button>
+)}
+
         </div>
       </div>
     </div>
@@ -201,13 +221,14 @@ if (cardLayout === "social-style") {
 
         {/* Button */}
         {showButton && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
-          >
-            {expanded ? "Verbergen" : "Weiterlesen"}
-          </button>
-        )}
+  <button
+    onClick={handleExpandClick}
+    className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
+  >
+    {expanded ? "Verbergen" : "Weiterlesen"}
+  </button>
+)}
+
       </div>
     </div>
   );
@@ -264,15 +285,15 @@ return (
 </p>
 
 <div className="flex items-center justify-between mt-auto">
-  {showButton && (
-    <button
-      onClick={() => setExpanded(!expanded)}
-      className="text-sm text-gray-400  rounded hover:underline transition-all duration-200"
-      style={{ fontSize: "15px" }}
-    >
-      {expanded ? "Verbergen" : "Weiterlesen"}
-    </button>
-  )}
+ {showButton && (
+  <button
+    onClick={handleExpandClick}
+    className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
+  >
+    {expanded ? "Verbergen" : "Weiterlesen"}
+  </button>
+)}
+
   <span style={{ color: dateColor, fontSize: "15px" }}>{review.date}</span>
 </div>
 
