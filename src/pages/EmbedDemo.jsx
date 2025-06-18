@@ -4,7 +4,7 @@ export default function EmbedDemo() {
   const [feedback, setFeedback] = useState([]);
 
   useEffect(() => {
-    fetch("https://http://localhost:5173/demo-feedback.json") // Hier deine echte JSON-URL einfügen
+    fetch("/demo-feedback.json") // Hier deine echte JSON-URL einfügen
       .then((res) => res.json())
       .then((data) => setFeedback(data))
       .catch((err) => console.error("Fehler beim Laden der Demo-Bewertungen:", err));

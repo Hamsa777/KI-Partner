@@ -223,11 +223,12 @@ const [direction, setDirection] = useState(0);
 
   // Navigation für Feedbackkarten
   const scrollByCard = (dir) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
-    el.scrollBy({ left: scroll, behavior: "smooth" });
-  };
+  if (typeof containerRef === "undefined" || !containerRef?.current) return;
+  const el = containerRef.current;
+  const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
+  el.scrollBy({ left: scroll, behavior: "smooth" });
+};
+
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
