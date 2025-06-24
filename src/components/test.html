@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <iframe
+      id="testWidget"
+      src="widget.html"
+      style="width:100%; border:1px solid #333; transition:height 0.4s;"
+      height="120"
+    ></iframe>
+    <script>
+      window.addEventListener("message", function(event) {
+        console.log("Parent got message", event.data);
+        const iframe = document.getElementById("testWidget");
+        if (event.data?.type === "widgetResize" && event.data.height) {
+          iframe.style.height = event.data.height + "px";
+          console.log("Parent resized iframe to", event.data.height);
+        }
+      });
+    </script>
+    <div style="background:#def;">⬇️ Ich stehe UNTER dem Widget!</div>
+  </body>
+</html>

@@ -22,15 +22,44 @@ export default function FeedbackWidget({
   const dragRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [current, setCurrent] = useState(0);
-const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [expandedReview, setExpandedReview] = useState(null);
+  const widgetRef = useRef(null);
+  const [lockedSize, setLockedSize] = useState(null);
 
-  // Responsive Detection (Mobile)
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const handleWeiterlesen = (review) => {
+  if (widgetRef.current && !lockedSize) {
+    const rect = widgetRef.current.getBoundingClientRect();
+    setLockedSize({ width: rect.width, height: rect.height });
+  }
+  setExpandedReview(review);
+};
+
+
+const handleClose = () => {
+  setExpandedReview(null);
+  setLockedSize(null);
+};
+
+  
+// ---- RESPONSIVE BREAKPOINT LOGIK ----
+const { visibleCards = 3 } = config || {};
+const usedBreakpoint =
+  visibleCards === 4 ? 1200 :
+  visibleCards === 3 ? 1100 :
+  visibleCards === 2 ? 700 : 900;
+
+
+
+useEffect(() => {
+  function check() {
+    setIsMobile(window.innerWidth < usedBreakpoint);
+  }
+  check();
+  window.addEventListener("resize", check);
+  return () => window.removeEventListener("resize", check);
+}, [usedBreakpoint]);
+
 
   // Drag für Hintergrundbild (Editor-Feature)
   useEffect(() => {
@@ -163,11 +192,16 @@ const [direction, setDirection] = useState(0);
     widgetStylePreset = "classic",
     stylePreset = "classic",
     backgroundImageUrl = "",
-    visibleCards = 3,
+   
     mobileHeadingFontSize = "23px",
     mobileLogoSize = "40px",
     cardLayout = "Standard (klassisch)"
   } = config;
+
+    
+
+ 
+
 
   // Vorschau-Logik für Editor und Mobilgeräte
   const showMobilePreview = editorMode && activeTab === "mobile";
@@ -247,10 +281,78 @@ const [direction, setDirection] = useState(0);
     setBewertungen(parsed);
     return null;
   }
+  
+if (expandedReview) {
+  // Abstand, falls nur 1 sichtbare Card: sonst 0 Abstand (volle Breite)
+  const padding =  0;
+  let maxCardWidth = containerWidth - padding;
+  maxCardWidth = Math.min(maxCardWidth, 20000); // Passe 900 ggf. nach deinem Geschmack an
 
   return (
     <div
-      ref={dragRef}
+      ref={widgetRef}
+      className="w-full"
+      style={{
+        backgroundColor: backgroundImageUrl ? undefined : color,
+        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: backgroundImageUrl
+          ? `${backgroundImagePosition?.x ?? 50}% ${backgroundImagePosition?.y ?? 50}%`
+          : "center",
+        fontFamily: `'${font}', sans-serif`,
+        borderRadius: radius,
+        maxWidth: `${containerWidth + 80}px`,
+        margin: "0 auto",
+        width: lockedSize ? lockedSize.width : undefined,
+        height: lockedSize ? lockedSize.height : undefined,
+        minHeight: lockedSize ? undefined : 320,
+        overflow: lockedSize ? "hidden" : "visible",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "width 0.2s, height 0.2s"
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%"
+        }}
+      >
+        <div
+          style={{
+            display: "inline-block",
+            minWidth: 260,              // Optional: kleinste Card-Breite
+            maxWidth: maxCardWidth,     // Niemals breiter als Widget
+            width: "auto",
+            margin: "0 auto"
+          }}
+        >
+          <FeedbackCard
+            review={expandedReview}
+            cardExpand={true}
+            onClose={handleClose}
+            accentColor={accentColor}
+            nameColor={textColor}
+            commentColor={textColor}
+            boxRadius={boxRadius}
+            stylePreset={stylePreset}
+            textFontSize={textFontSize}
+            cardLayout={cardLayout}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+  return (
+    <div
+      ref={widgetRef}
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
       style={{
@@ -307,25 +409,29 @@ const [direction, setDirection] = useState(0);
             width: `${containerWidth}px`,
           }}
         >
-          {bewertungen.slice().reverse().map((review, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 snap-start"
-              style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
-            >
-              <FeedbackCard
-                review={review}
-                accentColor={accentColor}
-                nameColor={textColor}
-                commentColor={textColor}
-                dateColor={textColor}
-                boxRadius={boxRadius}
-                stylePreset={stylePreset}
-                textFontSize={textFontSize}
-                cardLayout={config.cardLayout}
-              />
-            </div>
-          ))}
+         {bewertungen.slice().reverse().map((review, i) => (
+  <div
+    key={i}
+    className="flex-shrink-0 snap-start"
+    style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
+  >
+    <FeedbackCard
+      review={review}
+      color={color}
+      accentColor={accentColor}
+      nameColor={textColor}
+      commentColor={textColor}
+      dateColor={textColor}
+      boxRadius={boxRadius}
+      stylePreset={stylePreset}
+      textFontSize={textFontSize}
+      cardLayout={cardLayout}
+      onWeiterlesen={() => handleWeiterlesen(review)}
+      // KEIN cardExpand, KEIN onClose hier!
+    />
+  </div>
+))}
+
         </div>
         <button
           onClick={() => scrollByCard("right")}
@@ -351,6 +457,9 @@ const [direction, setDirection] = useState(0);
           powered by KI-Partner
         </a>
       </div>
+    
+ 
     </div>
+    
   );
 }

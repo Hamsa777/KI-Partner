@@ -27,6 +27,12 @@ export default function ModernChatWidget() {
   }, []);
   
   useEffect(() => {
+  if (open && messagesEndRef.current) {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+}, [messages, open]);
+
+  useEffect(() => {
   const handleClickOutside = (e) => {
     if (
       widgetRef.current &&

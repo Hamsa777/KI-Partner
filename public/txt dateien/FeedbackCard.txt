@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Star, ShieldCheck } from "lucide-react";
 
+
 export default function FeedbackCard({
   review,
   accentColor = "#f8f8f8",
@@ -10,13 +11,19 @@ export default function FeedbackCard({
   boxRadius = "16px",
   textFontSize = "20px",
   stylePreset = "classic",
-  cardLayout = "default"
+  cardLayout = "default",
+  cardExpand = false,
+  onWeiterlesen,
+  onClose,
+  
 }) {
  // GANZ OBEN in der Komponente:
 const [expanded, setExpanded] = useState(false);
 const [showButton, setShowButton] = useState(false);
 const [commentHeight, setCommentHeight] = useState(0);
 const commentRef = useRef(null);
+
+
 useEffect(() => {
   setExpanded(false);
 }, [review]);
@@ -38,6 +45,7 @@ function Badge() {
     </div>
   );
 }
+
 
 
 useEffect(() => {
@@ -79,7 +87,7 @@ boxClasses += " bg-white/20 backdrop-blur-sm border border-white/30 shadow-md";
 // ⭐️ 1. Review Modern: Button farbig rechts unten, Datum und Badge links unten
 if (cardLayout === "review-modern") {
   return (
-    <div className="min-w-[300px] max-w-[300px] flex-shrink-0">
+    <div className="relative flex flex-col h-full">
       <div
   className={boxClasses + " flex flex-col"}
   style={{
@@ -93,6 +101,9 @@ if (cardLayout === "review-modern") {
     minHeight: Math.max(90, parseInt(textFontSize, 10) * 5 + 48), // Mehr Reserve!
     height: "100%",
     position: "relative",
+    minWidth: cardExpand ? "100%" : "300px",
+    maxWidth: cardExpand ? "100%" : "300px",
+    margin: cardExpand ? "0 auto" : "",
   }}
 >   
         <div className="flex items-center gap-2 mb-1">
@@ -115,7 +126,8 @@ if (cardLayout === "review-modern") {
           className="italic transition-all duration-500 ease-in-out overflow-hidden"
           style={{
             color: commentColor,
-            maxHeight: `${commentHeight}px`,
+            maxHeight: cardExpand ? "none" : `${commentHeight}px`,
+            overflow: cardExpand ? "visible" : "hidden",
             lineHeight: "1.5",
             textAlign: "left",
             marginBottom: showButton ? "0.5rem" : 0,
@@ -130,42 +142,31 @@ if (cardLayout === "review-modern") {
               {review.date}
             </span>
           </div>
-          {showButton && (
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className="text-sm rounded-full px-4  bg-red-600 text-white font-bold hover:bg-red-800 transition"
-            >
-              {expanded ? "Verbergen" : "Weiterlesen"}
-            </button>
-          )}
+        {!cardExpand && showButton && (
+  <button onClick={onWeiterlesen}>Weiterlesen</button>
+)}
+
+{cardExpand && (
+  <button
+    onClick={onClose}
+    className="absolute top-3 right-3 text-gray-400 hover:text-gray-800 text-2xl font-bold rounded-full px-2 py-1 transition"
+  >
+    ×
+  </button>
+)}
+
+
+
         </div>
       </div>
     </div>
   );
 }
 // ⭐️ 2. Social-Style: Button farbig rechts unten, Datum und Badge links unten
-function handleExpandClick() {
-  setExpanded((prev) => {
-    const newValue = !prev;
-    // Timeout für Transition (falls du eine CSS-Animation hast)
-    setTimeout(() => {
-      if (window.parent && outerRef && outerRef.current) {
-        window.parent.postMessage(
-          {
-            type: "widgetResize",
-            height: outerRef.current.getBoundingClientRect().height,
-          },
-          "*"
-        );
-      }
-    }, 350); // Passe das ggf. an deine Transition an
-    return newValue;
-  });
-}
 
 if (cardLayout === "social-style") {
   return (
-    <div className="min-w-[300px] max-w-[300px] flex-shrink-0">
+    <div className="relative flex flex-col h-full">
       <div
         className={boxClasses + " items-center"}
         style={{
@@ -178,65 +179,85 @@ if (cardLayout === "social-style") {
           fontSize: textFontSize,
           position: "relative",
           minHeight: "115px",
+          minWidth: cardExpand ? "100%" : "300px",
+          maxWidth: cardExpand ? "100%" : "300px",
+          margin: cardExpand ? "0 auto" : "",
         }}
       >
         {/* Badge, Name & Stars: Horizontal */}
         <div className="flex items-center justify-center gap-2 w-full mb-1">
           <Badge />
-          <span className="font-semibold text-base" style={{ color: nameColor, fontSize: "16px" }}>
-            {review.name}
-          </span>
-          <div className="flex items-center">
-            {Array.from({ length: 5 }, (_, index) => (
-              <Star
-                key={index}
-                className="h-4 w-4"
-                style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
-                fill={index < review.rating ? "currentColor" : "none"}
-              />
-            ))}
-          </div>
+          <span
+        className="font-semibold"
+        style={{
+          color: nameColor,
+          fontSize: cardExpand ? "22px" : "16px"
+        }}
+      >
+        {review.name}
+      </span>
+              <div className="flex items-center">
+      {Array.from({ length: 5 }, (_, index) => (
+        <Star
+          key={index}
+          className={cardExpand ? "w-6 h-6" : "h-4 w-4"}
+          style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
+          fill={index < review.rating ? "currentColor" : "none"}
+        />
+      ))}
+    </div>
+
         </div>
 
         {/* Kommentar */}
         <p
-          ref={commentRef}
-          className="italic text-center transition-all duration-500 ease-in-out overflow-hidden"
-          style={{
-            color: commentColor,
-            maxHeight: `${commentHeight}px`,
-            lineHeight: "1.5",
-            marginBottom: showButton ? "0.5rem" : 0,
-          }}
-        >
-          "{review.comment}"
-        </p>
+        ref={commentRef}
+        className={`italic text-center transition-all duration-500 ease-in-out overflow-hidden ${cardExpand ? "text-[20px]" : ""}`}
+        style={{
+          color: commentColor,
+          maxHeight: cardExpand ? "none" : `${commentHeight}px`,
+          overflow: cardExpand ? "visible" : "hidden",
+          lineHeight: "1.5",
+          marginBottom: showButton ? "0.5rem" : 0,
+        }}
+      >
+        "{review.comment}"
+      </p>
+
 
         {/* Datum */}
-        <span className="text-xs mb-1 block" style={{ color: dateColor, fontSize: "15px" }}>
-          {review.date}
-        </span>
+          <span
+      className="text-xs mb-1 block"
+      style={{ color: commentColor, fontSize: cardExpand ? "17px" : "15px" }}
+    >
+      {review.date}
+    </span>
+
 
         {/* Button */}
-        {showButton && (
-          <button
-          
-            onClick={() => setExpanded(!expanded)}
-            className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
-          >
-            {expanded ? "Verbergen" : "Weiterlesen"}
-            {showButton && (
+        {!cardExpand && showButton && (
+ <button
+  onClick={onWeiterlesen}
+  className="text-sm px-3 py-1 text-gray-400 hover:text-gray-700 rounded transition"
+>
+  Weiterlesen
+</button>
+
+)}
+
+{cardExpand && (
   <button
-    onClick={handleExpandClick}
-    className="text-sm text-gray-400 hover:text-gray-700 hover:underline transition mx-auto block"
+    onClick={onClose}
+    className="absolute top-3 right-3 text-gray-400 hover:text-gray-800 text-2xl font-bold rounded-full px-2 py-1 transition"
   >
-    {expanded ? "Verbergen" : "Weiterlesen"}
+    ×
   </button>
 )}
 
-          </button>
-          
-        )}
+ 
+    
+  
+
       </div>
     </div>
   );
@@ -245,7 +266,7 @@ if (cardLayout === "social-style") {
 
 // ⭐️ 3. Default Layout (dein aktuelles!)
 return (
-  <div className="min-w-[300px] max-w-[300px] flex-shrink-0">
+  <div className="relative flex flex-col h-full">
     <div
       className={boxClasses+ " flex flex-col h-full"}
       style={{
@@ -258,6 +279,9 @@ return (
         fontSize: textFontSize,
         position: "relative",
         minHeight: "115px",
+        minWidth: cardExpand ? "100%" : "300px",
+        maxWidth: cardExpand ? "100%" : "300px",
+        margin: cardExpand ? "0 auto" : "",
       }}
     >
       {/* Name, Badge, Sterne */}
@@ -293,20 +317,29 @@ return (
 </p>
 
 <div className="flex items-center justify-between mt-auto">
-  {showButton && (
-    <button
-      onClick={() => setExpanded(!expanded)}
-      className="text-sm text-gray-400  rounded hover:underline transition-all duration-200"
-      style={{ fontSize: "15px" }}
-    >
-      {expanded ? "Verbergen" : "Weiterlesen"}
-    </button>
-  )}
+{!cardExpand && showButton && (
+  <button onClick={onWeiterlesen} className="...">
+    Weiterlesen
+  </button>
+)}
+
+{cardExpand && (
+  <button
+    onClick={onClose}
+    className="absolute top-3 right-3 text-gray-400 hover:text-gray-800 text-2xl font-bold rounded-full px-2 py-1 transition"
+  >
+    ×
+  </button>
+)}
+
   <span style={{ color: dateColor, fontSize: "15px" }}>{review.date}</span>
 </div>
 
         
     </div>
+
+
   </div>
 );
+
 }

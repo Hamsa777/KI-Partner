@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="outer" style="background:yellow; min-height:100px;">
+      <button onclick="grow()">Mehr anzeigen</button>
+      <div id="text">Kurzer Text</div>
+    </div>
+    <script>
+      function sendResize() {
+        var h = document.getElementById('outer').getBoundingClientRect().height;
+        window.parent.postMessage({ type: "widgetResize", height: h }, "*");
+        console.log("Widget postMessage SENT!", h);
+      }
+      function grow() {
+        document.getElementById('text').innerHTML += "<br>Zusätzlicher Text!<br>Und noch mehr!";
+        sendResize();
+      }
+      // Beim Laden initial melden:
+      window.onload = sendResize;
+    </script>
+  </body>
+</html>

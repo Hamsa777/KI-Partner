@@ -5,3 +5,13 @@
 .no-select, .no-select * {
   user-select: none !important;
 }
+
+ .feedback-card-scroll {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE 10+ */
+}
+.feedback-card-scroll::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
+
+

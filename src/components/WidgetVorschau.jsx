@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+
 const MotionLink = motion(Link);
 
 const demoFirmaIds = [
   "e7205931",
   "d6877aa9",
   "2ab3e141",
-  "4854c86e"
+  "4854c86e",
+  "be7308bd"
 ];
 
 const WidgetVorschau = () => {
@@ -28,9 +30,9 @@ const WidgetVorschau = () => {
             Vorschau: Widget {index + 1}
           </h2>
           <iframe
-            src={`https://www.ki-partner24.de/embed/${id}`}
+            src={`http://localhost:5173/embed/${id}`}
             width="100%"
-            height="330"
+            height="280"
             style={{ border: "none", display: "block" }}
             loading="lazy"
             title={`Kundenbewertungen Widget ${id}`}
