@@ -3,7 +3,7 @@ import HeroSection from "./components/HeroSection";
 import ServiceCards from "./components/ServiceCards";
 import Warum from "./components/Warum";
 import ContactSection from "./components/ContactSection";
-import WidgetBot from "./components/WidgetBot";
+//import WidgetBot from "./components/WidgetBot";
 import MyWidget from "./components/feedbackwidget/MyWidget";
 export default function KIPartnerLanding() {
   return (
@@ -15,9 +15,9 @@ export default function KIPartnerLanding() {
     
       <ContactSection />
      
-      
+      {/*
   <WidgetBot />
-
+*/}
     </div>
   );
 }
