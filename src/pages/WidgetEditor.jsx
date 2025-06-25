@@ -422,8 +422,15 @@ const [cardLayout, setCardLayout] = useState("default");
       <div className="w-full overflow-x-auto mt-12">
         <h2 className="text-lg font-semibold mb-4 text-center">Live-Vorschau Ihres Widgets</h2>
         <div className="min-w-fit mx-auto">
-          <FeedbackWidget firmaId={firmaId} config={liveConfig} editorMode={true} activeTab={activeTab} cardLayout="Standard (klassisch)"  />
+          
+          <FeedbackWidget firmaId={firmaId} 
+          config={liveConfig} 
+          editorMode={true} 
+          activeTab={activeTab} 
+          setBackgroundImagePosition={setBackgroundImagePosition} 
+          cardLayout="Standard (klassisch)"  />
         </div>
+
         <div className="mt-6 flex justify-center">
           <button
             className="px-6 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300 transition"
@@ -456,7 +463,11 @@ const [cardLayout, setCardLayout] = useState("default");
                   color: data.headingStyles?.color ?? "#111827",
                   weight: data.headingStyles?.weight ?? 700,
                 });
-                setBackgroundImagePosition(data.backgroundImagePosition ?? { x: 50, y: 50 });
+                
+               if (data.backgroundImagePosition) {
+                setBackgroundImagePosition(data.backgroundImagePosition);
+                }
+
                 alert("✅ Server-Konfiguration wurde geladen!");
               } catch (error) {
                 console.error("Fehler beim Zurücksetzen:", error);

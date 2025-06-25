@@ -65,6 +65,7 @@ useEffect(() => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isDragging || !dragRef.current) return;
+      console.log("DRAG MOVE", e.clientX, e.clientY);
       const rect = dragRef.current.getBoundingClientRect();
       const x = 100 - ((e.clientX - rect.left) / rect.width) * 100;
       const y = 100 - ((e.clientY - rect.top) / rect.height) * 100;
@@ -351,8 +352,11 @@ if (expandedReview) {
 
 
   return (
-    <div
-      ref={widgetRef}
+      <div
+      ref={el => {
+      widgetRef.current = el;
+      dragRef.current = el;
+      }}
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
       style={{

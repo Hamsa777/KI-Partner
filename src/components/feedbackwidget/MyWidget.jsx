@@ -28,7 +28,7 @@ export default function MyWidget() {
         id="kiFeedbackWidget"
         src="https://ki-partner24.de/embed/ffc5042a"
         width="100%"
-        height="280"
+        height="250"
         style={{ border: "none", display: "block" }}
         loading="lazy"
         title="Kundenbewertungen Widget"

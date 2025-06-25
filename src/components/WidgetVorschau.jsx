@@ -6,11 +6,18 @@ import { motion } from "framer-motion";
 const MotionLink = motion(Link);
 
 const demoFirmaIds = [
-  "e7205931",
-  "d6877aa9",
+  "ffc5042a",
+  "5bb8632a",
+ "d6877aa9",
   "2ab3e141",
-  "4854c86e",
-  "be7308bd"
+   "4854c86e",
+   "be7308bd",
+  "e7205931",
+  "1808dc4a",
+  
+  
+  
+ 
 ];
 
 const WidgetVorschau = () => {
