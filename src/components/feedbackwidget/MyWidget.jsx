@@ -26,7 +26,7 @@ export default function MyWidget() {
     >
       <iframe
         id="kiFeedbackWidget"
-        src="http://localhost:5173/embed/ffc5042a"
+        src="https://ki-partner24.de/embed/ffc5042a"
         width="100%"
         height="280"
         style={{ border: "none", display: "block" }}
