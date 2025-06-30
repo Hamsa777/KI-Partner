@@ -64,7 +64,7 @@ const WidgetVorschau = () => {
     <span className="font-semibold text-xl mb-2">Für Unternehmen</span>
     <div className="flex flex-row gap-4 justify-center w-full">
       <motion.a
-        href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
+        href="https://buy.stripe.com/bJebJ19aW4ecgdmbgn7bW06"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
