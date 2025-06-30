@@ -53,26 +53,58 @@ const WidgetVorschau = () => {
         transition={{ delay: 0.2, duration: 0.6 }}
         className="flex flex-col items-center gap-3 mt-8"
       >
-       <motion.a
-  href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
-  target="_blank"
-  rel="noopener noreferrer"
-  whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
-  transition={{ duration: 0.3 }}
-  className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
+   <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.2, duration: 0.6 }}
+  className="flex flex-col items-center w-full mt-8"
 >
-Kostenlos testen</motion.a>
+  {/* Für Unternehmen */}
+  <div className="flex flex-col items-center gap-2 mb-4 w-full">
+    <span className="font-semibold text-xl mb-2">Für Unternehmen</span>
+    <div className="flex flex-row gap-4 justify-center w-full">
+      <motion.a
+        href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+        transition={{ duration: 0.3 }}
+        className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
+      >
+        Jetzt testen
+      </motion.a>
+      <motion.a
+        href="https://buy.stripe.com/fZu5kD1Iu9yw6CMdov7bW07"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+        transition={{ duration: 0.3 }}
+        className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
+      >
+        Jetzt kaufen
+      </motion.a>
+    </div>
+  </div>
+  
+  {/* Horizontale Linie */}
+  <hr className="w-64 border-t-2 border-gray-200 my-6" />
+  
+  {/* Für Agenturen */}
+  <div className="flex flex-col items-center gap-2">
+    <span className="font-semibold text-xl mb-2">Für Agenturen</span>
+    <motion.a
+      href="mailto:kontakt@ki-partner24.de?subject=White-Label%20Partnerschaft%20anfragen"
+      whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
+      transition={{ duration: 0.3 }}
+      className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center w-56"
+    >
+      White-Label Partner
+    </motion.a>
+  </div>
+</motion.div>
 
-<motion.a
-  href="https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv"
-  target="_blank"
-  rel="noopener noreferrer"
-  whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
-  transition={{ duration: 0.3 }}
-  className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center"
->
-  Jetzt kaufen
-</motion.a>
+
+
 
 
         <p className="text-xs text-gray-400 max-w-md text-center mt-4 px-2">
