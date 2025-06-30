@@ -25,7 +25,7 @@ export default function Kundenfeedback() {
           KI-gestütze Feedback Automation
         </motion.h1>
 
-     <motion.p
+    <motion.p
   initial={{ opacity: 0 }}
   whileInView={{ opacity: 1 }}
   transition={{ duration: 0.4, delay: 0.2 }}
@@ -40,14 +40,12 @@ export default function Kundenfeedback() {
   >
     Statistisch
   </a>{" "}
-  gesehen informieren sich 90 % der Kunden vor dem Kauf über Bewertungen – Vertrauen ist kaufentscheidend.  
-  Genau hier setzen wir mit unserem KI-gestützten Bewertungssystem an: <br />Es sammelt Bewertungen automatisch über das{" "}
-  <strong className="text-black">KI-Partner Bewertungsformular</strong> und zeigt sie live im{" "}
-  <strong className="text-black">individuell gestaltbaren Feedback-Widget</strong> an.  
-  Dazu liefert Ihnen unsere integrierte KI basierend auf den Feedbacks und Ihrer Branche{" "}
-  <strong className="text-black">wertvolle Verbesserungsvorschläge</strong>, die Sie in Ihrem Unternehmen umsetzen können.<br />
-  Mehr Vertrauen, mehr Verkäufe – mit KI-gestütztem Social Proof auf Ihrer Website.
+  gesehen informieren sich <strong>90 % der Kunden</strong> vor dem Kauf über Bewertungen – <strong>Vertrauen ist kaufentscheidend</strong>.<br />
+  Mit unserem System binden Sie ihre besten bestehenden Google-Bewertungen in unser <strong>individuell gestaltbares Feedback-Widget</strong> ein.<br />
+  Unsere <strong>KI analysiert sämtliche Kundenstimmen</strong> und erstellt eine professionelle Zusammenfassung, die Ihren Besuchern auf einen Blick zeigt, was Ihre Kunden besonders schätzen.<br />
+  So steigern Sie <strong>das Vertrauen in Ihre Marke</strong> und erhöhen Ihre <strong>Verkaufschancen</strong> – mit echtem Social Proof und moderner KI-Unterstützung.
 </motion.p>
+
 
 
 
@@ -88,7 +86,7 @@ export default function Kundenfeedback() {
           {/* Hover-Overlay mit zwei Buttons */}
           <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex">
             <a
-              href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
+              href="https://buy.stripe.com/bJebJ19aW4ecgdmbgn7bW06"
               target="_blank"
               rel="noopener noreferrer"
               className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-l-3xl"
@@ -98,7 +96,7 @@ export default function Kundenfeedback() {
             </a>
             <div className="w-px bg-gray-300 my-6"></div>
             <a
-              href="https://buy.stripe.com/8wM00Rc7k7kT6Ri7sv"
+              href="https://buy.stripe.com/fZu5kD1Iu9yw6CMdov7bW07"
               target="_blank"
               rel="noopener noreferrer"
               className="w-1/2 flex flex-col items-center justify-center hover:bg-gray-100 transition rounded-r-3xl"
@@ -109,61 +107,46 @@ export default function Kundenfeedback() {
           </div>
         </motion.div>
 
-        {/* Timeline */}
-        <section className="mt-20 px-4">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
-            className="text-2xl sm:text-3xl font-bold text-gray-800 mb-14 text-center"
-          >
-            So funktioniert’s
-          </motion.h2>
+     {/* Timeline */}
+<section className="mt-20 px-4">
+  <motion.h2
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.6, delay: 1.1 }}
+    className="text-2xl sm:text-3xl font-bold text-gray-800 mb-14 text-center"
+  >
+    So funktioniert’s
+  </motion.h2>
 
-          <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
-  {[
-    // Schritt 1
-    "Nach dem Kauf werden Sie automatisch auf unser Onboarding-Formular weitergeleitet. Dort hinterlegen Sie Firmenname, E-Mail-Adresse, Ihre Branche und eine kurze Unternehmensbeschreibung – diese Angaben nutzt unsere KI, um individuelle Verbesserungsvorschläge zu generieren.",
-    
-    // Schritt 2 (mit Aufzählungen, KI-Vorschlag + Trustpilot-Hinweis)
-    'Direkt nach dem Onboarding erhalten Sie per E-Mail:<br /><br />' +
-    '• den Link zum <a href="https://tally.so/r/nrqqNL" target="_blank" rel="noopener noreferrer" class="text-[#283593] underline font-medium">KI-Partner Bewertungsformular</a><br />' +
-    '• ein Google Sheet mit allen eingehenden Bewertungen inklusive passender KI-Verbesserungsvorschläge<br />' +
-    '• Ihren persönlichen Editor-Link zur Anpassung des Feedback-Widgets<br /><br />' +
-    'Tipp: Auch bestehende Bewertungen (z. B. von Google, Trustpilot oder ProvenExpert) können ganz einfach manuell über das Formular eingereicht und im Widget angezeigt werden.',
-
-    // Schritt 3
-    "Sie können das Formular selbst nutzen oder bequem an Ihre Kunden weiterleiten – z. B. per E-Mail, in der Fußzeile von Bestellbestätigungen oder über QR-Codes. Alle Bewertungen erscheinen automatisch in Ihrem Widget.",
-
-    // Schritt 4
-    "Im Widget-Editor passen Sie Farben, Schrift, Stil, Rahmen, Logo und Überschrift individuell an. Ihre Einstellungen werden gespeichert und ein persönlicher Embed-Code generiert – kopierfertig für Ihre Website.",
-
-    // Schritt 5
-    "Nach dem Einfügen erscheint Ihr Widget im Livebetrieb – mit echtem Feedback, professionellem Design und automatisierter Verwaltung. So stärken Sie Vertrauen, steigern Conversions und präsentieren Ihr Unternehmen von der besten Seite."
-  ].map((text, i) => (
-    <motion.div
-      key={i}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: i * 0.1 }}
-      viewport={{ once: true }}
-      className="flex flex-col items-center"
-    >
-      <div className="w-8 h-8 rounded-full bg-[#283593] text-white flex items-center justify-center font-semibold text-sm mb-4">
-        {i + 1}
-      </div>
-
-      <p
-        className="text-gray-700 text-base sm:text-lg"
-        dangerouslySetInnerHTML={{ __html: text }}
-      />
-    </motion.div>
-  ))}
-</div>
-
-
-          
-        </section>
+  <div className="max-w-xl mx-auto flex flex-col items-center space-y-10 text-center">
+    {[
+      // Schritt 1
+      "Kauf abschließen und direkt zum Onboarding weitergeleitet werden. Dort geben Sie Firmenname, E-Mail und Branche an.",
+      // Schritt 2
+      "Nach Onboarding erhalten Sie den Link zum Ihrem persönlichen Widget und Ihre bestehenden Google-Bewertugen werden per Import oder manuell von uns eingefügt.",
+      // Schritt 3
+      "Im Editor gestalten Sie Farben, Logo und Stil nach Wunsch, oder lassen das Design direkt von uns für Sie übernehmen.",
+      // Schritt 4
+      "Sie erhalten Ihren persönlichen Embed-Code und binden das Widget blitzschnell auf Ihrer Website ein.",
+      // Schritt 5
+      "Ihre Besucher sehen alle echten Bewertungen inklusive einer KI-Auswertung, die die Kundenstimmen professionell zusammenfasst."
+    ].map((text, i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center"
+      >
+        <div className="w-8 h-8 rounded-full bg-[#283593] text-white flex items-center justify-center font-semibold text-sm mb-4">
+          {i + 1}
+        </div>
+        <p className="text-gray-700 text-base sm:text-lg">{text}</p>
+      </motion.div>
+    ))}
+  </div>
+</section>
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -179,7 +162,7 @@ export default function Kundenfeedback() {
 >
   
   <a
-    href="https://buy.stripe.com/fZufZhevgh0Y4uEesz7bW05"
+    href="https://buy.stripe.com/bJebJ19aW4ecgdmbgn7bW06"
     target="_blank"
     rel="noopener noreferrer"
     className="inline-block mt-10 px-6 py-3 bg-[#283593] text-white text-sm font-medium rounded-full shadow hover:bg-[#1f2d66] transition"
