@@ -34,15 +34,15 @@ export default function FeedbackWidget({
 
   const handleWeiterlesen = (review, visibleIndex) => {
   if (widgetRef.current && !lockedSize) {
-    console.log('ScrollLeft vor Expand:', containerRef.current.scrollLeft);
-  
     const rect = widgetRef.current.getBoundingClientRect();
     setLockedSize({ width: rect.width, height: rect.height });
   }
   setExpandedReview(review);
-  setLastIndex(visibleIndex); // GENAUSO, wie das User sieht (erstes sichtbares Element = 0)
-};
+  setLastIndex(visibleIndex);
 
+  // HIER: Immer Animation erlauben, wenn auf „Anzeigen“ gedrückt wird
+  setAlreadyAnimatedGPTCard(false);
+};
 
 
 const handleClose = () => {
