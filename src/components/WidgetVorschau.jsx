@@ -38,7 +38,7 @@ const WidgetVorschau = () => {
             Vorschau: Widget {index + 1}
           </h2>
           <iframe
-            src={`http://localhost:5173/embed/${id}`}
+            src={`https://ki-partner24.de/embed/${id}`}
             width="100%"
             height="280"
             style={{ border: "none", display: "block" }}
