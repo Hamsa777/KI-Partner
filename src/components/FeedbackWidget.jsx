@@ -77,7 +77,7 @@ useEffect(() => {
   const fetchExtract = async () => {
     try {
       const response = await fetch(
-        `http://91.99.76.52:8090/api/extracted/${firmaId}.json`
+        `https://feedback.ki-partner24.de/api/extracted/${firmaId}.json`
       );
       if (!response.ok) throw new Error("Extract nicht gefunden");
       const data = await response.json();
@@ -461,11 +461,7 @@ if (expandedReview) {
         {/* Feedback-Karten */}
         <div
         
-  ref={el => {
-  if (el) console.log("Carousel-Container gemountet!", el);
-  containerRef.current = el;
-}}
-
+  ref={containerRef}
   className="flex gap-5 overflow-hidden snap-x snap-mandatory"
   style={{
     scrollBehavior: "smooth",
@@ -491,7 +487,7 @@ if (expandedReview) {
   boxRadius={boxRadius}
   stylePreset={stylePreset}
   textFontSize={textFontSize}
-  onAnzeigen={() => handleWeiterlesen(gptReview, 0)}
+  onAnzeigen={() => handleWeiterlesen(gptReview)}
   cardLayout={cardLayout}
   playEntranceAnimation={!alreadyAnimatedGPTCard}
   onEntranceEnd={() => setAlreadyAnimatedGPTCard(true)}
@@ -523,7 +519,7 @@ if (expandedReview) {
       stylePreset={stylePreset}
       textFontSize={textFontSize}
       cardLayout={cardLayout}
-      onWeiterlesen={() => handleWeiterlesen(review, gptReview ? i + 1 : i)}
+      onWeiterlesen={() => handleWeiterlesen(review, i)}
     />
   </div>
 ))}

@@ -9,7 +9,7 @@ export default function useExtract(firmaId) {
     const fetchExtract = async () => {
       try {
         const response = await fetch(
-          `http://91.99.76.52:8090/api/extracted/${firmaId}.json`
+          `https://feedback.ki-partner24.de/api/extracted/${firmaId}.json`
         );
         if (!response.ok) throw new Error("Extract nicht gefunden");
         const data = await response.json();
