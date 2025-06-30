@@ -2,14 +2,11 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <title>Feedback Widget</title>
+    <title>Feedback Widget mit Profilbild & Google-Logo</title>
 
     <!-- React CDN -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-    <!-- Optional: Deine eigene CSS-Datei (empfohlen für Styling) -->
-    <link rel="stylesheet" href="https://www.ki-partner24.de/embed.css" />
 
     <style>
       body {
@@ -18,7 +15,6 @@
         font-family: sans-serif;
         background: transparent;
       }
-
       .feedback-card {
         background: white;
         border-radius: 10px;
@@ -26,19 +22,60 @@
         padding: 15px;
         margin-bottom: 12px;
         border-left: 4px solid #ca1b5a;
+        display: flex;
+        align-items: center;
+        gap: 12px;
       }
-
+      .avatar-wrap {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .avatar-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        background: #eee;
+      }
+      .google-overlay {
+        position: absolute;
+        right: -7px;
+        bottom: -7px;
+        width: 21px;
+        height: 21px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1.5px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      }
+      .google-overlay img {
+        width: 15px;
+        height: 15px;
+        display: block;
+      }
+      .feedback-inner {
+        flex: 1;
+      }
       .feedback-name {
         font-weight: bold;
         color: #111;
+        margin-bottom: 2px;
       }
-
       .feedback-comment {
-        display: block;
-        margin-top: 4px;
+        margin-top: 2px;
         color: #444;
+        display: block;
       }
-
       .feedback-wrapper {
         max-width: 500px;
         margin: 0 auto;
@@ -48,11 +85,10 @@
   </head>
   <body>
     <div id="widget-root"></div>
-
     <script>
-      console.log("✅ FeedbackWidget geladen");
-
       (function () {
+        const FALLBACK_AVATAR = "https://www.svgrepo.com/show/496485/profile-circle.svg";
+        const GOOGLE_LOGO = "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
         const { useState, useEffect } = React;
 
         function FeedbackWidget({ firmaId }) {
@@ -80,8 +116,29 @@
                   React.createElement(
                     "div",
                     { className: "feedback-card", key: i },
-                    React.createElement("span", { className: "feedback-name" }, b.name),
-                    React.createElement("span", { className: "feedback-comment" }, b.comment)
+                    React.createElement(
+                      "div",
+                      { className: "avatar-wrap" },
+                      React.createElement("img", {
+                        src: b.profilePhotoUrl || FALLBACK_AVATAR,
+                        alt: b.name + " Profilbild",
+                        className: "avatar-img"
+                      }),
+                      React.createElement(
+                        "div",
+                        { className: "google-overlay" },
+                        React.createElement("img", {
+                          src: GOOGLE_LOGO,
+                          alt: "Google Logo"
+                        })
+                      )
+                    ),
+                    React.createElement(
+                      "div",
+                      { className: "feedback-inner" },
+                      React.createElement("span", { className: "feedback-name" }, b.name),
+                      React.createElement("span", { className: "feedback-comment" }, b.comment)
+                    )
                   )
                 )
           );

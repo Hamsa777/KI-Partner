@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import sampleData from "../assets/sampleData.json";
-
+import Extractor from "./feedbackwidget/Extractor";
+import GPTCard from "./feedbackwidget/GPTCard";
 
 export default function FeedbackWidget({
   firmaId,
@@ -26,20 +27,41 @@ export default function FeedbackWidget({
   const [expandedReview, setExpandedReview] = useState(null);
   const widgetRef = useRef(null);
   const [lockedSize, setLockedSize] = useState(null);
+  const [extract, setExtract] = useState("");
+  const [alreadyAnimatedGPTCard, setAlreadyAnimatedGPTCard] = useState(false);
+  const [lastIndex, setLastIndex] = useState(null); 
+  
 
-  const handleWeiterlesen = (review) => {
+  const handleWeiterlesen = (review, visibleIndex) => {
   if (widgetRef.current && !lockedSize) {
+    console.log('ScrollLeft vor Expand:', containerRef.current.scrollLeft);
+  
     const rect = widgetRef.current.getBoundingClientRect();
     setLockedSize({ width: rect.width, height: rect.height });
   }
   setExpandedReview(review);
+  setLastIndex(visibleIndex); // GENAUSO, wie das User sieht (erstes sichtbares Element = 0)
 };
+
 
 
 const handleClose = () => {
   setExpandedReview(null);
   setLockedSize(null);
+
+  if (lastIndex !== null && containerRef.current) {
+    const cardWidthWithGap = cardWidth + gap;
+    const feedbackOffset = gptReview ? 1 : 0;
+    setTimeout(() => {
+      containerRef.current.scrollTo({
+        left: (lastIndex + feedbackOffset) * cardWidthWithGap,
+        behavior: "smooth"
+      });
+    }, 0);
+  }
 };
+
+
 
   
 // ---- RESPONSIVE BREAKPOINT LOGIK ----
@@ -49,6 +71,34 @@ const usedBreakpoint =
   visibleCards === 3 ? 1100 :
   visibleCards === 2 ? 700 : 900;
 
+// extract vom Server laden
+useEffect(() => {
+  if (!firmaId) return;
+  const fetchExtract = async () => {
+    try {
+      const response = await fetch(
+        `http://91.99.76.52:8090/api/extracted/${firmaId}.json`
+      );
+      if (!response.ok) throw new Error("Extract nicht gefunden");
+      const data = await response.json();
+      setExtract(data.extracted || "");
+    } catch (error) {
+      console.error("Fehler beim Laden des Extracts:", error.message);
+    }
+  };
+  fetchExtract();
+}, [firmaId]);
+
+const gptReview = extract
+  ? {
+      name: "Review Highlights",
+      rating: 0,
+      comment: extract,
+      profilePhotoUrl: "",
+      date: "",
+      isGPT: true,
+    }
+  : null;
 
 
 useEffect(() => {
@@ -65,6 +115,7 @@ useEffect(() => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isDragging || !dragRef.current) return;
+      console.log("DRAG MOVE", e.clientX, e.clientY);
       const rect = dragRef.current.getBoundingClientRect();
       const x = 100 - ((e.clientX - rect.left) / rect.width) * 100;
       const y = 100 - ((e.clientY - rect.top) / rect.height) * 100;
@@ -127,6 +178,7 @@ useEffect(() => {
         name: entry.name,
         rating: parseInt(entry.rating),
         comment: entry.comment,
+        profilePhotoUrl: entry.profilePhotoUrl,
       }));
       setBewertungen(parsed);
       setLoading(false);
@@ -145,6 +197,7 @@ useEffect(() => {
           name: entry.name,
           rating: parseInt(entry.rating),
           comment: entry.comment,
+          profilePhotoUrl: entry.profilePhotoUrl,
         }));
         // Nur einzigartige Einträge
         const unique = [];
@@ -277,6 +330,7 @@ useEffect(() => {
       name: entry.name,
       rating: parseInt(entry.rating),
       comment: entry.comment,
+      profilePhotoUrl: entry.profilePhotoUrl,
     }));
     setBewertungen(parsed);
     return null;
@@ -333,6 +387,7 @@ if (expandedReview) {
         >
           <FeedbackCard
             review={expandedReview}
+            
             cardExpand={true}
             onClose={handleClose}
             accentColor={accentColor}
@@ -351,8 +406,11 @@ if (expandedReview) {
 
 
   return (
-    <div
-      ref={widgetRef}
+      <div
+      ref={el => {
+      widgetRef.current = el;
+      dragRef.current = el;
+      }}
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
       style={{
@@ -402,14 +460,52 @@ if (expandedReview) {
         </button>
         {/* Feedback-Karten */}
         <div
-          ref={containerRef}
-          className="flex gap-5 overflow-hidden snap-x snap-mandatory" // gap-5 = 20px
-          style={{
-            scrollBehavior: "smooth",
-            width: `${containerWidth}px`,
-          }}
-        >
-         {bewertungen.slice().reverse().map((review, i) => (
+        
+  ref={el => {
+  if (el) console.log("Carousel-Container gemountet!", el);
+  containerRef.current = el;
+}}
+
+  className="flex gap-5 overflow-hidden snap-x snap-mandatory"
+  style={{
+    scrollBehavior: "smooth",
+    width: `${containerWidth}px`,
+    
+  }}
+>
+  
+  {/* KI-Zusammenfassung als erste Card */}
+  {gptReview && (
+    <div
+      key="gpt"
+      className="flex-shrink-0 snap-start"
+      style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
+    >
+      
+    <GPTCard
+  color={color}
+  accentColor={accentColor}
+  nameColor={textColor}
+  commentColor={textColor}
+  dateColor={textColor}
+  boxRadius={boxRadius}
+  stylePreset={stylePreset}
+  textFontSize={textFontSize}
+  onAnzeigen={() => handleWeiterlesen(gptReview, 0)}
+  cardLayout={cardLayout}
+  playEntranceAnimation={!alreadyAnimatedGPTCard}
+  onEntranceEnd={() => setAlreadyAnimatedGPTCard(true)}
+  reviewCount={bewertungen.length}
+  
+ 
+/>
+
+
+    </div>
+  )}
+
+  {/* Alle anderen Bewertungen */}
+ {bewertungen.slice().reverse().map((review, i) => (
   <div
     key={i}
     className="flex-shrink-0 snap-start"
@@ -419,6 +515,7 @@ if (expandedReview) {
       review={review}
       color={color}
       accentColor={accentColor}
+      profilePhotoUrl={review.profilePhotoUrl}
       nameColor={textColor}
       commentColor={textColor}
       dateColor={textColor}
@@ -426,11 +523,12 @@ if (expandedReview) {
       stylePreset={stylePreset}
       textFontSize={textFontSize}
       cardLayout={cardLayout}
-      onWeiterlesen={() => handleWeiterlesen(review)}
-      // KEIN cardExpand, KEIN onClose hier!
+      onWeiterlesen={() => handleWeiterlesen(review, gptReview ? i + 1 : i)}
     />
   </div>
 ))}
+
+
 
         </div>
         <button

@@ -9,13 +9,14 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
-    "framer-motion": "^12.18.1",
+    "framer-motion": "^12.19.2",
     "lucide-react": "^0.507.0",
     "puppeteer": "^24.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.16.0",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^7.5.2",
     "swiper": "^11.2.6"
   },

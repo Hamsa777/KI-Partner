@@ -6,14 +6,15 @@ import { motion } from "framer-motion";
 const MotionLink = motion(Link);
 
 const demoFirmaIds = [
-  "ffc5042a",
-  "5bb8632a",
- "d6877aa9",
-  "2ab3e141",
-   "4854c86e",
-   "be7308bd",
-  "e7205931",
-  "1808dc4a",
+"ffc5042a",
+"1808dc4a",
+"d6877aa9",
+"2ab3e141",
+"4854c86e",
+"be7308bd",
+"5bb8632a",
+"e7205931",
+
   
   
   
@@ -37,7 +38,7 @@ const WidgetVorschau = () => {
             Vorschau: Widget {index + 1}
           </h2>
           <iframe
-            src={`https://www.ki-partner24.de/embed/${id}`}
+            src={`http://localhost:5173/embed/${id}`}
             width="100%"
             height="280"
             style={{ border: "none", display: "block" }}

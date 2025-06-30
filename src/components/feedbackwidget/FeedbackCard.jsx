@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { Star } from "lucide-react";
 import { color } from "framer-motion";
-
+import ExpandCard from './ExpandCard';
+import GoogleOverlay from "./GoogleOverlay";
 
 export default function FeedbackCard({
   review,
@@ -24,7 +25,10 @@ const [expanded, setExpanded] = useState(false);
 const [showButton, setShowButton] = useState(false);
 const [commentHeight, setCommentHeight] = useState(0);
 const commentRef = useRef(null);
-
+const firstLineLength = review.comment.split('\n')[0].length;
+const showWeiterlesen = !cardExpand && firstLineLength > 36;
+const FALLBACK_AVATAR = "https://lh3.googleusercontent.com/a/ACg8ocLbOrzugSrQtld4IgmycpF9iuZNpHqmy5y2_fkZXZLe8coM_A=w144-h144-p-rp-mo-br100";
+const [showTooltip, setShowTooltip] = useState(false);
 const scrollRef = useRef(null);
 
 useEffect(() => {
@@ -71,18 +75,39 @@ useEffect(() => {
   setExpanded(false);
 }, [review]);
 
-function Badge() {
+
+function Badge({ isGPT }) {
+  if (isGPT) {
+    return (
+      <div className="relative translate-y-[1px]">
+        <div className="flex items-center justify-center w-8 h-8 bg-white/20 rounded-full shadow-inner group transition-transform mb-1">
+          <img
+            src="https://simplifyai.in/wp-content/uploads/2024/08/ChatGPT-logo-new.png"
+            alt="GPT Logo"
+            className="w-6 h-6"
+            style={{
+              objectFit: "contain",
+              filter: "drop-shadow(0 1px 4px rgba(44,62,80,0.10))"
+            }}
+          />
+          <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-800 text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
+            GPT-4o
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="relative translate-y-[1px]">
-  <div className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full shadow-inner group hover:animate-bounce-slow transition-transform mb-1">
+  <div className="flex items-center justify-center w-7 h-7 bg-white/20 rounded-full shadow-inner group hover:animate-bounce-slow transition-transform mb-1">
     <img
   src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png"
   alt="Shield Icon"
-  className="w-4 h-4 " // für 1px nach unten
+  className="w-5 h-5 " // für 1px nach unten
 />
 
         {/* Tooltip */}
-        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-800 text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
+        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#283593] text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
           Bewertung aus Google
         </div>
       </div>
@@ -126,14 +151,43 @@ boxClasses += " bg-white/20 backdrop-blur-sm border border-white/30 shadow-md";
 }
 
 
-
-// Review-modern
+//review modern
 if (cardLayout === "review-modern") {
+  // Setze das logoUrl:
+  const logoUrl = review.isGPT
+    ? "https://simplifyai.in/wp-content/uploads/2024/08/ChatGPT-logo-new.png"
+    : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png";
+
+  if (cardExpand) {
+    // Expanded Card mittig im Widget!
+    return (
+      <ExpandCard
+        color={color}
+        logoUrl={logoUrl}
+        name={review.name}
+        isGPT={review.isGPT}
+        rating={review.isGPT ? undefined : review.rating}
+        comment={review.comment}
+        date={review.isGPT ? undefined : review.date}
+        profilePhotoUrl={review.profilePhotoUrl}
+        accentColor={accentColor}
+        nameColor={nameColor}
+        commentColor={commentColor}
+        textFontSize={textFontSize}
+        boxRadius={boxRadius}
+        onClose={onClose}
+        stylePreset={stylePreset} 
+        scrollRef={scrollRef}
+      />
+    );
+  }
+
+  // Collapsed Card bleibt wie bisher:
   return (
-    <div className="relative flex flex-col feedback-card-scroll">
+    <div className="relative flex flex-col h-full feedback-card-scroll">
       <div
         ref={scrollRef}
-        className={boxClasses + " flex flex-col feedback-card-scroll"}
+        className={boxClasses + " flex flex-col h-full feedback-card-scroll"}
         style={{
           backgroundColor:
             stylePreset === "transparent" || stylePreset === "apple-transparent"
@@ -144,76 +198,400 @@ if (cardLayout === "review-modern") {
           minHeight: Math.max(90, parseInt(textFontSize, 10) * 5),
           height: "100%",
           position: "relative",
-          minWidth: cardExpand ? "100%" : "300px",
-          maxWidth: cardExpand ? "100%" : "300px",
-          margin: cardExpand ? "0 auto" : "",
-          maxHeight: cardExpand ? 165 : undefined,
-          overflowY: cardExpand ? "auto" : undefined,
+          minWidth: "300px",
+          maxWidth: "300px",
+          margin: "",
+          maxHeight: 165,
+          overflowY: "auto",
         }}
       >
         {/* Name + Sterne */}
         <div className="flex items-center gap-2 mb-1">
           <span
             className="font-semibold"
-            style={{ color: nameColor, fontSize: cardExpand ? "20px" : "18px" }}
+            style={{ color: nameColor, fontSize: "18px" }}
           >
             {review.name}
           </span>
-          <div className="flex items-center">
-            {Array.from({ length: 5 }, (_, index) => (
-              <Star
-                key={index}
-                className={cardExpand ? "w-5 h-5" : "h-5 w-5 mb-1"}
-                style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
-                fill={index < review.rating ? "currentColor" : "none"}
-              />
-            ))}
-          </div>
+          {!review.isGPT && (
+            <div className="flex items-center">
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star
+                  key={index}
+                  className="h-5 w-5 mb-1"
+                  style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
+                  fill={index < review.rating ? "currentColor" : "none"}
+                />
+              ))}
+            </div>
+          )}
         </div>
         {/* Kommentar */}
-        <p
-          ref={commentRef}
-          className={
-            "italic transition-all duration-500 ease-in-out " +
-            (!cardExpand ? "truncate" : "")
-          }
-          style={{
-            color: commentColor,
-            lineHeight: "1.5",
-            textAlign: "left",
-            marginBottom: !cardExpand && review.comment.length > 60 ? "0.5rem" : 0,
-            // KEIN whiteSpace: "nowrap" hier! Wird durch truncate gemanaged.
-          }}
-        >
-          {review.comment}
-        </p>
-        {/* Footer: Badge, Datum, Button */}
-        <div className="flex items-center justify-between ">
+        <div className="flex-1 flex items-center w-full pb-1.5">
+          <p
+            ref={commentRef}
+            className={
+              "italic transition-all duration-500 ease-in-out w-full truncate"
+            }
+            style={{
+              color: commentColor,
+              lineHeight: "1.5",
+              textAlign: "left",
+              margin: 0,
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {review.comment}
+          </p>
+        </div>
+        {/* Footer */}
+        <div className="flex items-center justify-between mt-auto w-full">
           <div className="flex items-center gap-2">
-            <Badge />
+            <Badge isGPT={review.isGPT} />
             <span
-              className={`text-xs block ${cardExpand ? "py-3" : "py-0"}`}
-              style={{ color: commentColor, fontSize: cardExpand ? "17px" : "15px" }}
+              className="text-xs block py-0"
+              style={{ color: commentColor, fontSize: "15px" }}
             >
               {review.date}
             </span>
           </div>
           {/* Rechts: Button */}
-          {!cardExpand && review.comment.length > 60 && (
+          {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
               className="text-sm px-3 py-1 rounded-full text-white transition"
               style={{
                 backgroundColor: color,
+                minWidth: 90,
               }}
             >
-              Weiterlesen
+              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
             </button>
+          ) : (
+            <span
+              style={{
+                opacity: 0,
+                pointerEvents: "none",
+                minWidth: 90,
+                display: "inline-block",
+                backgroundColor: color,
+                borderRadius: "9999px",
+                padding: "0.25rem 0.75rem",
+                color: "#fff"
+              }}
+              className="text-sm rounded-full transition"
+            >
+              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+//social-style
+if (cardLayout === "social-style") {
+  const logoUrl = review.isGPT
+    ? "https://simplifyai.in/wp-content/uploads/2024/08/ChatGPT-logo-new.png"
+    : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png";
+  const firstLine = review.comment.split('\n')[0];
+  const showWeiterlesen = !cardExpand && firstLine.length > 40;
+
+  // NEU: Im Expand direkt ExpandCard nutzen
+  if (cardExpand) {
+    return (
+      <ExpandCard
+        logoUrl={logoUrl}
+        color={color}
+        name={review.name}
+        isGPT={review.isGPT}
+        rating={review.isGPT ? undefined : review.rating}
+        comment={review.comment}
+        date={review.isGPT ? undefined : review.date}
+        profilePhotoUrl={review.profilePhotoUrl}
+        accentColor={accentColor}
+        nameColor={nameColor}
+        commentColor={commentColor}
+        textFontSize={textFontSize}
+        boxRadius={boxRadius}
+        onClose={onClose}
+        stylePreset={stylePreset}
+        scrollRef={scrollRef}
+      />
+    );
+  }
+
+  // Collapsed Social-Style Card wie gehabt
+  return (
+    <div className="relative flex flex-col h-full feedback-card-scroll">
+      <div
+        ref={scrollRef}
+        className={
+          boxClasses +
+          " flex flex-col h-full items-center justify-center feedback-card-scroll"
+        }
+        style={{
+          backgroundColor:
+            stylePreset === "transparent" || stylePreset === "apple-transparent"
+              ? "transparent"
+              : accentColor,
+          borderRadius: boxRadius,
+          fontSize: textFontSize,
+          position: "relative",
+          minHeight: "133px",
+          maxHeight: "133px",
+          minWidth: "300px",
+          maxWidth: "300px",
+          margin: "",
+          overflowY: undefined,
+        }}
+      >
+        
+{/* Header */}
+<div className="flex items-center justify-center gap-2 w-full mb-1">
+  {!review.isGPT && (
+    <div
+      className="relative flex items-center justify-center mr-1 flex-shrink-0"
+      style={{ width: 33, height: 33 }}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <img
+        src={review.profilePhotoUrl || FALLBACK_AVATAR}
+        alt={review.name + " Profilbild"}
+        className="w-full h-full object-cover rounded-full bg-white"
+        style={{
+          width: 30,
+          height: 30,
+          display: "block",
+        }}
+        draggable={false}
+      />
+      <GoogleOverlay size={16} logoSize={16} offset={4} />
+      {/* Tooltip */}
+      {showTooltip && (
+        <div
+          className="absolute left-full top-1/2 -translate-y-1/2 ml-2 text-white text-[12px] px-2 py-1 rounded z-50 shadow pointer-events-none"
+          style={{
+            background: "#283593",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Bewertung aus Google
+        </div>
+      )}
+    </div>
+  )}
+
+  <span
+    className="font-semibold"
+    style={{
+      color: nameColor,
+      fontSize: "18px"
+    }}
+  >
+    {review.name}
+  </span>
+  {!review.isGPT && (
+    <div className="flex items-center">
+      {Array.from({ length: 5 }, (_, index) => (
+        <Star
+          key={index}
+          className="w-5 h-5 mb-1"
+          style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
+          fill={index < review.rating ? "currentColor" : "none"}
+        />
+      ))}
+    </div>
+  )}
+</div>
+
+
+
+
+        {/* Body */}
+        <div className="flex-1 flex items-center justify-center w-full pb-1">
+          <p
+            ref={commentRef}
+            className={
+              "italic transition-all duration-500 ease-in-out w-full text-center " +
+              (showWeiterlesen ? "truncate" : "")
+            }
+            style={{
+              color: commentColor,
+              lineHeight: "1.5",
+              fontSize: "inherit",
+              margin: 0,
+              display: "block",
+              overflow: showWeiterlesen ? "hidden" : "visible",
+              textOverflow: showWeiterlesen ? "ellipsis" : "unset",
+              whiteSpace: showWeiterlesen ? "nowrap" : "normal",
+            }}
+          >
+            {review.comment}
+          </p>
+        </div>
+        {/* Footer */}
+        <div className="flex flex-col items-center w-full">
+          <span
+            className="text-xs block py-1 text-center w-full"
+            style={{ color: commentColor, fontSize: "15px" }}
+          >
+            {review.date}
+          </span>
+          {/* Nur wenn nötig, im Normal-Modus */}
+          {showWeiterlesen && (
+            <button
+              onClick={onWeiterlesen}
+              className="text-base text-gray-400 hover:text-gray-700 rounded transition"
+              style={{ minWidth: 90 }}
+            >
+              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+// ⭐️ 3. Default Layout 
+if (cardLayout === "default") {
+  const logoUrl = review.isGPT
+    ? "https://simplifyai.in/wp-content/uploads/2024/08/ChatGPT-logo-new.png"
+    : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/800px-Google_%22G%22_logo.svg.png";
+
+  // Nur beim Expand auf ExpandCard zurückgreifen:
+  if (cardExpand) {
+    return (
+      <ExpandCard
+        logoUrl={logoUrl}
+        color={color}
+        name={review.name}
+        isGPT={review.isGPT}
+        profilePhotoUrl={review.profilePhotoUrl}
+        rating={review.isGPT ? undefined : review.rating}
+        comment={review.comment}
+        date={review.isGPT ? undefined : review.date}
+        accentColor={accentColor}
+        nameColor={nameColor}
+        commentColor={commentColor}
+        textFontSize={textFontSize}
+        boxRadius={boxRadius}
+        onClose={onClose}
+        stylePreset={stylePreset}
+        scrollRef={scrollRef}
+      />
+    );
+  }
+
+  // Collapsed Card bleibt wie bisher!
+  return (
+    <div className="relative flex flex-col h-full feedback-card-scroll">
+      <div
+        ref={scrollRef}
+        className={boxClasses + " flex flex-col h-full feedback-card-scroll"}
+        style={{
+          backgroundColor:
+            stylePreset === "transparent" || stylePreset === "apple-transparent"
+              ? "transparent"
+              : accentColor,
+          borderRadius: boxRadius,
+          fontSize: textFontSize,
+          position: "relative",
+          minHeight: "117px",
+          minWidth: "300px",
+          maxWidth: "300px",
+          margin: "",
+          maxHeight: 178,
+          overflowY: "auto",
+        }}
+      >
+        {/* Name, Badge, Sterne */}
+        <div className="flex items-center gap-2 mb-1">
+          <Badge isGPT={review.isGPT} />
+          <p
+            className="font-semibold"
+            style={{
+              color: nameColor,
+              fontSize: "18px",
+            }}
+          >
+            {review.name}
+          </p>
+          {!review.isGPT && (
+            <div className="flex items-center">
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star
+                  key={index}
+                  className="h-5 w-5 mb-1"
+                  style={{
+                    color: index < review.rating ? "#facc15" : "#d1d5db",
+                  }}
+                  fill={index < review.rating ? "currentColor" : "none"}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        {/* Kommentar */}
+        <p
+          ref={commentRef}
+          className={
+            "italic transition-all duration-500 ease-in-out w-full truncate"
+          }
+          style={{
+            color: commentColor,
+            lineHeight: "1.5",
+            textAlign: "left",
+            marginBottom: review.comment.length > 36 ? "0.5rem" : 0,
+            fontSize: "inherit",
+          }}
+        >
+          {review.comment}
+        </p>
+        {/* Footer */}
+        <div className="flex items-center justify-between mt-auto w-full">
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-xs block py-0`}
+              style={{ color: commentColor, fontSize: "15px" }}
+            >
+              {review.date}
+            </span>
+          </div>
+          {/* Rechts: Button */}
+          {review.comment.length > 36 ? (
+            <button
+              onClick={onWeiterlesen}
+              className="text-sm px-3 py-1 rounded-full text-white transition"
+              style={{ minWidth: 90, backgroundColor: color }}
+            >
+              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
+            </button>
+            
+          ) : (
+            <span
+              style={{
+                opacity: 0,
+                pointerEvents: "none",
+                minWidth: 90,
+                display: "inline-block",
+              }}
+            >
+              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
+            </span>
           )}
           {cardExpand && (
             <button
               onClick={onClose}
-              className="absolute top-1 right-3 text-gray-400 hover:text-gray-800 text-3xl  rounded-full px-2 py-1 transition"
+              className="absolute top-1 right-3 text-gray-400 hover:text-gray-800 text-3xl rounded-full px-2 py-1 transition"
             >
               ×
             </button>
@@ -223,201 +601,4 @@ if (cardLayout === "review-modern") {
     </div>
   );
 }
-
-
-// ⭐️ 2. Social-Style
-if (cardLayout === "social-style") {
-  return (
-    <div className="relative flex flex-col feedback-card-scroll">
-      <div
-        ref={scrollRef}
-        className={boxClasses + " items-center feedback-card-scroll"}
-        style={{
-          backgroundColor:
-            stylePreset === "transparent" || stylePreset === "apple-transparent"
-              ? "transparent"
-              : accentColor,
-          borderRadius: boxRadius,
-          fontSize: textFontSize,
-          position: "relative",
-          minHeight: Math.max(90, parseInt(textFontSize, 10) * 5),
-          minWidth: cardExpand ? "100%" : "300px",
-          maxWidth: cardExpand ? "100%" : "300px",
-          margin: cardExpand ? "0 auto" : "",
-          maxHeight: cardExpand ? 178 : undefined,
-          overflowY: cardExpand ? "auto" : undefined,
-        }}
-      >
-        {/* Badge, Name & Stars: Horizontal */}
-        <div className="flex items-center justify-center gap-2 w-full mb-1">
-          <Badge />
-          <span
-            className="font-semibold"
-            style={{
-              color: nameColor,
-              fontSize: cardExpand ? "20px" : "18px"
-            }}
-          >
-            {review.name}
-          </span>
-          <div className="flex items-center">
-            {Array.from({ length: 5 }, (_, index) => (
-              <Star
-                key={index}
-                className={cardExpand ? "w-5 h-5" : "w-5 h-5 mb-1"}
-                style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
-                fill={index < review.rating ? "currentColor" : "none"}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Kommentar */}
-        <p
-          ref={commentRef}
-          className={
-            "italic transition-all duration-500 ease-in-out w-full " +
-            (!cardExpand ? "truncate text-center" : "text-center")
-          }
-          style={{
-            color: commentColor,
-            lineHeight: "1.5",
-             marginBottom: !cardExpand && review.comment.length > 60 ? "0.2rem" : 0,
-            fontSize: cardExpand ? "20px" : "inherit",
-          }}
-        >
-          {review.comment}
-        </p>
-
-        {/* Datum */}
-        <span
-          className={`text-xs block ${cardExpand ? "py-2" : "py-1"}`}
-          style={{ color: commentColor, fontSize: cardExpand ? "17px" : "15px" }}
-        >
-          {review.date}
-        </span>
-
-        {/* Button */}
-        {!cardExpand && review.comment.length > 60 && (
-          <button
-            onClick={onWeiterlesen}
-            className="text-base text-gray-400 hover:text-gray-700 rounded transition"
-          >
-            Weiterlesen
-          </button>
-        )}
-
-        {cardExpand && (
-          <button
-            onClick={onClose}
-            className="absolute top-1 right-3 text-gray-400 hover:text-gray-800 text-3xl rounded-full px-2 py-1 transition"
-          >
-            ×
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-
-
-// ⭐️ 3. Default Layout (dein aktuelles!)
-return (
-  <div className="relative flex flex-col h-full feedback-card-scroll">
-    <div
-      ref={scrollRef}
-      className={boxClasses + " flex flex-col h-full feedback-card-scroll"}
-      style={{
-        backgroundColor:
-          stylePreset === "transparent" || stylePreset === "apple-transparent"
-            ? "transparent"
-            : accentColor,
-        borderRadius: boxRadius,
-        fontSize: textFontSize,
-        position: "relative",
-        minHeight: "117px",
-        minWidth: cardExpand ? "100%" : "300px",
-        maxWidth: cardExpand ? "100%" : "300px",
-        margin: cardExpand ? "0 auto" : "",
-        maxHeight: cardExpand ? 178 : undefined,
-        overflowY: cardExpand ? "auto" : undefined,
-      }}
-    >
-      {/* Name, Badge, Sterne */}
-      <div className="flex items-center gap-2 mb-1">
-        <Badge />
-        <p
-          className="font-semibold"
-          style={{
-            color: nameColor,
-            fontSize: cardExpand ? "20px" : "18px",
-          }}
-        >
-          {review.name}
-        </p>
-        <div className="flex items-center">
-          {Array.from({ length: 5 }, (_, index) => (
-            <Star
-              key={index}
-              className={cardExpand ? "w-6 h-6" : "h-5 w-5 mb-1"}
-              style={{
-                color: index < review.rating ? "#facc15" : "#d1d5db",
-              }}
-              fill={index < review.rating ? "currentColor" : "none"}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Kommentar */}
-      <p
-        ref={commentRef}
-        className={
-          "italic transition-all duration-500 ease-in-out w-full " +
-          (!cardExpand ? "truncate" : "")
-        }
-        style={{
-          color: commentColor,
-          lineHeight: "1.5",
-          textAlign: "left",
-          marginBottom: !cardExpand && review.comment.length > 60 ? "0.5rem" : 0,
-          fontSize: cardExpand ? "20px" : "inherit",
-        }}
-      >
-        {review.comment}
-      </p>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between mt-auto w-full">
-        <div className="flex items-center gap-2">
-        
-          <span
-            className={`text-xs block ${cardExpand ? "py-3" : "py-0"}`}
-            style={{ color: commentColor, fontSize: cardExpand ? "17px" : "15px" }}
-          >
-            {review.date}
-          </span>
-        </div>
-        {/* Rechts: Button */}
-        {!cardExpand && review.comment.length > 60 && (
-          <button
-            onClick={onWeiterlesen}
-            className="text-base text-gray-400 hover:text-gray-700 rounded transition"
-          >
-            Weiterlesen
-          </button>
-        )}
-        {cardExpand && (
-          <button
-            onClick={onClose}
-            className="absolute top-1 right-3 text-gray-400 hover:text-gray-800 text-3xl rounded-full px-2 py-1 transition"
-          >
-            ×
-          </button>
-        )}
-      </div>
-    </div>
-  </div>
-);
 }
