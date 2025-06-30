@@ -140,9 +140,10 @@ export default function GPTCard({
      <div className="w-full flex justify-center mt-1.5">
   <button
     onClick={onAnzeigen}
-    className="text-sm px-3 py-1 rounded-full text-white transition z-10"
+    className="text-sm px-3 py-1 rounded-full transition z-10"
     style={{
       background: color,
+      color: nameColor,
       minWidth: 90,
       letterSpacing: 0.5,
     }}
