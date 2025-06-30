@@ -151,8 +151,10 @@ const [cardLayout, setCardLayout] = useState("default");
   width="100%"
   height="300"
   style="border: none; display: block;"
+  scrolling="no"
   loading="lazy"
   title="Kundenbewertungen Widget"
+  allowtransparency="true"
 />`;
 
   return (

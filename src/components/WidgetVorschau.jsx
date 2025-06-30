@@ -7,7 +7,6 @@ const MotionLink = motion(Link);
 
 const demoFirmaIds = [
 "ffc5042a",
-"1808dc4a",
 "d6877aa9",
 "2ab3e141",
 "4854c86e",
