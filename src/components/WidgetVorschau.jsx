@@ -33,7 +33,7 @@ const WidgetVorschau = () => {
 
       {demoFirmaIds.map((id, index) => (
         <div key={id} className="w-full mx-auto mb-12">
-          <h2 className="text-center font-semibold text-base mt-2 mb-2">
+          <h2 className="text-center font-semibold text-xl mt-2 mb-3">
             Vorschau: Widget {index + 1}
           </h2>
           <iframe
