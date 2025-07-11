@@ -539,7 +539,7 @@ if (expandedReview) {
         </button>
       </div>
       <div
-        className="text-center text-[14px] text-gray-400 mt-0 mb-0 leading-none"
+        className="text-center text-[14px] text-gray-500 hover:text-gray-700 mt-0 mb-0 leading-none"
         style={{ fontFamily: 'system-ui' }}
       >
         <a
