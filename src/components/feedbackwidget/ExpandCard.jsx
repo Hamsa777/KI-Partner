@@ -106,7 +106,7 @@ const ExpandCard = ({
               style={{ objectFit: "contain" }}
             />
             {/* Tooltip */}
-            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#283593] text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
+            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#2c2c2e] text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
               GPT-4o
             </div>
           </div>
@@ -132,7 +132,7 @@ const ExpandCard = ({
             <GoogleOverlay size={16} logoSize={16} offset={4} />
             {/* Tooltip für Google-Bewertung */}
            <div
-  className={`absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#283593] text-white text-[12px] px-2 py-1 rounded transition whitespace-nowrap z-50 shadow pointer-events-none ${showTooltip ? "opacity-100" : "opacity-0"}`}
+  className={`absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#2c2c2e] text-white text-[12px] px-2 py-1 rounded transition whitespace-nowrap z-50 shadow pointer-events-none ${showTooltip ? "opacity-100" : "opacity-0"}`}
 >
   Bewertung aus Google
 </div>

@@ -107,7 +107,7 @@ function Badge({ isGPT }) {
 />
 
         {/* Tooltip */}
-        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#283593] text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
+        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#2c2c2e] text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
           Bewertung aus Google
         </div>
       </div>
@@ -261,7 +261,7 @@ if (cardLayout === "review-modern") {
           {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 rounded-full text-gray-400 hover:text-gray-700 transition"
+              className="text-sm px-3 py-1 rounded-full text-gray-500 hover:text-gray-800 transition"
               style={{
                 backgroundColor: color,
                 minWidth: 90,
@@ -377,7 +377,7 @@ if (cardLayout === "social-style") {
         <div
           className="absolute left-full top-1/2 -translate-y-1/2 ml-2 text-white text-[12px] px-2 py-1 rounded z-50 shadow pointer-events-none"
           style={{
-            background: "#283593",
+            background: "#2c2c2e",
             whiteSpace: "nowrap",
           }}
         >
@@ -447,7 +447,7 @@ if (cardLayout === "social-style") {
           {showWeiterlesen && (
             <button
               onClick={onWeiterlesen}
-              className="text-base text-gray-400 hover:text-gray-700 rounded transition"
+              className="text-base text-gray-500 hover:text-gray-800 rounded transition"
               style={{ minWidth: 90 }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}
@@ -570,7 +570,7 @@ if (cardLayout === "default") {
           {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 text-gray-400 hover:text-gray-700 rounded-full transition"
+              className="text-sm px-3 py-1 text-gray-500 hover:text-gray-800 rounded-full transition"
               style={{ minWidth: 90, backgroundColor: color }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}
