@@ -459,16 +459,17 @@ if (expandedReview) {
           <ChevronLeft color={arrowColor} />
         </button>
         {/* Feedback-Karten */}
-        <div
-        
+       
+       <div
   ref={containerRef}
-  className="flex gap-5 overflow-hidden snap-x snap-mandatory"
+  className="flex gap-5 overflow-x-auto snap-x snap-mandatory"
   style={{
     scrollBehavior: "smooth",
-    width: `${containerWidth}px`,
-    
+    overflowX: "hidden", // <- wichtig!
+    width: "100%",
   }}
 >
+
   
   {/* KI-Zusammenfassung als erste Card */}
   {gptReview && (
