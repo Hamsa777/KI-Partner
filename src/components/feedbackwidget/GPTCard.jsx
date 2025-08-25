@@ -109,7 +109,7 @@ export default function GPTCard({
     style={{
       color: nameColor,
       letterSpacing: 1,
-      fontSize: "19px",
+      fontSize: "20px",
       marginLeft: 4,
     }}
   >
@@ -127,7 +127,7 @@ export default function GPTCard({
           style={{
             color: nameColor,
             textAlign: "center",
-            fontSize: "14px",
+            fontSize: "16px",
           }}
         >
           {reviewCount === 1
