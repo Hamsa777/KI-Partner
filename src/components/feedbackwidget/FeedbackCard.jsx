@@ -447,7 +447,7 @@ if (cardLayout === "social-style") {
           {showWeiterlesen && (
             <button
               onClick={onWeiterlesen}
-              className="text-base text-gray-500 hover:text-gray-800 rounded transition"
+              className="text-base text-gray-400 hover:text-gray-800 rounded transition"
               style={{ minWidth: 90 }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}

@@ -109,11 +109,11 @@ export default function GPTCard({
     style={{
       color: nameColor,
       letterSpacing: 1,
-      fontSize: "21px",
+      fontSize: "19px",
       marginLeft: 4,
     }}
   >
-    GPT-Analyse
+    Kurzfassung
   </span>
 </div>
 
