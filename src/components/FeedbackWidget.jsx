@@ -281,7 +281,7 @@ useEffect(() => {
  const widgetClasses = [
   "space-y-4 p-4 relative transition-all mx-auto",
   widgetStylePreset === "glass"
-    ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+    ? ""
     : widgetStylePreset === "flat"
     ? "bg-transparent border border-gray-200 shadow-none"
     : widgetStylePreset === "transparent"
