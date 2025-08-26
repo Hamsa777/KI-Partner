@@ -240,6 +240,7 @@ useEffect(() => {
     textColor = theme === "dark" ? "#f5f5f5" : "#222",
     headingStyles = {},
     headingFontSize = "22px",
+    starColor = "#facc14",
     arrowColor = "#000",
     arrowBgColor = "#fff",
     widgetStylePreset = "classic",
@@ -387,7 +388,6 @@ if (expandedReview) {
         >
           <FeedbackCard
             review={expandedReview}
-            
             cardExpand={true}
             onClose={handleClose}
             accentColor={accentColor}
@@ -511,6 +511,7 @@ if (expandedReview) {
     <FeedbackCard
       review={review}
       color={color}
+      starColor={starColor}
       accentColor={accentColor}
       profilePhotoUrl={review.profilePhotoUrl}
       nameColor={textColor}

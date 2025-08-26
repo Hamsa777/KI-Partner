@@ -18,6 +18,7 @@ export default function WidgetEditor() {
   const [customTitle, setCustomTitle] = useState("Das sagen unsere Kunden");
   const [logoUrl, setLogoUrl] = useState("");
   const [headingFontSize, setHeadingFontSize] = useState("29px");
+  const [starColor, setStarColor] = useState("#facc14");
   const [arrowColor, setArrowColor] = useState("#ffffff");
   const [arrowBgColor, setArrowBgColor] = useState("#111827");
   const [widgetStylePreset, setWidgetStylePreset] = useState("glass");
@@ -85,6 +86,7 @@ const [cardLayout, setCardLayout] = useState("default");
         setLogoUrl(data.logoUrl ?? "");
         setTextFontSize(data.textFontSize ?? "16px");
         setHeadingFontSize(data.headingFontSize ?? "29px");
+        setStarColor(data.starColor ?? "#facc14");
         setArrowColor(data.arrowColor ?? "#ffffff");
         setArrowBgColor(data.arrowBgColor ?? "#111827");
         setWidgetStylePreset(data.widgetStylePreset ?? "glass");
@@ -130,6 +132,7 @@ const [cardLayout, setCardLayout] = useState("default");
     textColor,
     headingFontSize,
     customTitle,
+    starColor,
     arrowColor,
     arrowBgColor,
     widgetStylePreset,
@@ -186,6 +189,7 @@ const [cardLayout, setCardLayout] = useState("default");
             <label>Bewertungsboxen-Farbe (Sekundär):<input type="color" className="w-full p-2 border" value={accentColor} onChange={(e) => setAccentColor(e.target.value)} /></label>
             <label>Überschrift-Farbe:<input type="color" className="w-full p-2 border" value={headingStyles.color} onChange={(e) => setHeadingStyles({ ...headingStyles, color: e.target.value })} /></label>
             <label>Schriftfarbe:<input type="color" className="w-full p-2 border" value={textColor} onChange={(e) => setTextColor(e.target.value)} /></label>
+            <label>Sternfarbe:<input type="color" className="w-full p-2 border" value={starColor} onChange={(e) => setStarColor(e.target.value)} /></label>
             <label>Pfeilfarbe:<input type="color" className="w-full p-2 border" value={arrowColor} onChange={(e) => setArrowColor(e.target.value)} /></label>
             <label>Pfeil-Hintergrundfarbe:<input type="color" className="w-full p-2 border" value={arrowBgColor} onChange={(e) => setArrowBgColor(e.target.value)} /></label>
             <label>Hintergrundbild-URL (empfohlen):
@@ -499,6 +503,7 @@ const [cardLayout, setCardLayout] = useState("default");
               textColor,
               headingFontSize,
               customTitle,
+              starColor,
               arrowColor,
               arrowBgColor,
               widgetStylePreset,

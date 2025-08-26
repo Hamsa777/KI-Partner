@@ -9,6 +9,7 @@ export default function FeedbackCard({
   review,
   accentColor = "#f8f8f8",
   color,
+  starColor = "#facc14",
   nameColor = "#222",
   commentColor = "#222",
   dateColor = "#222",
@@ -164,6 +165,7 @@ if (cardLayout === "review-modern") {
     return (
       <ExpandCard
         color={color}
+        starColor={starColor}
         logoUrl={logoUrl}
         name={review.name}
         isGPT={review.isGPT}
@@ -217,13 +219,14 @@ if (cardLayout === "review-modern") {
           {!review.isGPT && (
             <div className="flex items-center">
               {Array.from({ length: 5 }, (_, index) => (
-                <GoStarFill
-                  key={index}
-                  className="h-5 w-5 mb-1"
-                  style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
-                  fill={index < review.rating ? "currentColor" : "none"}
-                />
-              ))}
+  <GoStarFill
+    key={index}
+    className="h-5 w-5 mb-1"
+    style={{ color: index < review.rating ? starColor : "#d1d5db" }}
+    fill={index < review.rating ? "currentColor" : "none"}
+  />
+))}
+
             </div>
           )}
         </div>
@@ -308,6 +311,7 @@ if (cardLayout === "social-style") {
       <ExpandCard
         logoUrl={logoUrl}
         color={color}
+        starColor={starColor}
         name={review.name}
         isGPT={review.isGPT}
         rating={review.isGPT ? undefined : review.rating}
@@ -400,13 +404,14 @@ if (cardLayout === "social-style") {
   {!review.isGPT && (
     <div className="flex items-center">
       {Array.from({ length: 5 }, (_, index) => (
-        <GoStarFill
-          key={index}
-          className="w-5 h-5 mb-1"
-          style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
-          fill={index < review.rating ? "currentColor" : "none"}
-        />
-      ))}
+  <GoStarFill
+    key={index}
+    className="h-5 w-5 mb-1"
+    style={{ color: index < review.rating ? starColor : "#d1d5db" }}
+    fill={index < review.rating ? "currentColor" : "none"}
+  />
+))}
+
     </div>
   )}
 </div>
@@ -474,6 +479,7 @@ if (cardLayout === "default") {
       <ExpandCard
         logoUrl={logoUrl}
         color={color}
+        starColor={starColor}
         name={review.name}
         isGPT={review.isGPT}
         profilePhotoUrl={review.profilePhotoUrl}
@@ -529,15 +535,14 @@ if (cardLayout === "default") {
           {!review.isGPT && (
             <div className="flex items-center">
               {Array.from({ length: 5 }, (_, index) => (
-                <GoStarFill
-                  key={index}
-                  className="h-5 w-5 mb-1"
-                  style={{
-                    color: index < review.rating ? "#facc15" : "#d1d5db",
-                  }}
-                  fill={index < review.rating ? "currentColor" : "none"}
-                />
-              ))}
+  <GoStarFill
+    key={index}
+    className="h-5 w-5 mb-1"
+    style={{ color: index < review.rating ? starColor : "#d1d5db" }}
+    fill={index < review.rating ? "currentColor" : "none"}
+  />
+))}
+
             </div>
           )}
         </div>

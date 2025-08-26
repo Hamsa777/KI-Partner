@@ -35,6 +35,7 @@ const ExpandCard = ({
   textFontSize = "20px",
   boxRadius = "24px",
   onClose,
+  starColor = "#facc15",
   scrollRef,
   stylePreset,
   profilePhotoUrl, // <--- NEU, das Profilbild für Google
@@ -178,16 +179,17 @@ const ExpandCard = ({
           </div>
         )}
         {!isGPT && rating !== undefined && (
-          <div className="flex items-center -mt-1 ">
-            {Array.from({ length: 5 }, (_, idx) => (
-              <GoStarFill
-                key={idx}
-                className="w-5 h-5"
-                style={{ color: idx < rating ? "#facc15" : "#d1d5db" }}
-                fill={idx < rating ? "currentColor" : "none"}
-              />
-            ))}
-          </div>
+         <div className="flex items-center -mt-0.5">
+  {Array.from({ length: 5 }, (_, index) => (
+    <GoStarFill
+  key={index}
+  className="h-5 w-5"
+  fill={index < rating ? starColor : "#d1d5db"}
+  style={{ marginBottom: "2px" }} // Sterne etwas tiefer setzen
+/>
+  ))}
+</div>
+
         )}
       </div>
 
