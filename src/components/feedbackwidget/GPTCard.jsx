@@ -100,7 +100,7 @@ export default function GPTCard({
       alt="GPT Logo"
       className="w-7 h-7"
     />
-    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#283593] text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
+    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-[#19191b] text-white text-[12px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-50 shadow pointer-events-none">
       GPT-4o
     </div>
   </div>
