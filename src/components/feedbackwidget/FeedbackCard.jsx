@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Star } from "lucide-react";
+import { GoStarFill } from "react-icons/go";
 import { color } from "framer-motion";
 import ExpandCard from './ExpandCard';
 import GoogleOverlay from "./GoogleOverlay";
@@ -216,7 +217,7 @@ if (cardLayout === "review-modern") {
           {!review.isGPT && (
             <div className="flex items-center">
               {Array.from({ length: 5 }, (_, index) => (
-                <Star
+                <GoStarFill
                   key={index}
                   className="h-5 w-5 mb-1"
                   style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
@@ -399,7 +400,7 @@ if (cardLayout === "social-style") {
   {!review.isGPT && (
     <div className="flex items-center">
       {Array.from({ length: 5 }, (_, index) => (
-        <Star
+        <GoStarFill
           key={index}
           className="w-5 h-5 mb-1"
           style={{ color: index < review.rating ? "#facc15" : "#d1d5db" }}
@@ -528,7 +529,7 @@ if (cardLayout === "default") {
           {!review.isGPT && (
             <div className="flex items-center">
               {Array.from({ length: 5 }, (_, index) => (
-                <Star
+                <GoStarFill
                   key={index}
                   className="h-5 w-5 mb-1"
                   style={{
