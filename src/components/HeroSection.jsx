@@ -33,7 +33,7 @@ export default function HeroSection() {
         className="mt-8 flex justify-center gap-4"
       >
        <motion.a
-  href="mailto:kontakt@ki-partner24.de"
+  href="mailto:info@ki-partner24.de"
   whileHover={{
     scale: 1.02,
     backgroundColor: "#1a237e",

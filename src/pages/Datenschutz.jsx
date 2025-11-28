@@ -10,7 +10,7 @@ export default function Datenschutz() {
         <p>
           <strong>Hamsa Lif / KI-Partner</strong><br />
           Scharhoferstr. 54, 68307 Mannheim<br />
-          E-Mail: kontakt@ki-partner24.de<br />
+          E-Mail: info@ki-partner24.de<br />
           {/* [Optional: Telefonnummer] */}
         </p>
       </section>

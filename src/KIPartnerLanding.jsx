@@ -11,12 +11,13 @@ export default function KIPartnerLanding() {
       <HeroSection />
       <ServiceCards />
       <Warum />
-      <MyWidget />
+      
     
       <ContactSection />
      
       {/*
   <WidgetBot />
+  <MyWidget />
 */}
     </div>
   );

@@ -16,11 +16,14 @@ export default function UeberUns() {
         </p>
 
         <p className="text-gray-700 text-lg leading-relaxed mb-4">
-          Aktuell bieten wir unsere <strong>KI-Feedback Automation</strong> als fertige Lösung an. Damit sammeln Sie automatisiert Kundenbewertungen und binden diese DSGVO-konform auf Ihrer Website ein.
-        </p>
+  Aktuell bieten wir unsere <strong>KI-gestützte Dokumenten-Analyse</strong> als vollautomatisierten Service an. 
+  Damit erhalten Sie aus Protokollen, Berichten und Dokumentationen sofort klare Entscheidungen, Risiken 
+  und umsetzbare Maßnahmen direkt per E-Mail zurück an Ihr Team.
+</p>
+
 
         <p className="text-gray-700 text-lg leading-relaxed mb-4">
-          Bereits in Vorbereitung: <strong>Kundenservice-Chatbots</strong> und ein <strong>KI-basierter Telefonassistent</strong>. Beide Tools werden Ihre Prozesse weiter automatisieren – ganz ohne technisches Vorwissen.
+          Bereits in Vorbereitung: <strong>Kundenservice-Chatbots</strong> und <strong>KI-basierter Telefonassistenten</strong>. Beide Tools werden Ihre Prozesse weiter automatisieren – ganz ohne technisches Vorwissen.
         </p>
 
         <p className="text-gray-700 text-lg leading-relaxed mb-4">

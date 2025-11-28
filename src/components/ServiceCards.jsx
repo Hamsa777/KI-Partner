@@ -15,9 +15,13 @@ export default function ServiceCards() {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.6 }}
     >
-      <h2 className="text-4xl sm:text-5xl font-bold text-black my-8 text-center tracking-tight">
-        Unsere KI-Systeme
-      </h2>
+     <h2 className="text-2xl sm:text-5xl font-bold text-black my-8 text-center tracking-tight">
+  
+</h2>
+
+<p className="text-center text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed mb-12">
+
+</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {services.map(({ id, title, description, icon, url, isExternal }) => {

@@ -36,12 +36,15 @@ export default function DankeOnboarding({ service: serviceProp }) {
         <p className="text-lg mb-4">{intro}</p>
         <p className="text-md mb-6 text-gray-700">{info}</p>
 
-        <Link
-          to="/"
-          className="mt-4 inline-block bg-[#283593] text-white px-6 py-3 rounded-full hover:bg-[#1a237e] transition-transform transform hover:scale-105"
-        >
-          Zur Startseite
-        </Link>
+  {/* 
+<Link
+  to="/"
+  className="mt-4 inline-block bg-[#283593] text-white px-6 py-3 rounded-full hover:bg-[#1a237e] transition-transform transform hover:scale-105"
+>
+  Zur Startseite
+</Link>
+*/}
+
       </motion.div>
     </div>
   );

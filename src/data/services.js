@@ -1,12 +1,12 @@
 // src/data/services.js
 export const services = [
 
-  {
-    title: "Kundenfeedback-System",
-    description: "Feedback sammeln ohne Aufwand – direkt nach dem Kauf oder Kontakt.",
-    id: "feedback",
-    icon: "FaComments",
-    url: "/Kundenfeedback",
+    {
+    title: "Dokumenten-Analyse",
+    description: "Lassen Sie jegliche Dokumente automatisiert per E-Mail analysieren.",
+    id: "dokumente",
+    icon: "FaEnvelopeOpenText",
+    url: "#",
     isExternal: false
   },
   {
@@ -25,6 +25,14 @@ export const services = [
     url: "#",
     isExternal: false
   },
+//    {
+//    title: "Kundenfeedback-System",
+//    description: "Feedback sammeln ohne Aufwand – direkt nach dem Kauf oder Kontakt.",
+//    id: "feedback",
+//    icon: "FaComments",
+//    url: "/Kundenfeedback",
+//   isExternal: false
+//  },
   // {
   //   title: "Angebotsautomatisierung",
   //   description: "Bereitstellung eines auf den Kunden angepassten Angebots via PDF.",

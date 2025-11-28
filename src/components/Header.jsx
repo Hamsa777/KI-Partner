@@ -62,7 +62,7 @@ export default function Header() {
           {/* Rechte Navigation + Burger rechts */}
           <div className="flex items-center space-x-4 text-sm sm:text-base pt-1 flex-1 justify-end">
             <motion.a
-              href="mailto:kontakt@ki-partner24.de"
+              href="mailto:info@ki-partner24.de"
               whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="hidden sm:inline bg-[#283593] text-white px-4 py-1.5 rounded-full"

@@ -93,7 +93,7 @@ const WidgetVorschau = () => {
   <div className="flex flex-col items-center gap-2">
     <span className="font-semibold text-xl mb-2">Für Agenturen</span>
     <motion.a
-      href="mailto:kontakt@ki-partner24.de?subject=White-Label%20Partnerschaft%20anfragen"
+      href="mailto:info@ki-partner24.de?subject=White-Label%20Partnerschaft%20anfragen"
       whileHover={{ scale: 1.02, backgroundColor: "#1a237e" }}
       transition={{ duration: 0.3 }}
       className="bg-[#283593] text-white px-6 py-3 rounded-full text-sm sm:text-base font-medium text-center w-56"

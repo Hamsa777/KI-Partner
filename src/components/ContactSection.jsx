@@ -25,7 +25,7 @@ export default function ContactSection() {
             backgroundColor: "#1a237e",
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          href="mailto:kontakt@ki-partner24.de"
+          href="mailto:info@ki-partner24.de"
           className="inline-block px-6 py-3 bg-[#283593] text-white rounded-full"
         >
           Jetzt Kontakt aufnehmen

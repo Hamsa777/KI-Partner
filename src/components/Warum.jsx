@@ -15,7 +15,7 @@ export default function Warum() {
       <p className="text-gray-700 text-lg leading-relaxed">
         Wir kombinieren moderne KI-Technologie mit klarer, praxisnaher Umsetzung. Unser Ziel ist es,{" "}
         <strong>kleinen und mittelständischen Unternehmen</strong> sofort messbaren Mehrwert zu bieten – sei es durch
-        automatisierte Feedbacksysteme, Kundenservice ChatBots oder Terminmanagement. Wir arbeiten effizient,
+        KI-gestützten Dokumenten-Analysen, Kundenservice ChatBots oder Terminmanagement. Wir arbeiten effizient,
         transparent und individuell abgestimmt auf Ihre Geschäftsprozesse.
       </p>
     </motion.section>
