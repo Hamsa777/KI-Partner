@@ -1,36 +1,37 @@
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+
 const serviceText = {
   feedback: {
     title: 'Onboarding erfolgreich!',
     intro: 'Ihre Angaben wurden erfolgreich übermittelt.',
-    info: 'Sie erhalten in kürze eine Mail mit allen erforderlichen Links und ihrem Embed-Code für die Einbettung Ihres Widgets.'
+    info: 'Sie erhalten in Kürze eine Mail mit allen erforderlichen Links und Ihrem Embed-Code für die Einbettung Ihres Widgets.'
   },
- // chatbot: {
-   // title: 'Vielen Dank!',
-    //intro: 'Dein Chatbot wird jetzt erstellt.',
-    //info: 'In Kürze bekommst du eine E-Mail mit deinem Bot-Link, den du direkt auf deiner Website einbinden kannst.'
-  //},
+  document: {
+    title: 'Onboarding abgeschlossen!',
+    intro: 'Ihre Angaben wurden erfolgreich übermittelt.',
+    info: 'Sie erhalten in Kürze eine E-Mail mit allen weiteren Informationen zur Nutzung.'
+  },
   // weitere Services hier ergänzen …
 };
 
-export default function DankeOnboarding() {
+export default function DankeOnboarding({ service: serviceProp }) {
   const [searchParams] = useSearchParams();
-  const service = searchParams.get('service') || 'feedback';
-  const { title, intro, info } = serviceText[service] || serviceText['feedback'];
+
+  const serviceFromQuery = searchParams.get('service');
+  const serviceKey = serviceFromQuery || serviceProp || 'feedback';
+
+  const { title, intro, info } = serviceText[serviceKey] || serviceText['feedback'];
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-white text-[#000002] text-center">
-      
       <motion.div
-      
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="max-w-xl"
       >
-     
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-lg mb-4">{intro}</p>
         <p className="text-md mb-6 text-gray-700">{info}</p>

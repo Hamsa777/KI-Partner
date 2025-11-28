@@ -58,7 +58,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/chatboteditor/:firmaId" element={<ChatBotEditor />} />
         <Route path="/widgetvorschau" element={<WidgetVorschau />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/dankeonboarding" element={<DankeOnboarding />} />
+        <Route path="/dankeonboarding" element={<DankeOnboarding service="feedback"/>} />
+        <Route path="/danke-dokumente" element={<DankeOnboarding service="document" />} />
+
 
 
       </Routes>
