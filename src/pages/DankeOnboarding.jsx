@@ -11,7 +11,7 @@ const serviceText = {
   document: {
     title: 'Onboarding abgeschlossen!',
     intro: 'Ihre Angaben wurden erfolgreich übermittelt.',
-    info: 'Sie erhalten in Kürze eine E-Mail mit allen weiteren Informationen zur Nutzung.'
+    info: 'Sie erhalten in Kürze eine E-Mail mit allen weiteren Informationen.'
   },
   // weitere Services hier ergänzen …
 };
