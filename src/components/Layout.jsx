@@ -1,22 +1,25 @@
 import Header from "./Header";
 import Footer from "./footer";
 import { Outlet } from "react-router-dom";
-// import ChatbotWidget from "./WidgetBot";
-// import BackgroundLayer from "./BackgroundLayer";
 
 export default function Layout() {
   return (
-    <>
-      {/* <BackgroundLayer /> */}
-
+    <div
+      className="
+        min-h-screen
+        bg-gradient-to-b
+        from-[#010d21]
+        to-[#000000]
+        text-white
+      "
+    >
       <Header />
+
       <main className="pt-[0px] sm:pt-[0px]">
         <Outlet />
       </main>
 
-      {/* <ChatbotWidget /> */}
-
-      <Footer /> {/* <-- Footer ist jetzt immer sichtbar */}
-    </>
+      <Footer />
+    </div>
   );
 }
