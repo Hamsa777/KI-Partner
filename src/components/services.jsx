@@ -458,9 +458,9 @@ export default function Services() {
                       />
                     </div>
                     <p className="text-[11px] sm:text-xs text-gray-500">
-                      In vielen Fällen sind{" "}
-                      <span className="font-medium text-[#1d4ed8]">60–80%</span>{" "}
-                      realistisch, weil die KI die Vorarbeit übernimmt.
+                      In den meinsten Fällen sind{" "}
+                      <span className="font-medium text-[#1d4ed8]">70–80%</span>{" "}
+                      der realistische Richtwert.
                     </p>
                   </div>
 
