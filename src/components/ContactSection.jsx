@@ -31,9 +31,14 @@ export default function ContactSection() {
               </span>
             </div>
 
-            <h2 className="text-3xl font-bold mb-4 text-white">
-              Blitzschnelle Implementierung in Ihr Unternehmen
-            </h2>
+          <h2 className="text-3xl font-bold mb-4 text-white">
+  Blitzschnelle Implementierung in{" "}
+  <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
+    Ihr Unternehmen
+  </span>
+</h2>
+
+
             <p className="text-slate-200/90 mb-6 max-w-xl text-sm sm:text-base leading-relaxed mx-auto md:mx-0">
               Sie haben eine Automatisierung getestet und möchten diese in Ihrem
               Unternehmen einsetzen? Schreiben Sie uns kurz – wir klären in
