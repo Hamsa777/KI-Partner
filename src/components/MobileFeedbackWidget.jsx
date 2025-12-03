@@ -16,7 +16,7 @@ export default function MobileFeedbackWidget({
     if (propConfig) {
       setConfig(propConfig);
     } else if (firmaId) {
-      const url = `https://feedback.ki-partner24.de/srv/feedback-api/config-json/${firmaId}.json?t=${Date.now()}`;
+      const url = `https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json?t=${Date.now()}`;
       fetch(url)
         .then((res) => res.json())
         .then(setConfig)

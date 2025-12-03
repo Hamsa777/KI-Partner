@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const MotionLink = motion(Link);
 
 const demoFirmaIds = [
-"ffc5042a",
+"5c2e7ca1",
 "d6877aa9",
 "2ab3e141",
 "4854c86e",
