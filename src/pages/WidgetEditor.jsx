@@ -64,7 +64,7 @@ const [cardLayout, setCardLayout] = useState("default");
   useEffect(() => {
     if (!firmaId) return;
 
-    fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json`)
+    fetch(`https://feedback.ki-partner24.de/srv/feedback-api/config-json/${firmaId}.json`)
       .then((res) => {
         if (!res.ok) {
           navigate("/404");
@@ -442,7 +442,7 @@ const [cardLayout, setCardLayout] = useState("default");
             className="px-6 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300 transition"
             onClick={async () => {
               try {
-                const res = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json`);
+                const res = await fetch(`https://feedback.ki-partner24.de/srv/feedback-api/config-json/${firmaId}.json`);
                 if (!res.ok) throw new Error("Fehler beim Laden der Serverdaten");
                 const data = await res.json();
                 setLogoSize(data.logoSize ?? "60px");
@@ -518,7 +518,7 @@ const [cardLayout, setCardLayout] = useState("default");
               mobileLogoPosition,
               cardLayout
             };
-            const response = await fetch(`https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}`, {
+            const response = await fetch(`https://feedback.ki-partner24.de/srv/feedback-api/config-json/${firmaId}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",

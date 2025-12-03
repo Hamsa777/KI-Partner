@@ -14,7 +14,7 @@ const FeedbackWidget = ({ firmaId }) => {
         const feedback = await feedbackRes.json();
 
         const configRes = await fetch(
-          `https://feedback.ki-partner24.de/feedback-api/config-json/${firmaId}.json`
+          `https://feedback.ki-partner24.de/srv/feedback-api/config-json/${firmaId}.json`
         );
         const cfg = await configRes.json();
 
