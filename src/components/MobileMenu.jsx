@@ -18,7 +18,7 @@ export default function MobileMenu({ isOpen, onClose }) {
 
       <nav className="flex flex-col gap-6 text-xl text-[#283593]">
         <Link to="/ueberuns" onClick={onClose}>Über uns</Link>
-        <a href="/testeditor" target="_blank" onClick={onClose}>Kostenlos testen</a>
+      
         <Link to="/impressum" onClick={onClose}>Impressum</Link>
         <Link to="/datenschutz" onClick={onClose}>Datenschutz</Link>
       </nav>
