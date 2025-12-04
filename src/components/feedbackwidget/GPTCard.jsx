@@ -105,19 +105,15 @@ export default function GPTCard({
     </div>
   </div>
 <span
-  className="font-semibold z-10 text-center"
+  className="font-semibold z-10 text-center bg-gradient-to-r from-indigo-300 via-cyan-300 to-sky-400 bg-clip-text text-transparent"
   style={{
     letterSpacing: 1,
     fontSize: "20px",
     marginLeft: 4,
   }}
 >
-  <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
-    KI
-  </span>{" "}
-  Analyse
+  KI-Analyse
 </span>
-
 
 </div>
 
