@@ -97,7 +97,7 @@ export default function Warum() {
                     Dokumentenprüfung
                   </p>
                   <p className="text-slate-300/90 text-xs">
-                    Verträge, Angebote, Reports schneller prüfen lassen.
+                    Jegliche Art Dokumente automatisieren.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-slate-700/80 bg-slate-900/70 px-4 py-3">

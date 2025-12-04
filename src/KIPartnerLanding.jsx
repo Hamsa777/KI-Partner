@@ -13,8 +13,8 @@ export default function KIPartnerLanding() {
 
 
       <HeroSection />
-      <Services />
       <ServiceCards />
+      <Services />
       <Testimonals />
       <Warum />
       <ContactSection />
