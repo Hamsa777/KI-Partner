@@ -149,37 +149,37 @@ export default function Header() {
           </nav>
 
           {/* Right: CTA + Burger */}
-          <div className="flex items-center gap-3">
-            <motion.a
-              href="https://cal.com/ki-partner24"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              className="
-                hidden sm:inline-block
-                relative group
-                inline-flex items-center justify-center
-                rounded-full
-                bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
-                group-hover:from-[#4f46e5] group-hover:via-[#00bcd4] group-hover:to-[#283593]
-                p-[2px]
-                shadow-[0_0_28px_rgba(79,70,229,0.9)]
-                hover:shadow-[0_0_36px_rgba(79,70,229,1)]
-                transition-shadow duration-300
-              "
-            >
-              <span
-                className="
-                  flex items-center justify-center
-                  px-6 py-2
-                  rounded-full
-                  bg-[#020617]
-                  text-sm font-semibold
-                  text-white
-                "
-              >
-                Kostenloses Erstgespräch
-              </span>
-            </motion.a>
+         <div className="flex items-center gap-3">
+  <motion.a
+    href="https://cal.com/ki-partner24"
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.96 }}
+    className="
+      hidden sm:inline-block
+      relative group
+      inline-flex items-center justify-center
+      rounded-full
+      bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
+      group-hover:from-[#4f46e5] group-hover:via-[#00bcd4] group-hover:to-[#283593]
+      p-[2px]
+      transition-all duration-300
+    "
+  >
+    <span
+      className="
+        flex items-center justify-center
+        px-6 py-2
+        rounded-full
+        bg-[#020617]
+        text-sm font-semibold
+        text-white
+      "
+    >
+      Kostenloses Erstgespräch
+    </span>
+  </motion.a>
+
+
 
             <button
               onClick={() => setMenuOpen(true)}
