@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import MobileMenu from "./MobileMenu";
-import { FaBolt } from "react-icons/fa";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -29,6 +31,22 @@ export default function Header() {
       window.removeEventListener("scroll", updateScrollDirection);
     };
   }, [scrollDirection]);
+
+  const handleSolutionsClick = () => {
+    const scrollToSection = () => {
+      const el = document.getElementById("automations");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scrollToSection, 120);
+    } else {
+      scrollToSection();
+    }
+  };
 
   return (
     <>
@@ -90,8 +108,9 @@ export default function Header() {
               Über uns
             </motion.a>
 
-            <motion.a
-              href="#"
+            <motion.button
+              type="button"
+              onClick={handleSolutionsClick}
               whileHover={{ y: -1, scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="
@@ -104,11 +123,10 @@ export default function Header() {
                 hover:text-white
                 hover:border-slate-900
                 transition-all
-                shadow-[0_0_18px_rgba(40,53,147,0.25)]
               "
             >
               Unsere Lösungen
-            </motion.a>
+            </motion.button>
 
             <motion.a
               href="mailto:info@ki-partner24.de"
@@ -133,44 +151,33 @@ export default function Header() {
           {/* Right: CTA + Burger */}
           <div className="flex items-center gap-3">
             <motion.a
-              href="#"
-              whileHover={{ scale: 1.06 }}
+              href="https://cal.com/ki-partner24"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
               className="
                 hidden sm:inline-block
                 relative group
+                inline-flex items-center justify-center
                 rounded-full
-                focus:outline-none
-                focus:ring-2 focus:ring-[#283593]/70 focus:ring-offset-2 focus:ring-offset-white
+                bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
+                group-hover:from-[#4f46e5] group-hover:via-[#00bcd4] group-hover:to-[#283593]
+                p-[2px]
+                shadow-[0_0_28px_rgba(79,70,229,0.9)]
+                hover:shadow-[0_0_36px_rgba(79,70,229,1)]
+                transition-shadow duration-300
               "
             >
               <span
                 className="
-                  absolute inset-0 rounded-full
-                  bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
-                  opacity-95
-                  group-hover:opacity-100
-                  shadow-[0_0_24px_rgba(40,53,147,0.7)]
-                  group-hover:shadow-[0_0_32px_rgba(40,53,147,0.95)]
-                  transition-all
-                "
-                aria-hidden="true"
-              />
-              <span
-                className="
-                  relative flex items-center gap-2
-                  px-6 py-1.5
+                  flex items-center justify-center
+                  px-6 py-2
                   rounded-full
-                  bg-slate-950
+                  bg-[#020617]
                   text-sm font-semibold
                   text-white
                 "
               >
-                <FaBolt className="w-3.5 h-3.5 text-cyan-300" />
-                <span>Jetzt automatisieren</span>
-                <span className="text-xs opacity-80 group-hover:translate-x-1 transition-transform">
-                  →
-                </span>
+                Kostenloses Erstgespräch
               </span>
             </motion.a>
 
