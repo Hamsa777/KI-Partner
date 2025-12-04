@@ -104,17 +104,21 @@ export default function GPTCard({
       GPT-4o
     </div>
   </div>
-  <span
-    className="font-semibold z-10 text-center"
-    style={{
-      color: nameColor,
-      letterSpacing: 1,
-      fontSize: "20px",
-      marginLeft: 4,
-    }}
-  >
-    Kurzfassung
-  </span>
+<span
+  className="font-semibold z-10 text-center"
+  style={{
+    letterSpacing: 1,
+    fontSize: "20px",
+    marginLeft: 4,
+  }}
+>
+  <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
+    KI
+  </span>{" "}
+  Analyse
+</span>
+
+
 </div>
 
 
