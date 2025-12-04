@@ -48,6 +48,9 @@ export default function Header() {
     }
   };
 
+  const openMenu = () => setMenuOpen(true);
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <>
       <motion.header
@@ -65,7 +68,15 @@ export default function Header() {
         {/* Top neon line */}
         <div className="h-[2px] w-full bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4] opacity-80" />
 
-        <div className="flex items-center justify-between max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3">
+        {/* Wrapper: Desktop = justify-between, Mobile = Logo zentriert */}
+        <div
+          className="
+            relative
+            flex items-center
+            justify-center md:justify-between
+            max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3
+          "
+        >
           {/* Left: Logo + Claim */}
           <div className="flex items-center gap-3 sm:gap-8 -ml-1 sm:-ml-2">
             <Link to="/" className="flex items-center cursor-pointer">
@@ -87,7 +98,7 @@ export default function Header() {
             </p>
           </div>
 
-          {/* Center: Navigation */}
+          {/* Center: Navigation (nur Desktop) */}
           <nav className="hidden md:flex items-center gap-2 text-xs sm:text-sm">
             <motion.a
               href="/ueberuns"
@@ -148,50 +159,52 @@ export default function Header() {
             </motion.a>
           </nav>
 
-          {/* Right: CTA + Burger */}
-         <div className="flex items-center gap-3">
-  <motion.a
-    href="https://cal.com/ki-partner/15min?overlayCalendar=true"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.96 }}
-    className="
-      hidden sm:inline-block
-      relative group
-      inline-flex items-center justify-center
-      rounded-full
-      bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
-      group-hover:from-[#4f46e5] group-hover:via-[#00bcd4] group-hover:to-[#283593]
-      p-[2px]
-      transition-all duration-300
-    "
-  >
-    <span
-      className="
-        flex items-center justify-center
-        px-6 py-2
-        rounded-full
-        bg-[#020617]
-        text-sm font-semibold
-        text-white
-      "
-    >
-      Kostenloses Erstgespräch
-    </span>
-  </motion.a>
-
-
-
-            <button
-              onClick={() => setMenuOpen(true)}
-              className="md:hidden text-3xl text-slate-900"
+          {/* Right: CTA (nur Desktop) */}
+          <div className="hidden md:flex items-center gap-3">
+            <motion.a
+              href="https://cal.com/ki-partner/15min?overlayCalendar=true"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              className="
+                relative group
+                inline-flex items-center justify-center
+                rounded-full
+                bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
+                group-hover:from-[#4f46e5] group-hover:via-[#00bcd4] group-hover:to-[#283593]
+                p-[2px]
+                transition-all duration-300
+              "
             >
-              ☰
-            </button>
+              <span
+                className="
+                  flex items-center justify-center
+                  px-6 py-2
+                  rounded-full
+                  bg-[#020617]
+                  text-sm font-semibold
+                  text-white
+                "
+              >
+                Kostenloses Erstgespräch
+              </span>
+            </motion.a>
           </div>
+
+          {/* Burger: nur Mobile, absolut rechts, damit Logo mittig bleibt */}
+          <button
+            onClick={openMenu}
+            className="
+              md:hidden
+              absolute right-3
+              text-3xl text-slate-900
+            "
+          >
+            ☰
+          </button>
         </div>
       </motion.header>
 
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu isOpen={menuOpen} onClose={closeMenu} />
     </>
   );
 }
