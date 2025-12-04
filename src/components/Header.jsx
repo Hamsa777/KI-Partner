@@ -151,7 +151,7 @@ export default function Header() {
           {/* Right: CTA + Burger */}
          <div className="flex items-center gap-3">
   <motion.a
-    href="https://cal.com/ki-partner24"
+    href="https://cal.com/ki-partner/15min?overlayCalendar=true"
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.96 }}
     className="

@@ -187,7 +187,7 @@ export default function ServiceCards() {
       {/* Globaler CTA unten */}
       <div className="mt-16 flex justify-center">
         <motion.a
-          href="#"
+          href="https://cal.com/ki-partner/15min?overlayCalendar=true"
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
           className="
@@ -203,6 +203,7 @@ export default function ServiceCards() {
         >
           <span
             className="
+            
               flex items-center gap-2 sm:gap-3
               px-7 sm:px-9 py-2.5 sm:py-3
               rounded-full
