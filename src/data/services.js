@@ -1,36 +1,59 @@
-// data/services.js (Beispiel – bitte in deiner Datei anpassen)
+// data/services.js
 export const services = [
   {
     id: "lead-nurturing",
     title: "Lead-Nurturing mit KI",
     description:
-      "Leads werden automatisch vorqualifiziert, nachgefasst und per E-Mail oder Chat weiter betreut.",
+      "Leads werden automatisch vorqualifiziert, nachverfolgt und intelligent weiter betreut – für höhere Abschlussquoten ohne Mehraufwand.",
     icon: "FaPaperPlane",
-    videoUrl: "/videos/lead-nurturing-demo.mp4",
-    demoUrl: "/demo/lead-nurturing",
-    isExternal: false,
-    url: "/demo/lead-nurturing",
+    isExternal: true,
+    url: "https://cal.com/ki-partner/15min",
   },
   {
     id: "dokumenten-analyse",
     title: "KI-gestützte Dokumenten-Analyse",
     description:
-      "Protokolle, Berichte & Dokumentationen automatisch auslesen, prüfen und zusammenfassen.",
+      "Textlastige Dokumente wie Protokolle, Berichte oder Verträge werden automatisch ausgelesen, geprüft und verständlich zusammengefasst.",
     icon: "FaFileAlt",
-    videoUrl: "/videos/dokumenten-analyse-demo.mp4",
-    demoUrl: "/demo/dokumenten-analyse",
-    isExternal: false,
-    url: "/demo/dokumenten-analyse",
+    isExternal: true,
+    url: "https://cal.com/ki-partner/15min",
   },
   {
     id: "mahnen",
     title: "Automatisiertes Mahnverfahren",
     description:
-      "Offene Posten automatisch erkennen, Mahnungen versenden und gebundene Liquidität schneller freisetzen – hoch effizient.",
+      "Offene Posten automatisch erkennen, Mahnungen generieren, Eskalationen steuern und Liquidität schneller freisetzen.",
     icon: "FaEuroSign",
-    videoUrl: "/videos/mahnwesen-demo.mp4",
-    demoUrl: "/demo/mahnen",
-    isExternal: false,
-    url: "/demo/mahnen",
+    isExternal: true,
+    url: "https://cal.com/ki-partner/15min",
+  },
+
+  // ➕ NEUE SERVICES
+  {
+    id: "google-reviews",
+    title: "Google Review Automatisierung",
+    description:
+      "Automatisiert neue Google-Bewertungen sammeln, analysieren und ausspielen – komplett ohne manuellen Aufwand.",
+    icon: "FaStar",
+    isExternal: true,
+    url: "https://cal.com/ki-partner/15min",
+  },
+  {
+    id: "email-routing",
+    title: "Automatisierte E-Mail-Zuordnung",
+    description:
+      "Eingehende E-Mails automatisch verstehen, priorisieren, kategorisieren und an die zuständigen Personen oder Systeme weiterleiten.",
+    icon: "FaEnvelopeOpenText",
+    isExternal: true,
+    url: "https://cal.com/ki-partner/15min",
+  },
+  {
+    id: "voice-agents",
+    title: "AI-Voice Agents",
+    description:
+      "Intelligente Telefonassistenten führen echte Gespräche, vereinbaren Termine, beantworten Anfragen und übernehmen Kundenkommunikation.",
+    icon: "FaMicrophoneAlt",
+    isExternal: true,
+    url: "https://cal.com/ki-partner/15min",
   },
 ];

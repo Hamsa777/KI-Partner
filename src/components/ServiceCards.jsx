@@ -55,159 +55,133 @@ export default function ServiceCards() {
 
       {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 lg:gap-10">
-        {services.map(
-          ({ id, title, description, icon, url, isExternal, demoUrl }) => {
-            const IconComponent = Icons[icon];
+        {services.map(({ id, title, description, icon, url, isExternal }) => {
+          const IconComponent = Icons[icon];
 
-            const cardContent = (
-              <motion.div
-                onMouseEnter={() => setHoveredId(id)}
-                onMouseLeave={() => setHoveredId(null)}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35 }}
-                className="
-                  relative
-                  rounded-3xl 
-                  p-[1px]
-                  overflow-hidden
-                  cursor-default 
-                  h-full
-                  transition-transform duration-300
-                "
-              >
-                {/* Äußere „Neon“-Border */}
-                <div
-                  className={`
-                    absolute inset-0 rounded-3xl
-                    bg-gradient-to-br
-                    from-cyan-400/40 via-slate-800 to-indigo-500/40
-                    blur-[1px]
-                    transition-opacity duration-300
-                    ${
-                      hoveredId === id
-                        ? "opacity-100"
-                        : "opacity-40"
-                    }
-                  `}
-                />
+          const cardContent = (
+            <motion.div
+              onMouseEnter={() => setHoveredId(id)}
+              onMouseLeave={() => setHoveredId(null)}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35 }}
+              className="
+                relative
+                rounded-3xl 
+                p-[1px]
+                overflow-hidden
+                cursor-pointer
+                h-full
+                transition-transform duration-300
+              "
+            >
+              {/* Äußere „Neon“-Border */}
+              <div
+                className={`
+                  absolute inset-0 rounded-3xl
+                  bg-gradient-to-br
+                  from-cyan-400/40 via-slate-800 to-indigo-500/40
+                  blur-[1px]
+                  transition-opacity duration-300
+                  ${hoveredId === id ? "opacity-100" : "opacity-40"}
+                `}
+              />
 
-                {/* Innere Card */}
-                <div className="relative rounded-[1.35rem] h-full bg-slate-950/80 backdrop-blur-2xl border border-slate-800/90 px-6 sm:px-7 py-7 flex flex-col shadow-[0_0_40px_rgba(15,23,42,0.9)]">
-                  {/* Top Glow-Bar */}
-                  <div className="absolute inset-x-6 top-0 h-[2px] bg-gradient-to-r from-cyan-400 via-indigo-400 to-sky-500 opacity-70" />
+              {/* Innere Card */}
+              <div className="relative rounded-[1.35rem] h-full bg-slate-950/80 backdrop-blur-2xl border border-slate-800/90 px-6 sm:px-7 py-7 flex flex-col shadow-[0_0_40px_rgba(15,23,42,0.9)]">
+                {/* Top Glow-Bar */}
+                <div className="absolute inset-x-6 top-0 h-[2px] bg-gradient-to-r from-cyan-400 via-indigo-400 to-sky-500 opacity-70" />
 
-                  {/* Icon + Titel + KI-Modul Badge */}
-                  <div className="flex flex-col items-center mb-5">
-                    {IconComponent && (
-                      <div
-                        className={`
-                          w-14 h-14 rounded-2xl flex items-center justify-center
-                          bg-slate-900/80
-                          border
-                          ${
-                            hoveredId === id
-                              ? "border-cyan-400/80 shadow-[0_0_25px_rgba(34,211,238,0.8)]"
-                              : "border-slate-700/80 shadow-[0_0_20px_rgba(15,23,42,0.9)]"
-                          }
-                          transition-all duration-300
-                        `}
-                      >
-                        <IconComponent className="w-7 h-7 text-cyan-200" />
-                      </div>
-                    )}
-
-                    <h3 className="text-xl font-semibold text-white mt-4 text-center">
-                      {title}
-                    </h3>
-
-                    {/* KI-Modul einsatzbereit Badge */}
-                    <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-slate-900/80 px-3 py-1 border border-slate-700/80">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                      <span className="text-[0.7rem] text-slate-300">
-                        KI-Modul einsatzbereit
-                      </span>
+                {/* Icon + Titel + KI-Modul Badge */}
+                <div className="flex flex-col items-center mb-5">
+                  {IconComponent && (
+                    <div
+                      className={`
+                        w-14 h-14 rounded-2xl flex items-center justify-center
+                        bg-slate-900/80
+                        border
+                        ${
+                          hoveredId === id
+                            ? "border-cyan-400/80 shadow-[0_0_25px_rgba(34,211,238,0.8)]"
+                            : "border-slate-700/80 shadow-[0_0_20px_rgba(15,23,42,0.9)]"
+                        }
+                        transition-all duration-300
+                      `}
+                    >
+                      <IconComponent className="w-7 h-7 text-cyan-200" />
                     </div>
-                  </div>
+                  )}
 
-                  {/* Beschreibung */}
-                  <p className="text-sm text-slate-200/90 leading-relaxed flex-1 mb-5 text-center">
-                    {description}
-                  </p>
+                  <h3 className="text-xl font-semibold text-white mt-4 text-center">
+                    {title}
+                  </h3>
 
-                  {/* Bottom Buttons */}
-                  <div className="mt-auto flex flex-col gap-2">
-                    {demoUrl && (
-                      <a
-                        href={demoUrl}
-                        target={isExternal ? "_blank" : undefined}
-                        rel={isExternal ? "noopener noreferrer" : undefined}
-                        className="
-                          relative
-                          group
-                          w-full
-                          rounded-full
-                          border border-[#1c2122]
-                          bg-[#1c2122]
-                          text-white 
-                          text-sm font-medium
-                          overflow-hidden
-                          transition-all
-                          text-center
-                        "
-                      >
-                        {/* Gradient-Background on Hover */}
-                        <span
-                          className="
-                            absolute inset-0 rounded-full
-                            bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
-                            opacity-0 group-hover:opacity-100
-                            transition-opacity duration-300
-                          "
-                        />
-                        <span className="relative block px-4 py-2">
-                          Termin vereinbaren
-                        </span>
-                      </a>
-                    )}
-
-                    {url && url !== demoUrl && (
-                      <Link
-                        to={url}
-                        className="
-                          w-full px-4 py-2 rounded-full text-xs font-medium 
-                          border border-slate-600 
-                          text-slate-100 bg-slate-900/60 
-                          hover:bg-slate-800/80 
-                          transition-colors text-center
-                        "
-                      >
-                        Mehr Details
-                      </Link>
-                    )}
+                  {/* KI-Modul einsatzbereit Badge */}
+                  <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-slate-900/80 px-3 py-1 border border-slate-700/80">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <span className="text-[0.7rem] text-slate-300">
+                      KI-Modul einsatzbereit
+                    </span>
                   </div>
                 </div>
-              </motion.div>
-            );
 
-            return isExternal ? (
-              <a
-                key={id}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-full"
-              >
-                {cardContent}
-              </a>
-            ) : (
-              <div key={id} className="h-full">
-                {cardContent}
+                {/* Beschreibung */}
+                <p className="text-sm text-slate-200/90 leading-relaxed flex-1 mb-5 text-center">
+                  {description}
+                </p>
+
+                {/* Bottom: nur „Termin vereinbaren“-Button */}
+                <div className="mt-auto flex flex-col gap-2">
+                  <div
+                    className="
+                      relative
+                      group
+                      w-full
+                      rounded-full
+                      border border-[#1c2122]
+                      bg-[#1c2122]
+                      text-white 
+                      text-sm font-medium
+                      overflow-hidden
+                      transition-all
+                      text-center
+                    "
+                  >
+                    {/* Gradient-Background on Hover */}
+                    <span
+                      className="
+                        absolute inset-0 rounded-full
+                        bg-gradient-to-r from-[#283593] via-[#4f46e5] to-[#00bcd4]
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-300
+                      "
+                    />
+                    <span className="relative block px-4 py-2">
+                      Termin vereinbaren
+                    </span>
+                  </div>
+                </div>
               </div>
-            );
-          }
-        )}
+            </motion.div>
+          );
+
+          return isExternal ? (
+            <a
+              key={id}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-full"
+            >
+              {cardContent}
+            </a>
+          ) : (
+            <div key={id} className="h-full">
+              {cardContent}
+            </div>
+          );
+        })}
       </div>
 
       {/* Globaler CTA unten */}
