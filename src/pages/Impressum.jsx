@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Impressum() {
   return (
-    <div className="min-h-screen bg-white text-[#000000] px-6 py-12 max-w-3xl mx-auto">
+    <div className="min-h-screen text-[#ffffff] px-6 py-12 max-w-3xl mx-auto">
       <h1 className="text-4xl font-bold mb-8">Impressum</h1>
 
       <section className="mb-6">
