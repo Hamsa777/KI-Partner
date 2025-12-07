@@ -35,10 +35,7 @@ const logos = [
     src: "https://www.team23tax.at/wp-content/themes/team23-v45/assets/images/logo-cream.svg",
     alt: "Unternehmen 8",
   },
-  {
-    src: "http://www.lmkfz.at/assets/img/lmkfz_logo.webp",
-    alt: "Unternehmen 9",
-  },
+  
   {
     src: "https://www.binder-bern.ch/media/pages/home/03d62dca99-1696492986/binder-logo-178x50@2x.png",
     alt: "Unternehmen 10",
