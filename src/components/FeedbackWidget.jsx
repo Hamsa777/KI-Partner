@@ -453,7 +453,7 @@ if (expandedReview) {
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
           style={{
             backgroundColor: arrowBgColor,
-            marginLeft: "-29px",
+            marginLeft: "-53px",
           }}
         >
           <ChevronLeft color={arrowColor} />
@@ -534,7 +534,7 @@ if (expandedReview) {
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
           style={{
             backgroundColor: arrowBgColor,
-            marginRight: "-29px",
+            marginRight: "-53px",
           }}
         >
           <ChevronRight color={arrowColor} />
