@@ -20,7 +20,7 @@ export default function Impressum() {
         <p className="mt-2">
             Telefon: +49 (0) 178 3221470<br /> 
           
-          E-Mail: <a href="mailto:info@ki-partner24.de" className="underline hover:text-[#1a237e]">info@ki-partner24.de</a>
+          E-Mail: <a href="mailto:kontakt@ki-partner24.de" className="underline hover:text-[#1a237e]">kontakt@ki-partner24.de</a>
         </p>
       </section>
 

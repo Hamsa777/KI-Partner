@@ -12,7 +12,7 @@ const googleFonts = [
   "Quicksand", "Rajdhani", "Raleway", "Red Hat Display", "Roboto",
   "Rubik", "Saira", "Saira Semi Condensed", "Signika", "Sonora", "Sora",
   "Source Sans Pro", "Space Grotesk", "Teko", "Tenor Sans", "Ubuntu",
-  "Urbanist", "Varela Round", "Work Sans", "Yong",
+  "Urbanist", "Varela Round", "Work Sans", "Yong", "Bricolage Grotesque", "sans-serif",
 
   // 🟨 Serif (klassisch, edel, für Fließtext oder Headlines)
   "Alegreya", "Arvo", "Bitter", "Cardo", "Cormorant", "Crimson Pro",

@@ -180,7 +180,7 @@ export default function HeroSection() {
 
         {/* Secondary Button – mailto */}
         <motion.a
-  href="mailto:info@ki-partner24.de"
+  href="mailto:kontakt@ki-partner24.de"
   whileHover={{ scale: 1.03 }}
   whileTap={{ scale: 0.97 }}
   className="

@@ -95,7 +95,7 @@ export default function ContactSection() {
               </p>
 
               <motion.a
-                href="mailto:info@ki-partner24.de"
+                href="mailto:kontakt@ki-partner24.de"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
                 className="
