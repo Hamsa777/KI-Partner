@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
-from typing import DefaultDict, Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 from collections import defaultdict
 
 from .models import (
@@ -19,8 +19,16 @@ from .models import (
 
 
 def parse_time(value: str) -> time:
-    # akzeptiert auch "7:00" etc. zuverlässig
-    return datetime.strptime(value.strip(), "%H:%M").time()
+    """
+    Robust: akzeptiert auch "7:00" und "07:00".
+    """
+    s = value.strip()
+    if ":" not in s:
+        raise ValueError(f"Invalid time format: {value!r}")
+    hh, mm = s.split(":", 1)
+    hh = hh.zfill(2)
+    mm = mm.zfill(2)
+    return datetime.strptime(f"{hh}:{mm}", "%H:%M").time()
 
 
 def time_to_str(t: time) -> str:
@@ -456,5 +464,9 @@ def schedule_week(req: ScheduleRequest) -> ScheduleResponse:
                 status="geplant",
             )
         )
+
+    # ✅ WICHTIG: Sortierung für Output (Datum -> Uhrzeit)
+    # date ist ein date-Objekt, start_time ist "HH:MM" – wir parsen start_time sauber als time.
+    appointments.sort(key=lambda a: (a.date, parse_time(a.start_time)))
 
     return ScheduleResponse(appointments=appointments, unscheduled=unscheduled)
