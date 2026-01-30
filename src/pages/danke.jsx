@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Logo from "../assets/KI-Partner ki-partner-logo.png";
+import Logo from "../assets/KI-Partner Vektorlogo.png";
 
 export default function DankeSeite() {
   const [searchParams] = useSearchParams();
