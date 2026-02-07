@@ -263,16 +263,17 @@ if (cardLayout === "review-modern") {
           </div>
           {/* Rechts: Button */}
           {review.comment.length > 36 ? (
-            <button
-              onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 rounded-full text-gray-600 hover:text-gray-800 transition"
-              style={{
-                backgroundColor: color,
-                minWidth: 90,
-              }}
-            >
-              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
-            </button>
+           <div className="w-full flex justify-center">
+  <button
+    onClick={onWeiterlesen}
+    className="ml-7 text-xs px-3 py-1 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 border border-gray-300"
+    style={{ fontWeight: 500 }}
+    type="button"
+  >
+    Weiterlesen
+  </button>
+</div>
+
           ) : (
             <span
               style={{
@@ -453,7 +454,7 @@ if (cardLayout === "social-style") {
           {showWeiterlesen && (
             <button
               onClick={onWeiterlesen}
-              className="text-base text-gray-600 hover:text-gray-800 rounded transition"
+              className="text-base text-gray-500 hover:text-gray-700 rounded transition"
               style={{ minWidth: 90 }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}
@@ -574,13 +575,17 @@ if (cardLayout === "default") {
           </div>
           {/* Rechts: Button */}
           {review.comment.length > 36 ? (
-            <button
-              onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 text-gray-600 hover:text-gray-800 rounded-full transition"
-              style={{ minWidth: 90, backgroundColor: color }}
-            >
-              {review.isGPT ? "Anzeigen" : "Weiterlesen"}
-            </button>
+            <div className="w-full flex justify-center">
+  <button
+    onClick={onWeiterlesen}
+    className="ml-20 text-xs px-3 py-1 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 border border-gray-300"
+    style={{ fontWeight: 500 }}
+    type="button"
+  >
+    Weiterlesen
+  </button>
+</div>
+
             
           ) : (
             <span

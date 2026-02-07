@@ -137,20 +137,17 @@ export default function GPTCard({
       </div>
 
       {/* Anzeigen-Button */}
-     <div className="w-full  text-gray-600 hover:text-gray-800 flex justify-center mt-1.5">
+     <div className="w-full flex justify-center">
   <button
     onClick={onAnzeigen}
-    className="text-sm px-3 py-1 rounded-full transition z-10"
-    style={{
-      background: color,
-      
-      minWidth: 90,
-      letterSpacing: 0.5,
-    }}
+    className="text-xs px-3 py-1 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 border border-gray-300"
+    style={{ fontWeight: 500 }}
+    type="button"
   >
     Anzeigen
   </button>
 </div>
+
 
     </motion.div>
   );
