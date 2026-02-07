@@ -265,7 +265,7 @@ if (cardLayout === "review-modern") {
           {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 rounded-full text-gray-600 transition"
+              className="text-sm px-3 py-1 rounded-full text-white transition"
               style={{
                 backgroundColor: color,
                 minWidth: 90,
@@ -576,7 +576,7 @@ if (cardLayout === "default") {
           {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 text-gray-600 rounded-full transition"
+              className="text-sm px-3 py-1 text-white rounded-full transition"
               style={{ minWidth: 90, backgroundColor: color }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}

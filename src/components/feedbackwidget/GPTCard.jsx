@@ -137,7 +137,7 @@ export default function GPTCard({
       </div>
 
       {/* Anzeigen-Button */}
-     <div className="w-full  text-gray-600 flex justify-center mt-1.5">
+     <div className="w-full  text-white flex justify-center mt-1.5">
   <button
     onClick={onAnzeigen}
     className="text-sm px-3 py-1 rounded-full transition z-10"

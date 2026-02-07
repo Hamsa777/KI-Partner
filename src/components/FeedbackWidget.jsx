@@ -357,7 +357,7 @@ if (expandedReview) {
           : "center",
         fontFamily: `'${font}', sans-serif`,
         borderRadius: radius,
-        maxWidth: `${containerWidth + 80}px`,
+        maxWidth: `${containerWidth + 100}px`,
         margin: "0 auto",
         width: lockedSize ? lockedSize.width : undefined,
         height: lockedSize ? lockedSize.height : undefined,
@@ -453,7 +453,7 @@ if (expandedReview) {
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
           style={{
             backgroundColor: arrowBgColor,
-            marginLeft: "-43px",
+            marginLeft: "-28px",
           }}
         >
           <ChevronLeft color={arrowColor} />
@@ -534,7 +534,7 @@ if (expandedReview) {
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
           style={{
             backgroundColor: arrowBgColor,
-            marginRight: "-43px",
+            marginRight: "-28px",
           }}
         >
           <ChevronRight color={arrowColor} />
