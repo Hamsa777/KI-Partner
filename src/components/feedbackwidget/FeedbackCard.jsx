@@ -265,7 +265,7 @@ if (cardLayout === "review-modern") {
           {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 rounded-full text-white transition"
+              className="text-sm px-3 py-1 rounded-full text-gray-600 hover:text-gray-800 transition"
               style={{
                 backgroundColor: color,
                 minWidth: 90,
@@ -453,7 +453,7 @@ if (cardLayout === "social-style") {
           {showWeiterlesen && (
             <button
               onClick={onWeiterlesen}
-              className="text-base text-gray-400 hover:text-gray-800 rounded transition"
+              className="text-base text-gray-600 hover:text-gray-800 rounded transition"
               style={{ minWidth: 90 }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}
@@ -576,7 +576,7 @@ if (cardLayout === "default") {
           {review.comment.length > 36 ? (
             <button
               onClick={onWeiterlesen}
-              className="text-sm px-3 py-1 text-white rounded-full transition"
+              className="text-sm px-3 py-1 text-gray-600 hover:text-gray-800 rounded-full transition"
               style={{ minWidth: 90, backgroundColor: color }}
             >
               {review.isGPT ? "Anzeigen" : "Weiterlesen"}
