@@ -267,8 +267,7 @@ useEffect(() => {
     ? (mobileCustomTitle || "") // Leer lassen wenn leer!
     : customTitle;
 const hasTitle = !!effectiveCustomTitle?.trim();
-const hasLogo = !!logoUrl;
-const needsTopSpacer = !hasTitle && !hasLogo;
+
   // NEU: Logo-Position bestimmen
   const effectiveLogoPosition = (showMobilePreview || isMobile)
     ? (mobileLogoPosition || "right")
@@ -449,7 +448,7 @@ if (expandedReview) {
   </div>
 )}
 {!hasTitle && <div className="h-[17px]" aria-hidden />}
-{needsTopSpacer && <div className="h-[14px]" aria-hidden />}
+
       <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
         {/* Linker Pfeil */}
         <button
