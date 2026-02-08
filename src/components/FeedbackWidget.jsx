@@ -266,6 +266,7 @@ useEffect(() => {
   const effectiveCustomTitle = (showMobilePreview || isMobile)
     ? (mobileCustomTitle || "") // Leer lassen wenn leer!
     : customTitle;
+const hasTitle = !!effectiveCustomTitle?.trim();
 
   // NEU: Logo-Position bestimmen
   const effectiveLogoPosition = (showMobilePreview || isMobile)
@@ -428,24 +429,26 @@ if (expandedReview) {
         userSelect: editorMode ? "none" : "auto"
       }}
     >
-      <div className="relative flex justify-center items-center min-h-[40px]">
-        {effectiveCustomTitle && (
-          <h2 className="text-3xl text-center w-full" style={headingStyle}>
-            {effectiveCustomTitle}
-          </h2>
-        )}
-        {logoUrl && (
-          <img
-            src={logoUrl}
-            alt="Logo"
-            className={`absolute top-1/2 -translate-y-1/2 ${logoPositionClass}`}
-            style={{
-              height: logoFinalSize,
-              objectFit: "contain"
-            }}
-          />
-        )}
-      </div>
+{(hasTitle || logoUrl) && (
+  <div className="relative flex justify-center items-center min-h-[40px]">
+    {hasTitle && (
+      <h2 className="text-3xl text-center w-full" style={headingStyle}>
+        {effectiveCustomTitle}
+      </h2>
+    )}
+
+    {logoUrl && (
+      <img
+        src={logoUrl}
+        alt="Logo"
+        className={`absolute top-1/2 -translate-y-1/2 ${logoPositionClass}`}
+        style={{ height: logoFinalSize, objectFit: "contain" }}
+      />
+    )}
+  </div>
+)}
+{!hasTitle && <div className="h-[17px]" aria-hidden />}
+
       <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
         {/* Linker Pfeil */}
         <button
