@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import FeedbackCard from "./feedbackwidget/FeedbackCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import sampleData from "../assets/sampleData.json";
-import Extractor from "./feedbackwidget/Extractor";
 import GPTCard from "./feedbackwidget/GPTCard";
 
 export default function FeedbackWidget({
@@ -18,107 +17,106 @@ export default function FeedbackWidget({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fontLoaded, setFontLoaded] = useState(false);
+
   const containerRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [expandedReview, setExpandedReview] = useState(null);
   const widgetRef = useRef(null);
+  const dragRef = useRef(null);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const [expandedReview, setExpandedReview] = useState(null);
   const [lockedSize, setLockedSize] = useState(null);
+
   const [extract, setExtract] = useState("");
   const [alreadyAnimatedGPTCard, setAlreadyAnimatedGPTCard] = useState(false);
-  const [lastIndex, setLastIndex] = useState(null); 
-  
+  const [lastIndex, setLastIndex] = useState(null);
 
   const handleWeiterlesen = (review, visibleIndex) => {
-  if (widgetRef.current && !lockedSize) {
-    const rect = widgetRef.current.getBoundingClientRect();
-    setLockedSize({ width: rect.width, height: rect.height });
-  }
-  setExpandedReview(review);
-  setLastIndex(visibleIndex);
+    if (widgetRef.current && !lockedSize) {
+      const rect = widgetRef.current.getBoundingClientRect();
+      setLockedSize({ width: rect.width, height: rect.height });
+    }
+    setExpandedReview(review);
+    setLastIndex(visibleIndex);
 
-  // HIER: Immer Animation erlauben, wenn auf „Anzeigen“ gedrückt wird
-  setAlreadyAnimatedGPTCard(false);
-};
+    // Immer Animation erlauben, wenn auf „Anzeigen“ gedrückt wird
+    setAlreadyAnimatedGPTCard(false);
+  };
 
+  const handleClose = () => {
+    setExpandedReview(null);
+    setLockedSize(null);
 
-const handleClose = () => {
-  setExpandedReview(null);
-  setLockedSize(null);
+    if (lastIndex !== null && containerRef.current) {
+      const cardWidthWithGap = cardWidth + gap;
+      const feedbackOffset = gptReview ? 1 : 0;
 
-  if (lastIndex !== null && containerRef.current) {
-    const cardWidthWithGap = cardWidth + gap;
-    const feedbackOffset = gptReview ? 1 : 0;
-    setTimeout(() => {
-      containerRef.current.scrollTo({
-        left: (lastIndex + feedbackOffset) * cardWidthWithGap,
-        behavior: "smooth"
-      });
-    }, 0);
-  }
-};
-
-
-
-  
-// ---- RESPONSIVE BREAKPOINT LOGIK ----
-const { visibleCards = 3 } = config || {};
-const usedBreakpoint =
-  visibleCards === 4 ? 1200 :
-  visibleCards === 3 ? 1100 :
-  visibleCards === 2 ? 700 : 900;
-
-// extract vom Server laden
-useEffect(() => {
-  if (!firmaId) return;
-  const fetchExtract = async () => {
-    try {
-      const response = await fetch(
-        `https://feedback.ki-partner24.de/api/extract/${firmaId}.json`
-      );
-      if (!response.ok) throw new Error("Extract nicht gefunden");
-      const data = await response.json();
-      setExtract(data.extracted || "");
-    } catch (error) {
-      console.error("Fehler beim Laden des Extracts:", error.message);
+      setTimeout(() => {
+        containerRef.current.scrollTo({
+          left: (lastIndex + feedbackOffset) * cardWidthWithGap,
+          behavior: "smooth",
+        });
+      }, 0);
     }
   };
-  fetchExtract();
-}, [firmaId]);
 
-const gptReview = extract
-  ? {
-      name: "Review Highlights",
-      rating: 0,
-      comment: extract,
-      profilePhotoUrl: "",
-      date: "",
-      isGPT: true,
+  // ---- RESPONSIVE BREAKPOINT LOGIK ----
+  const { visibleCards = 3 } = config || {};
+  const usedBreakpoint =
+    visibleCards === 4 ? 1200 : visibleCards === 3 ? 1100 : visibleCards === 2 ? 700 : 900;
+
+  // extract vom Server laden
+  useEffect(() => {
+    if (!firmaId) return;
+
+    const fetchExtract = async () => {
+      try {
+        const response = await fetch(
+          `https://feedback.ki-partner24.de/api/extract/${firmaId}.json?ts=${Date.now()}`,
+          { cache: "no-store" }
+        );
+        if (!response.ok) throw new Error("Extract nicht gefunden");
+        const data = await response.json();
+        setExtract(data.extracted || "");
+      } catch (error) {
+        console.error("Fehler beim Laden des Extracts:", error.message);
+        setExtract("");
+      }
+    };
+
+    fetchExtract();
+  }, [firmaId]);
+
+  const gptReview = extract
+    ? {
+        name: "Review Highlights",
+        rating: 0,
+        comment: extract,
+        profilePhotoUrl: "",
+        date: "",
+        isGPT: true,
+      }
+    : null;
+
+  useEffect(() => {
+    function check() {
+      setIsMobile(window.innerWidth < usedBreakpoint);
     }
-  : null;
-
-
-useEffect(() => {
-  function check() {
-    setIsMobile(window.innerWidth < usedBreakpoint);
-  }
-  check();
-  window.addEventListener("resize", check);
-  return () => window.removeEventListener("resize", check);
-}, [usedBreakpoint]);
-
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [usedBreakpoint]);
 
   // Drag für Hintergrundbild (Editor-Feature)
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isDragging || !dragRef.current) return;
-      console.log("DRAG MOVE", e.clientX, e.clientY);
+
       const rect = dragRef.current.getBoundingClientRect();
       const x = 100 - ((e.clientX - rect.left) / rect.width) * 100;
       const y = 100 - ((e.clientY - rect.top) / rect.height) * 100;
+
       if (config?.setBackgroundImagePosition) {
         config.setBackgroundImagePosition({
           x: Math.min(100, Math.max(0, x)),
@@ -126,7 +124,9 @@ useEffect(() => {
         });
       }
     };
+
     const stopDragging = () => setIsDragging(false);
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", stopDragging);
     return () => {
@@ -154,10 +154,12 @@ useEffect(() => {
     const cleanFont = config.font.trim().replace(/['"]/g, "").split(",")[0];
     const fontName = cleanFont.replace(/ /g, "+");
     const href = `https://fonts.googleapis.com/css2?family=${fontName}:wght@400;500;600;700;800;900&display=swap`;
+
     if (document.querySelector(`link[href="${href}"]`)) {
       setFontLoaded(true);
       return;
     }
+
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = href;
@@ -168,7 +170,6 @@ useEffect(() => {
   // Bewertungen laden (Demo/Server)
   useEffect(() => {
     if (!firmaId) {
-      // Demo-Modus
       const parsed = sampleData.map((entry) => ({
         date: new Date(entry.date).toLocaleDateString("de-DE", {
           day: "2-digit",
@@ -184,6 +185,7 @@ useEffect(() => {
       setLoading(false);
       return;
     }
+
     const url = `https://feedback.ki-partner24.de/api/feedback/${firmaId}`;
     fetch(url)
       .then((res) => res.json())
@@ -199,7 +201,7 @@ useEffect(() => {
           comment: entry.comment,
           profilePhotoUrl: entry.profilePhotoUrl,
         }));
-        // Nur einzigartige Einträge
+
         const unique = [];
         const seen = new Set();
         for (const fb of parsed) {
@@ -209,6 +211,7 @@ useEffect(() => {
             unique.push(fb);
           }
         }
+
         setBewertungen(unique);
         setLoading(false);
       })
@@ -234,8 +237,8 @@ useEffect(() => {
     mobileCustomTitle = "",
     logoUrl = null,
     logoSize,
-    logoPosition = "right", // NEW: Desktop-Logo-Position
-    mobileLogoPosition = "right", // NEW: Mobile-Logo-Position
+    logoPosition = "right",
+    mobileLogoPosition = "right",
     theme = "light",
     textColor = theme === "dark" ? "#f5f5f5" : "#222",
     headingStyles = {},
@@ -246,57 +249,52 @@ useEffect(() => {
     widgetStylePreset = "classic",
     stylePreset = "classic",
     backgroundImageUrl = "",
-   
     mobileHeadingFontSize = "23px",
     mobileLogoSize = "40px",
-    cardLayout = "Standard (klassisch)"
+    cardLayout = "Standard (klassisch)",
   } = config;
-
-    
-
- 
-
 
   // Vorschau-Logik für Editor und Mobilgeräte
   const showMobilePreview = editorMode && activeTab === "mobile";
-  const headingFont = showMobilePreview ? mobileHeadingFontSize : (isMobile ? mobileHeadingFontSize : headingFontSize);
-  const logoFinalSize = showMobilePreview ? mobileLogoSize : (isMobile ? mobileLogoSize : logoSize);
+  const headingFont = showMobilePreview ? mobileHeadingFontSize : isMobile ? mobileHeadingFontSize : headingFontSize;
+  const logoFinalSize = showMobilePreview ? mobileLogoSize : isMobile ? mobileLogoSize : logoSize;
 
-  // NEU: Titel nur anzeigen, wenn gesetzt – KEIN Fallback!
-  const effectiveCustomTitle = (showMobilePreview || isMobile)
-    ? (mobileCustomTitle || "") // Leer lassen wenn leer!
-    : customTitle;
-const hasTitle = !!effectiveCustomTitle?.trim();
+  // Titel nur anzeigen, wenn gesetzt
+  const effectiveCustomTitle = showMobilePreview || isMobile ? mobileCustomTitle || "" : customTitle;
+  const hasTitle = !!effectiveCustomTitle?.trim();
+  const hasLogo = !!logoUrl;
+  const showHeader = hasTitle || hasLogo;
 
-  // NEU: Logo-Position bestimmen
-  const effectiveLogoPosition = (showMobilePreview || isMobile)
-    ? (mobileLogoPosition || "right")
-    : (logoPosition || "right");
+  // WICHTIG: Extra-Top-Abstand NUR, wenn weder Titel noch Logo da ist
+  // (damit bei "Logo-only" nicht 40px + extra Spacer entsteht -> Scrollbar)
+  const needsTopSpacer = !showHeader;
+
+  // Logo-Position bestimmen
+  const effectiveLogoPosition = showMobilePreview || isMobile ? mobileLogoPosition || "right" : logoPosition || "right";
 
   // Sichtbare Karten
-  const cardsToShow = showMobilePreview ? 1 : (isMobile ? 1 : Math.min(visibleCards, 4));
-  const cardWidth = 300;    // NEU: 300px breit
-  const gap = 20; 
+  const cardsToShow = showMobilePreview ? 1 : isMobile ? 1 : Math.min(visibleCards, 4);
+  const cardWidth = 300;
+  const gap = 20;
   const containerWidth = cardsToShow * cardWidth + (cardsToShow - 1) * gap;
 
   // Styles
- const widgetClasses = [
-  "space-y-4 p-4 relative transition-all mx-auto",
-  widgetStylePreset === "glass"
-    ? ""
-    : widgetStylePreset === "flat"
-    ? "bg-transparent border border-gray-200 shadow-none"
-    : widgetStylePreset === "transparent"
-   ? "bg-white/20 backdrop-blur-sm border border-white/30 shadow-md"
-    : widgetStylePreset === "apple-transparent"
-    ? "bg-black/25 backdrop-blur-2xl backdrop-saturate-150"
-    : "bg-white shadow-xl",
-].join(" ");
-
+  const widgetClasses = [
+    "space-y-4 p-4 relative transition-all mx-auto",
+    widgetStylePreset === "glass"
+      ? ""
+      : widgetStylePreset === "flat"
+      ? "bg-transparent border border-gray-200 shadow-none"
+      : widgetStylePreset === "transparent"
+      ? "bg-white/20 backdrop-blur-sm border border-white/30 shadow-md"
+      : widgetStylePreset === "apple-transparent"
+      ? "bg-black/25 backdrop-blur-2xl backdrop-saturate-150"
+      : "bg-white shadow-xl",
+  ].join(" ");
 
   const headingStyle = {
     fontSize: headingFont,
-    fontWeight: headingStyles.bold ? (headingStyles.weight ?? 700) : 400,
+    fontWeight: headingStyles.bold ? headingStyles.weight ?? 700 : 400,
     fontStyle: headingStyles.italic ? "italic" : "normal",
     textDecoration: headingStyles.underline ? "underline" : "none",
     color: headingStyles.color || textColor,
@@ -308,21 +306,20 @@ const hasTitle = !!effectiveCustomTitle?.trim();
   let logoPositionClass = "";
   if (effectiveLogoPosition === "left") logoPositionClass = "left-0 mx-0";
   else if (effectiveLogoPosition === "center") logoPositionClass = "left-1/2 -translate-x-1/2 mx-auto";
-  else logoPositionClass = "right-0 mx-0"; // Standard: rechts
+  else logoPositionClass = "right-0 mx-0";
 
   // Navigation für Feedbackkarten
   const scrollByCard = (dir) => {
-  if (typeof containerRef === "undefined" || !containerRef?.current) return;
-  const el = containerRef.current;
-  const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
-  el.scrollBy({ left: scroll, behavior: "smooth" });
-};
-
+    if (!containerRef?.current) return;
+    const el = containerRef.current;
+    const scroll = dir === "right" ? cardWidth + gap : -(cardWidth + gap);
+    el.scrollBy({ left: scroll, behavior: "smooth" });
+  };
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (loading) return <p className="text-gray-500 text-sm">Lade Feedback...</p>;
+
   if (bewertungen.length === 0) {
-    // Noch keine echten Bewertungen? Fallback auf Demo
     const parsed = sampleData.map((entry) => ({
       date: new Date(entry.date).toLocaleDateString("de-DE", {
         day: "2-digit",
@@ -337,80 +334,65 @@ const hasTitle = !!effectiveCustomTitle?.trim();
     setBewertungen(parsed);
     return null;
   }
-  
-if (expandedReview) {
-  // Abstand, falls nur 1 sichtbare Card: sonst 0 Abstand (volle Breite)
-  const padding =  0;
-  let maxCardWidth = containerWidth - padding;
-  maxCardWidth = Math.min(maxCardWidth, 20000); // Passe 900 ggf. nach deinem Geschmack an
+
+  // Expanded Review View
+  if (expandedReview) {
+    const padding = 0;
+    let maxCardWidth = containerWidth - padding;
+    maxCardWidth = Math.min(maxCardWidth, 20000);
+
+    return (
+      <div
+        ref={widgetRef}
+        className="w-full"
+        style={{
+          backgroundColor: backgroundImageUrl ? undefined : color,
+          backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: backgroundImageUrl
+            ? `${backgroundImagePosition?.x ?? 50}% ${backgroundImagePosition?.y ?? 50}%`
+            : "center",
+          fontFamily: `'${font}', sans-serif`,
+          borderRadius: radius,
+          maxWidth: `${containerWidth + 100}px`,
+          margin: "0 auto",
+          width: lockedSize ? lockedSize.width : undefined,
+          height: lockedSize ? lockedSize.height : undefined,
+          minHeight: lockedSize ? undefined : 320,
+          overflow: lockedSize ? "hidden" : "visible",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          transition: "width 0.2s, height 0.2s",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+          <div style={{ display: "inline-block", minWidth: 260, maxWidth: maxCardWidth, width: "auto", margin: "0 auto" }}>
+            <FeedbackCard
+              review={expandedReview}
+              cardExpand={true}
+              onClose={handleClose}
+              accentColor={accentColor}
+              nameColor={textColor}
+              commentColor={textColor}
+              boxRadius={boxRadius}
+              stylePreset={stylePreset}
+              textFontSize={textFontSize}
+              cardLayout={cardLayout}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
-      ref={widgetRef}
-      className="w-full"
-      style={{
-        backgroundColor: backgroundImageUrl ? undefined : color,
-        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : undefined,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: backgroundImageUrl
-          ? `${backgroundImagePosition?.x ?? 50}% ${backgroundImagePosition?.y ?? 50}%`
-          : "center",
-        fontFamily: `'${font}', sans-serif`,
-        borderRadius: radius,
-        maxWidth: `${containerWidth + 100}px`,
-        margin: "0 auto",
-        width: lockedSize ? lockedSize.width : undefined,
-        height: lockedSize ? lockedSize.height : undefined,
-        minHeight: lockedSize ? undefined : 320,
-        overflow: lockedSize ? "hidden" : "visible",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        transition: "width 0.2s, height 0.2s"
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          width: "100%"
-        }}
-      >
-        <div
-          style={{
-            display: "inline-block",
-            minWidth: 260,              // Optional: kleinste Card-Breite
-            maxWidth: maxCardWidth,     // Niemals breiter als Widget
-            width: "auto",
-            margin: "0 auto"
-          }}
-        >
-          <FeedbackCard
-            review={expandedReview}
-            cardExpand={true}
-            onClose={handleClose}
-            accentColor={accentColor}
-            nameColor={textColor}
-            commentColor={textColor}
-            boxRadius={boxRadius}
-            stylePreset={stylePreset}
-            textFontSize={textFontSize}
-            cardLayout={cardLayout}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-  return (
-      <div
-      ref={el => {
-      widgetRef.current = el;
-      dragRef.current = el;
+      ref={(el) => {
+        widgetRef.current = el;
+        dragRef.current = el;
       }}
       onMouseDown={() => editorMode && setIsDragging(true)}
       className={`${widgetClasses} ${editorMode ? "no-select" : ""}`}
@@ -424,128 +406,122 @@ if (expandedReview) {
           : "center",
         fontFamily: `'${config.font}', sans-serif`,
         borderRadius: radius,
-        maxWidth: `${containerWidth + 80}px`, // bei Bedarf auf z.B. +100 erhöhen für noch mehr Padding außen
+        maxWidth: `${containerWidth + 80}px`,
         cursor: editorMode && backgroundImageUrl ? "grab" : "default",
-        userSelect: editorMode ? "none" : "auto"
+        userSelect: editorMode ? "none" : "auto",
       }}
     >
-{(hasTitle || logoUrl) && (
-  <div className="relative flex justify-center items-center min-h-[40px]">
-    {hasTitle && (
-      <h2 className="text-3xl text-center w-full" style={headingStyle}>
-        {effectiveCustomTitle}
-      </h2>
-    )}
+      {/* Header bleibt 40px, wenn Logo ODER Titel vorhanden */}
+      {showHeader && (
+        <div className="relative flex justify-center items-center min-h-[40px]">
+          {hasTitle && (
+            <h2 className="text-3xl text-center w-full" style={headingStyle}>
+              {effectiveCustomTitle}
+            </h2>
+          )}
 
-    {logoUrl && (
-      <img
-        src={logoUrl}
-        alt="Logo"
-        className={`absolute top-1/2 -translate-y-1/2 ${logoPositionClass}`}
-        style={{ height: logoFinalSize, objectFit: "contain" }}
-      />
-    )}
-  </div>
-)}
-{!hasTitle && <div className="h-[17px]" aria-hidden />}
+          {hasLogo && (
+            <img
+              src={logoUrl}
+              alt="Logo"
+              className={`absolute top-1/2 -translate-y-1/2 ${logoPositionClass}`}
+              style={{ height: logoFinalSize, objectFit: "contain" }}
+            />
+          )}
+        </div>
+      )}
+
+      {/* Extra-Abstand NUR wenn weder Titel noch Logo da ist */}
+      {needsTopSpacer && <div className="h-[17px]" aria-hidden />}
 
       <div className="relative mx-auto" style={{ width: `${containerWidth}px` }}>
         {/* Linker Pfeil */}
         <button
           onClick={() => scrollByCard("left")}
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
-          style={{
-            backgroundColor: arrowBgColor,
-            marginLeft: "-28px",
-          }}
+          style={{ backgroundColor: arrowBgColor, marginLeft: "-28px" }}
         >
           <ChevronLeft color={arrowColor} />
         </button>
+
         {/* Feedback-Karten */}
-       
-       <div
-  ref={containerRef}
-  className="flex gap-5 overflow-x-auto snap-x snap-mandatory"
-  style={{
-    scrollBehavior: "smooth",
-    overflowX: "hidden", // <- wichtig!
-    width: "100%",
-  }}
->
+        <div
+          ref={containerRef}
+          className="flex gap-5 overflow-x-auto snap-x snap-mandatory"
+          style={{
+            scrollBehavior: "smooth",
+            overflowX: "hidden",
+            width: "100%",
+          }}
+        >
+          {/* KI-Zusammenfassung als erste Card */}
+          {gptReview && (
+            <div
+              key="gpt"
+              className="flex-shrink-0 snap-start"
+              style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
+            >
+              <GPTCard
+                color={color}
+                accentColor={accentColor}
+                nameColor={textColor}
+                commentColor={textColor}
+                dateColor={textColor}
+                boxRadius={boxRadius}
+                stylePreset={stylePreset}
+                textFontSize={textFontSize}
+                // GPT soll beim Close wieder ganz nach links -> lastIndex = -1 (offset +1 => 0)
+                onAnzeigen={() => handleWeiterlesen(gptReview, -1)}
+                cardLayout={cardLayout}
+                playEntranceAnimation={!alreadyAnimatedGPTCard}
+                onEntranceEnd={() => setAlreadyAnimatedGPTCard(true)}
+                reviewCount={bewertungen.length}
+              />
+            </div>
+          )}
 
-  
-  {/* KI-Zusammenfassung als erste Card */}
-  {gptReview && (
-    <div
-      key="gpt"
-      className="flex-shrink-0 snap-start"
-      style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
-    >
-      
-    <GPTCard
-  color={color}
-  accentColor={accentColor}
-  nameColor={textColor}
-  commentColor={textColor}
-  dateColor={textColor}
-  boxRadius={boxRadius}
-  stylePreset={stylePreset}
-  textFontSize={textFontSize}
-  onAnzeigen={() => handleWeiterlesen(gptReview)}
-  cardLayout={cardLayout}
-  playEntranceAnimation={!alreadyAnimatedGPTCard}
-  onEntranceEnd={() => setAlreadyAnimatedGPTCard(true)}
-  reviewCount={bewertungen.length}
-  
- 
-/>
-
-
-    </div>
-  )}
-
-  {/* Alle anderen Bewertungen */}
- {bewertungen.slice().reverse().map((review, i) => (
-  <div
-    key={i}
-    className="flex-shrink-0 snap-start"
-    style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
-  >
-    <FeedbackCard
-      review={review}
-      color={color}
-      starColor={starColor}
-      accentColor={accentColor}
-      profilePhotoUrl={review.profilePhotoUrl}
-      nameColor={textColor}
-      commentColor={textColor}
-      dateColor={textColor}
-      boxRadius={boxRadius}
-      stylePreset={stylePreset}
-      textFontSize={textFontSize}
-      cardLayout={cardLayout}
-      onWeiterlesen={() => handleWeiterlesen(review, i)}
-    />
-  </div>
-))}
-
-
-
+          {/* Alle anderen Bewertungen */}
+          {bewertungen
+            .slice()
+            .reverse()
+            .map((review, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 snap-start"
+                style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
+              >
+                <FeedbackCard
+                  review={review}
+                  color={color}
+                  starColor={starColor}
+                  accentColor={accentColor}
+                  profilePhotoUrl={review.profilePhotoUrl}
+                  nameColor={textColor}
+                  commentColor={textColor}
+                  dateColor={textColor}
+                  boxRadius={boxRadius}
+                  stylePreset={stylePreset}
+                  textFontSize={textFontSize}
+                  cardLayout={cardLayout}
+                  onWeiterlesen={() => handleWeiterlesen(review, i)}
+                />
+              </div>
+            ))}
         </div>
+
+        {/* Rechter Pfeil */}
         <button
           onClick={() => scrollByCard("right")}
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transform transition-transform duration-150 ease-out hover:scale-110 flex items-center justify-center"
-          style={{
-            backgroundColor: arrowBgColor,
-            marginRight: "-28px",
-          }}
+          style={{ backgroundColor: arrowBgColor, marginRight: "-28px" }}
         >
           <ChevronRight color={arrowColor} />
         </button>
       </div>
+
       <div
         className="text-center text-[14px] text-gray-500 hover:text-gray-700 mt-0 mb-0 leading-none"
-        style={{ fontFamily: 'system-ui' }}
+        style={{ fontFamily: "system-ui" }}
       >
         <a
           href="https://www.ki-partner24.de"
@@ -556,9 +532,6 @@ if (expandedReview) {
           powered by KI-Partner
         </a>
       </div>
-    
- 
     </div>
-    
   );
 }
