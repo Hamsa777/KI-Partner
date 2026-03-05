@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 text-sm text-gray-600 py-6 px-4 text-center ">
+    <footer className="text-sm text-gray-600 py-6 px-4 text-center ">
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-center gap-4 mb-2">
-          <Link to="/impressum" className="underline hover:text-[#283593]">
+          <Link to="/impressum" className=" hover:text-white">
             Impressum
           </Link>
           <span>|</span>
-          <Link to="/datenschutz" className="underline hover:text-[#283593]">
+          <Link to="/datenschutz" className=" hover:text-white">
             Datenschutz
           </Link>
         </div>

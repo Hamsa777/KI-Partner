@@ -1,23 +1,17 @@
 // src/components/BackgroundLayer.jsx
+import React from "react";
+
 export default function BackgroundLayer() {
   return (
     <>
-      {/* Hintergrundbild – feststehend */}
-     
-      <div
-        className="fixed inset-0 -z-50 bg-no-repeat bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/bg.jpg')",
-          backgroundAttachment: "fixed",
-        }}
-      />
+      {/* Base */}
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#020617]" />
 
-      {/* Optionales Overlay */}
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm -z-40" />
+      {/* Gradient (durchgehend, keine Kanten) */}
+      <div className="pointer-events-none fixed inset-0 z-[1] bg-gradient-to-b from-[#060f27] via-[#020617] to-black" />
 
-      {/* Seitenränder für Lichtakzent */}
-      <div className="fixed top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-[#1a237e]/30 to-transparent blur-lg -z-40" />
-      <div className="fixed top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-[#1a237e]/30 to-transparent blur-lg -z-40" />
+      {/* Optional: minimaler Blur wie SmartDrive */}
+      <div className="pointer-events-none fixed inset-0 z-[2] bg-black/10 backdrop-blur-[2px]" />
     </>
   );
 }

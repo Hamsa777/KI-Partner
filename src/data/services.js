@@ -11,7 +11,7 @@ export const services = [
   },
   {
     id: "dokumenten-analyse",
-    title: "KI-gestützte Dokumenten-Analyse",
+    title: "KI-gestützte Dokumentenanalyse",
     description:
       "Textlastige Dokumente wie Protokolle, Berichte oder Verträge werden automatisch ausgelesen, geprüft und verständlich zusammengefasst.",
     icon: "FaFileAlt",
@@ -40,7 +40,7 @@ export const services = [
   },
   {
     id: "email-routing",
-    title: "Automatisierte E-Mail-Zuordnung",
+    title: "Email-Automation",
     description:
       "Eingehende E-Mails automatisch verstehen, priorisieren, kategorisieren und an die zuständigen Personen oder Systeme weiterleiten.",
     icon: "FaEnvelopeOpenText",

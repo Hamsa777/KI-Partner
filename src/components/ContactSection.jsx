@@ -7,20 +7,14 @@ export default function ContactSection() {
   return (
     <div className="relative overflow-hidden">
       <motion.section
+        id="kontakt"
         className="relative py-20 mt-4 px-4 max-w-6xl mx-auto"
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.5 }}
       >
-        {/* Background */}
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute inset-0 opacity-[0.14] bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] [background-size:46px_46px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#020617] to-slate-950" />
-          <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-cyan-500/30 blur-3xl" />
-          <div className="absolute bottom-[-4rem] left-[-3rem] h-80 w-80 rounded-full bg-[#283593]/45 blur-3xl" />
-        </div>
-
+     
         <div className="relative grid grid-cols-1 md:grid-cols-[1.3fr,1fr] gap-10 items-center">
           {/* Textseite */}
           <div className="text-center md:text-left">

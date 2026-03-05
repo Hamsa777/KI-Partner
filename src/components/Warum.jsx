@@ -11,13 +11,6 @@ export default function Warum() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.4 }}
     >
-      {/* Hintergrund */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 opacity-[0.16] bg-[linear-gradient(to_right,#020617_1px,transparent_1px),linear-gradient(to_bottom,#020617_1px,transparent_1px)] [background-size:46px_46px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#020617] to-slate-950" />
-        <div className="absolute -top-28 left-16 h-64 w-64 rounded-full bg-cyan-500/30 blur-3xl" />
-        <div className="absolute bottom-[-6rem] right-[-3rem] h-80 w-80 rounded-full bg-indigo-600/40 blur-3xl" />
-      </div>
 
       {/* Badge + Headline mittig */}
       <div className="relative flex flex-col items-center text-center mb-14">

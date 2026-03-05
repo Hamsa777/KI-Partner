@@ -7,17 +7,7 @@ export default function UeberUns() {
       className="relative min-h-screen px-6 py-20 flex items-center"
      
     >
-      {/* Futuristischer Hintergrund */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Grid */}
-        <div className="absolute inset-0 opacity-[0.14] bg-[linear-gradient(to_right,#111827_1px,transparent_1px),linear-gradient(to_bottom,#111827_1px,transparent_1px)] [background-size:46px_46px]" />
-        {/* Dark Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#020617] to-slate-950" />
-        {/* Orbs */}
-        <div className="absolute -top-40 left-10 h-80 w-80 rounded-full bg-cyan-500/30 blur-3xl" />
-        <div className="absolute top-1/3 -right-32 h-72 w-72 rounded-full bg-indigo-600/40 blur-3xl" />
-        <div className="absolute bottom-[-6rem] left-1/4 h-64 w-64 rounded-full bg-sky-500/30 blur-3xl" />
-      </div>
+    
 
       <div className="relative max-w-5xl mx-auto w-full">
         {/* Badge + Titel */}

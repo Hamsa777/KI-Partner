@@ -1,25 +1,24 @@
+// src/components/Layout.jsx
+import React from "react";
 import Header from "./Header";
 import Footer from "./footer";
 import { Outlet } from "react-router-dom";
+import BackgroundLayer from "./BackgroundLayer";
 
 export default function Layout() {
   return (
-    <div
-      className="
-        min-h-screen
-        bg-gradient-to-b
-        from-[#010d21]
-        to-[#000000]
-        text-white
-      "
-    >
-      <Header />
+    <div className="relative min-h-screen text-white overflow-x-hidden">
+      {/* ✅ Globaler Base-Background wie SmartDrive */}
+      <BackgroundLayer />
 
-      <main className="pt-[0px] sm:pt-[0px]">
-        <Outlet />
-      </main>
-
-      <Footer />
+      {/* ✅ Alles Content darüber */}
+      <div className="relative z-10">
+        <Header />
+        <main className="pt-0">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

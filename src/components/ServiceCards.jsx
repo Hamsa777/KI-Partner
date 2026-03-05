@@ -17,16 +17,6 @@ export default function ServiceCards() {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      {/* Futuristischer Background */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Grid */}
-        <div className="absolute inset-0 opacity-[0.16] bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] [background-size:46px_46px]" />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#020617] to-slate-950" />
-        {/* Orbs */}
-        <div className="absolute -top-24 left-0 h-64 w-64 rounded-full bg-cyan-500/35 blur-3xl" />
-        <div className="absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[#283593]/45 blur-3xl" />
-      </div>
 
       {/* Header mit KI-SERVICES Badge */}
       <div className="relative text-center mb-12 max-w-3xl mx-auto">

@@ -77,7 +77,7 @@ export default function Services() {
   };
 
   return (
-    <section className="min-h-screen text-indigo-50">
+    <section id="bsp" className="min-h-screen text-indigo-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-16">
         {/* Header */}
         <motion.div
@@ -90,24 +90,24 @@ export default function Services() {
          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-slate-950/80 px-4 py-1.5">
   <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
   <span className="text-[0.65rem] tracking-[0.28em] uppercase text-slate-300">
-    KI-Lösung · FÜR MESSBARE ZEITERSPARNIS
+    Beispiel KI-Lösung
   </span>
 </div>
 
 
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
-            Dokumentenanalyse{" "}
-            <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
-              mit KI
+             <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
+             KI-gestützte {" "}
             </span>
+           Dokumentenanalyse 
+           
           </h1>
 
           <p className="max-w-2xl text-sm sm:text-base text-indigo-100/80 leading-relaxed">
             Lange Protokolle, Berichte oder Dokumentationen?
             <br className="hidden sm:block" />
             Unsere KI liest für Sie mit, extrahiert die wichtigsten Punkte und
-            liefert eine klare Zusammenfassung direkt in Ihr Postfach – in
-            Sekunden statt Stunden.
+            liefert eine klare Zusammenfassung direkt in Ihr Postfach.
           </p>
         </motion.div>
 
