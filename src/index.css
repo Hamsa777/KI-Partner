@@ -6,18 +6,34 @@
 @tailwind utilities;
 
 /* ----------------------------------------------------
-   Prevent horizontal overflow (fix double-scroll + render flicker)
+   Global Reset + echter Seitenhintergrund
 ---------------------------------------------------- */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+  background: #020617;
+}
+
 html,
 body {
   overflow-x: hidden;
   max-width: 100%;
 }
 
+body {
+  color: white;
+  overscroll-behavior-y: none;
+}
+
 /* ----------------------------------------------------
    Disable Text Selection (Global No-Select)
 ---------------------------------------------------- */
-.no-select, .no-select * {
+.no-select,
+.no-select * {
   user-select: none !important;
 }
 
@@ -25,40 +41,35 @@ body {
    Hide Scrollbar for Feedback Cards (WebKit Only)
 ---------------------------------------------------- */
 .feedback-card-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
 }
 
 .feedback-card-scroll {
-  -ms-overflow-style: none; /* old MS browsers */
+  -ms-overflow-style: none;
 }
 
 /* ----------------------------------------------------
    KI-PARTNER GLOBAL SCROLLBAR (WebKit Only)
 ---------------------------------------------------- */
-
-/* Scrollbar width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Scrollbar background (same as page gradient) */
 ::-webkit-scrollbar-track {
   background: linear-gradient(to bottom, #010d21, #000000);
 }
 
-/* Scroll thumb with gradient */
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #283593, #4f46e5, #00bcd4);
   border-radius: 10px;
 }
 
-/* Hover effect */
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #4f46e5, #00bcd4, #283593);
 }
 
 /* ----------------------------------------------------
-   Hide scrollbar on mobile (clean UI)
+   Hide scrollbar on mobile
 ---------------------------------------------------- */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
